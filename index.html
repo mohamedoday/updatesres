@@ -15,9 +15,8 @@
        ===================================================================== */
     :root {
       --bg-obsidian: #090807;
-      --bg-elevated: #120f0c;
-      --bg-card: rgba(23, 19, 15, 0.86);
-      --bg-card-hover: rgba(35, 29, 23, 0.96);
+      --bg-card: rgba(23, 19, 15, 0.88);
+      --bg-card-hover: rgba(35, 29, 23, 0.97);
       --border-gold: rgba(226, 184, 87, 0.24);
       --border-gold-strong: rgba(235, 195, 98, 0.56);
       --gold-100: #fff4cf;
@@ -33,7 +32,7 @@
       --status-empty-border: rgba(235, 195, 98, 0.45);
       --status-occ-bg: rgba(244, 63, 94, 0.16);
       --status-occ-text: #fda4af;
-      --status-occ-border: rgba(251, 113, 133, 0.4);
+      --status-occ-border: rgba(251, 113, 133, 0.42);
       --shadow-royal: 0 22px 60px rgba(0, 0, 0, 0.68);
       --shadow-gold: 0 10px 28px rgba(212, 165, 62, 0.24);
       --radius-sm: 12px;
@@ -95,7 +94,7 @@
     }
 
     /* =====================================================================
-       ٢. شاشة التحميل السريعة الآمنة (Fail-Safe Preloader <= 500ms + Click)
+       ٢. شاشة التحميل الآمنة (تختفي خلال <= 400ms أو عند النقر الفوري)
        ===================================================================== */
     #royalPreloader {
       position: fixed;
@@ -106,9 +105,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.85rem;
+      gap: 0.8rem;
       cursor: pointer;
-      transition: opacity 0.22s ease, visibility 0.22s ease;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
 
     #royalPreloader.is-done {
@@ -118,19 +117,19 @@
     }
 
     .preloader-crest {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
+      width: 54px;
+      height: 54px;
+      border-radius: 17px;
       display: grid;
       place-items: center;
       background: rgba(226, 184, 87, 0.14);
       border: 1px solid var(--border-gold-strong);
       color: var(--gold-200);
-      font-size: 1.35rem;
+      font-size: 1.3rem;
     }
 
     .preloader-track {
-      width: 196px;
+      width: 192px;
       height: 4px;
       border-radius: var(--radius-full);
       background: rgba(255, 244, 207, 0.12);
@@ -138,10 +137,10 @@
     }
 
     .preloader-bar {
-      width: 45%;
+      width: 55%;
       height: 100%;
       background: linear-gradient(90deg, var(--gold-400), var(--gold-100));
-      transition: width 0.25s ease;
+      transition: width 0.2s ease;
     }
 
     .preloader-hint {
@@ -1269,7 +1268,7 @@
 </head>
 <body>
   <!-- =====================================================================
-       شاشة التحميل الآمنة (تختفي خلال <= 500ms أو عند النقر الفوري)
+       شاشة التحميل الآمنة (تختفي خلال <= 400ms أو عند النقر الفوري)
        ===================================================================== -->
   <div id="royalPreloader" role="button" tabindex="0" aria-label="دخول فوري إلى ديوان الرافدين الملكي">
     <div class="preloader-crest">
@@ -1371,7 +1370,7 @@
               <div class="stat-label">أطباق عراقية مختارة</div>
             </div>
             <div class="stat-box">
-              <div class="stat-num" id="statEmptyTablesCount">3</div>
+              <div class="stat-num" id="statEmptyTablesCount">4</div>
               <div class="stat-label">طاولات فاضية الآن</div>
             </div>
             <div class="stat-box">
@@ -1492,7 +1491,7 @@
           <div>
             <span class="section-tag">متابعة حالة الجلسات</span>
             <h2 class="section-title">المجالس وطاولات الديوان</h2>
-            <p class="section-desc">الطاولات والمجالس المشغولة أو المحجوزة مقفلة تلقائياً ولا يمكن حجزها من قبل الضيوف حتى يتم إخلاءها من المالك.</p>
+            <p class="section-desc">تُقفل الطاولة أو المجلس تلقائياً فقط عندما يكون «مشغولاً» أو عليه حجز «مقبول»، وتبقى الطاولات «الفاضية» متاحة للحجز الفوري.</p>
           </div>
 
           <button id="sectionReserveBtn" type="button" class="btn-gold" style="padding: 0.72rem 1.25rem; font-size: 0.88rem;">
@@ -1566,14 +1565,14 @@
   </aside>
 
   <!-- =====================================================================
-       نافذة حجز الطاولة / المجلس (مع قفل صارم للطاولات المشغولة/المحجوزة)
+       نافذة حجز الطاولة / المجلس (قفل الطاولة فقط عند status === 'occupied' أو حجز accepted)
        ===================================================================== -->
   <div id="reserveModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="reserveModalTitle">
     <div class="modal-sheet">
       <div class="modal-top">
         <div>
           <h2 id="reserveModalTitle" style="font-size: 1.2rem; font-weight: 900; color: var(--gold-100);">حجز طاولة أو مجلس</h2>
-          <p style="font-size: 0.8rem; color: var(--text-secondary);">لا يمكن حجز الطاولات المشغولة أو التي عليها حجز نشط.</p>
+          <p style="font-size: 0.8rem; color: var(--text-secondary);">الطاولات الفاضية متاحة للحجز مباشرة، وتُقفل الطاولات المشغولة أو ذات الحجز المقبول.</p>
         </div>
         <button id="closeReserveModalBtn" type="button" class="btn-ghost" style="padding: 0.45rem 0.75rem;" aria-label="إغلاق نافذة الحجز">
           <i class="fa-solid fa-xmark"></i>
@@ -1608,7 +1607,7 @@
         </div>
 
         <div>
-          <label for="resTableSelect" class="field-label">اختيار الطاولة أو المجلس المتاح (فاضية فقط)</label>
+          <label for="resTableSelect" class="field-label">اختيار الطاولة أو المجلس</label>
           <select id="resTableSelect" class="field-select"></select>
         </div>
 
@@ -1745,7 +1744,6 @@
       setDoc,
       updateDoc,
       deleteDoc,
-      getDoc,
       getDocs,
       runTransaction
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
@@ -1753,7 +1751,7 @@
     (function () {
       "use strict";
 
-      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_state_v3";
+      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_state_v4";
 
       const FIREBASE_CONFIG = {
         apiKey: "AIzaSyCnRxL_1Dc_XDFTkZxuy6nenmt1ZqGqiJI",
@@ -1834,7 +1832,7 @@
 
       const DEFAULT_TABLES = [
         { id: "T-1", name: "مجلس دجلة ١", zone: "القاعة الرئيسية", seats: 4, status: "available" },
-        { id: "T-2", name: "مجلس دجلة ٢", zone: "القاعة الرئيسية", seats: 6, status: "occupied" },
+        { id: "T-2", name: "مجلس دجلة ٢", zone: "القاعة الرئيسية", seats: 6, status: "available" },
         { id: "T-3", name: "ركن الصفصاف ٣", zone: "شرفة الديوان", seats: 4, status: "available" },
         { id: "T-4", name: "ديوان الرافدين ٤", zone: "الجناح الخاص", seats: 8, status: "available" }
       ];
@@ -1955,7 +1953,10 @@
       }
 
       /* -------------------------------------------------------------------
-         قواعد القفل الصارم للطاولات المشغولة أو المحجوزة
+         قواعد القفل الصارم للطاولات:
+         تُعتبر الطاولة مشغولة/مقفلة فقط إذا كانت table.status === "occupied"
+         أو يوجد عليها حجز مقبول (res.status === "accepted").
+         الحجوزات المعلقة ("pending") لا تقفل الطاولة قبل قبولها.
          ------------------------------------------------------------------- */
       function getTableLockReason(tableId, tablesList = db.tables, reservationsList = db.reservations) {
         const tbl = tablesList.find((t) => t.id === tableId);
@@ -1965,14 +1966,12 @@
           return "مشغولة حالياً";
         }
 
-        const activeRes = reservationsList.find(
-          (r) => r.tableId === tableId && (r.status === "pending" || r.status === "accepted")
+        const hasAcceptedReservation = reservationsList.some(
+          (r) => r.tableId === tableId && r.status === "accepted"
         );
 
-        if (activeRes) {
-          return activeRes.status === "accepted"
-            ? "محجوزة ومؤكدة (مشغولة)"
-            : "عليها طلب حجز قيد المراجعة";
+        if (hasAcceptedReservation) {
+          return "محجوزة بحجز مقبول (مشغولة)";
         }
 
         return null;
@@ -2112,7 +2111,7 @@
       }
 
       /* -------------------------------------------------------------------
-         ٠. شاشة التحميل الآمنة (إغلاق خلال <= 500ms أو بالنقر الفوري)
+         ٠. شاشة التحميل الآمنة (إغلاق خلال <= 400ms أو بالنقر الفوري)
          ------------------------------------------------------------------- */
       function initFailSafePreloader() {
         const preloader = document.getElementById("royalPreloader");
@@ -2135,9 +2134,9 @@
           }
         });
 
-        setTimeout(dismiss, 220);
+        document.addEventListener("DOMContentLoaded", () => setTimeout(dismiss, 120), { once: true });
         window.addEventListener("load", dismiss, { once: true });
-        setTimeout(dismiss, 500);
+        setTimeout(dismiss, 400);
       }
 
       /* -------------------------------------------------------------------
@@ -2448,7 +2447,7 @@
       }
 
       /* -------------------------------------------------------------------
-         ٥. عرض الطاولات وقفل الحجز على الطاولات المشغولة أو المحجوزة
+         ٥. عرض الطاولات ومزامنة حالة التوفر في نافذة الحجز
          ------------------------------------------------------------------- */
       function renderPublicTables() {
         const grid = document.getElementById("publicTablesGrid");
@@ -2526,7 +2525,7 @@
 
         if (availableTables.length === 0) {
           if (warningBox && warningText) {
-            warningText.textContent = "جميع الطاولات والمجالس مشغولة أو محجوزة حالياً ولا توجد طاولة متاحة للحجز.";
+            warningText.textContent = "جميع الطاولات والمجالس مشغولة أو عليها حجز مقبول حالياً.";
             warningBox.classList.remove("hidden");
           }
           select.disabled = true;
@@ -2555,12 +2554,11 @@
       }
 
       /**
-       * إرسال الحجز مع فحص فوري في Firestore لمنع حجز الطاولة المشغولة أو الحجز المزدوج المتزامن
+       * إرسال طلب الحجز (يبقى بحالة pending حتى يقبله المالك، مع التحقق من عدم انشغال الطاولة أو وجود حجز مقبول مسبق)
        */
       async function submitReservation(reservationDraft) {
         const tableId = reservationDraft.tableId;
 
-        // فحص فوري في الحالة المحلية أولاً
         const localLock = getTableLockReason(tableId);
         if (localLock) {
           throw new Error(`عذراً، هذه الطاولة ${localLock} ولا يمكن حجزها.`);
@@ -2578,35 +2576,23 @@
               }
               const latestTableData = tableSnap.data();
               if (normalizeTableStatus(latestTableData.status) === "occupied") {
-                throw new Error("عذراً، هذه الطاولة أصبحت مشغولة للتو ولا يمكن حجزها.");
+                throw new Error("عذراً، هذه الطاولة مشغولة حالياً ولا يمكن حجزها.");
               }
 
-              // التحقق من وجود حجز نشط (pending أو accepted) لنفس الطاولة
               const existingResSnap = await getDocs(collection(firestoreDb, "reservations"));
-              const hasActiveConflict = existingResSnap.docs.some((docItem) => {
+              const hasAcceptedConflict = existingResSnap.docs.some((docItem) => {
                 const rData = docItem.data();
-                return (
-                  rData &&
-                  rData.tableId === tableId &&
-                  (rData.status === "pending" || rData.status === "accepted")
-                );
+                return rData && rData.tableId === tableId && rData.status === "accepted";
               });
 
-              if (hasActiveConflict) {
-                throw new Error("عذراً، توجد طاولة عليها حجز فعال مسبقاً ولا يمكن حجزها مرة أخرى.");
+              if (hasAcceptedConflict) {
+                throw new Error("عذراً، هذه الطاولة عليها حجز مقبول ولا يمكن حجزها.");
               }
 
-              tx.set(resRef, { ...reservationDraft });
-              tx.update(tableRef, {
-                status: "occupied",
-                updatedAt: Date.now()
-              });
+              tx.set(resRef, { ...reservationDraft, status: "pending" });
             });
 
-            // تحديث الحالة المحلية بعد نجاح المعاملة السحابية
-            db.reservations.unshift(reservationDraft);
-            const tbl = db.tables.find((t) => t.id === tableId);
-            if (tbl) tbl.status = "occupied";
+            db.reservations.unshift({ ...reservationDraft, status: "pending" });
             savePersistedData();
             return;
           } catch (txErr) {
@@ -2617,22 +2603,12 @@
           }
         }
 
-        // مسار احتياطي محلي مع إعادة التحقق من السجلات
-        const recheckSnap = firestoreReady && firestoreDb
-          ? await getDoc(doc(firestoreDb, "tables", tableId)).catch(() => null)
-          : null;
-        if (recheckSnap && recheckSnap.exists() && normalizeTableStatus(recheckSnap.data().status) === "occupied") {
-          throw new Error("عذراً، الطاولة مشغولة ولا يمكن حجزها.");
-        }
-
         const latestLock = getTableLockReason(tableId);
         if (latestLock) {
           throw new Error(`عذراً، هذه الطاولة ${latestLock} ولا يمكن حجزها.`);
         }
 
-        db.reservations.unshift(reservationDraft);
-        const tbl = db.tables.find((t) => t.id === tableId);
-        if (tbl) tbl.status = "occupied";
+        db.reservations.unshift({ ...reservationDraft, status: "pending" });
         savePersistedData();
       }
 
@@ -2652,15 +2628,13 @@
         }
       }
 
-      async function persistReservation(reservation, isNew = false) {
+      async function persistReservation(reservation) {
         savePersistedData();
         if (firestoreReady && firestoreDb) {
           try {
-            if (isNew) {
-              await setDoc(doc(firestoreDb, "reservations", reservation.id), { ...reservation });
-            } else {
-              await updateDoc(doc(firestoreDb, "reservations", reservation.id), { status: reservation.status });
-            }
+            await updateDoc(doc(firestoreDb, "reservations", reservation.id), {
+              status: reservation.status
+            });
           } catch (_err) {
             notifyLocalFallbackOnce();
           }
@@ -2779,7 +2753,7 @@
                 if (tbl) tbl.status = "occupied";
                 renderPublicTables();
                 renderOwnerPanel();
-                await persistReservation(res, false);
+                await persistReservation(res);
                 if (tbl) await persistTableStatus(tbl);
                 showToast(`تم قبول حجز ${res.guestName} وتعيين الطاولة كمشغولة`);
               });
@@ -2792,16 +2766,16 @@
                 if (!res) return;
                 res.status = "rejected";
                 const tbl = db.tables.find((t) => t.id === res.tableId);
-                const otherActive = db.reservations.some(
-                  (other) => other.id !== res.id && other.tableId === res.tableId && (other.status === "pending" || other.status === "accepted")
+                const otherAccepted = db.reservations.some(
+                  (other) => other.id !== res.id && other.tableId === res.tableId && other.status === "accepted"
                 );
-                if (tbl && !otherActive) {
+                if (tbl && !otherAccepted) {
                   tbl.status = "available";
                 }
                 renderPublicTables();
                 renderOwnerPanel();
-                await persistReservation(res, false);
-                if (tbl && !otherActive) await persistTableStatus(tbl);
+                await persistReservation(res);
+                if (tbl && !otherAccepted) await persistTableStatus(tbl);
                 showToast(`تم رفض حجز ${res.guestName}`);
               });
             });
@@ -2814,6 +2788,11 @@
             .map((d) => `
               <div class="glass-card" style="padding: 1rem; display: flex; flex-direction: column; gap: 0.65rem;">
                 <input type="text" value="${d.name.replace(/"/g, "&quot;")}" data-dish-name="${d.id}" class="field-input" aria-label="اسم الطبق" />
+                <select data-dish-cat="${d.id}" class="field-select" aria-label="تصنيف الطبق">
+                  <option value="feasts" ${d.category === "feasts" ? "selected" : ""}>المسكوف والولائم</option>
+                  <option value="heritage" ${d.category === "heritage" ? "selected" : ""}>أطباق تراثية</option>
+                  <option value="sweets" ${d.category === "sweets" ? "selected" : ""}>حلويات وشاي</option>
+                </select>
                 <input type="number" min="500" step="500" value="${d.price}" data-dish-price="${d.id}" class="field-input" aria-label="سعر الطبق بالدينار العراقي (د.ع)" />
                 <input type="text" value="${d.desc.replace(/"/g, "&quot;")}" data-dish-desc="${d.id}" class="field-input" aria-label="وصف الطبق" />
                 <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.2rem;">
@@ -2835,10 +2814,12 @@
               if (!dish) return;
 
               const nameEl = dishesEditor.querySelector(`[data-dish-name="${id}"]`);
+              const catEl = dishesEditor.querySelector(`[data-dish-cat="${id}"]`);
               const priceEl = dishesEditor.querySelector(`[data-dish-price="${id}"]`);
               const descEl = dishesEditor.querySelector(`[data-dish-desc="${id}"]`);
 
               const nextName = nameEl ? nameEl.value.trim() : "";
+              const nextCat = catEl ? catEl.value : dish.category;
               const nextPrice = priceEl ? Number(priceEl.value) : NaN;
               const nextDesc = descEl ? descEl.value.trim() : "";
 
@@ -2848,6 +2829,7 @@
               }
 
               dish.name = nextName;
+              dish.category = nextCat;
               dish.price = Math.round(nextPrice);
               if (nextDesc) dish.desc = nextDesc;
 
@@ -3006,7 +2988,7 @@
             if (state.ownerUnlocked) renderOwnerPanel();
             e.target.reset();
             toggleReserveModal(false);
-            showToast(`تم إرسال طلب حجز ${guestName} (${guests}) وتأمين الطاولة فوراً`);
+            showToast(`تم إرسال طلب حجز ${guestName} (${guests}) بانتظار موافقة المالك`);
           } catch (err) {
             renderPublicTables();
             syncReserveModalAvailability();
