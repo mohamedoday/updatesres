@@ -16,8 +16,8 @@
     :root {
       --bg-obsidian: #090807;
       --bg-elevated: #120f0c;
-      --bg-card: rgba(23, 19, 15, 0.84);
-      --bg-card-hover: rgba(35, 29, 23, 0.95);
+      --bg-card: rgba(23, 19, 15, 0.86);
+      --bg-card-hover: rgba(35, 29, 23, 0.96);
       --border-gold: rgba(226, 184, 87, 0.24);
       --border-gold-strong: rgba(235, 195, 98, 0.56);
       --gold-100: #fff4cf;
@@ -31,9 +31,9 @@
       --status-empty-bg: rgba(226, 184, 87, 0.14);
       --status-empty-text: #f3d484;
       --status-empty-border: rgba(235, 195, 98, 0.45);
-      --status-occ-bg: rgba(244, 63, 94, 0.15);
+      --status-occ-bg: rgba(244, 63, 94, 0.16);
       --status-occ-text: #fda4af;
-      --status-occ-border: rgba(251, 113, 133, 0.36);
+      --status-occ-border: rgba(251, 113, 133, 0.4);
       --shadow-royal: 0 22px 60px rgba(0, 0, 0, 0.68);
       --shadow-gold: 0 10px 28px rgba(212, 165, 62, 0.24);
       --radius-sm: 12px;
@@ -95,7 +95,7 @@
     }
 
     /* =====================================================================
-       ٢. شاشة التحميل السريعة الآمنة (Fail-Safe Preloader <= 600ms + Click)
+       ٢. شاشة التحميل السريعة الآمنة (Fail-Safe Preloader <= 500ms + Click)
        ===================================================================== */
     #royalPreloader {
       position: fixed;
@@ -108,7 +108,7 @@
       justify-content: center;
       gap: 0.85rem;
       cursor: pointer;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
     }
 
     #royalPreloader.is-done {
@@ -118,15 +118,15 @@
     }
 
     .preloader-crest {
-      width: 58px;
-      height: 58px;
+      width: 56px;
+      height: 56px;
       border-radius: 18px;
       display: grid;
       place-items: center;
       background: rgba(226, 184, 87, 0.14);
       border: 1px solid var(--border-gold-strong);
       color: var(--gold-200);
-      font-size: 1.4rem;
+      font-size: 1.35rem;
     }
 
     .preloader-track {
@@ -138,10 +138,10 @@
     }
 
     .preloader-bar {
-      width: 35%;
+      width: 45%;
       height: 100%;
       background: linear-gradient(90deg, var(--gold-400), var(--gold-100));
-      transition: width 0.3s ease;
+      transition: width 0.25s ease;
     }
 
     .preloader-hint {
@@ -181,14 +181,16 @@
       transition: transform var(--transition-fast), filter var(--transition-fast), box-shadow var(--transition-fast);
     }
 
-    .btn-gold:hover {
+    .btn-gold:hover:not(:disabled) {
       transform: translateY(-2px);
       filter: brightness(1.06);
       box-shadow: 0 14px 34px rgba(226, 184, 87, 0.34);
     }
 
-    .btn-gold:active {
-      transform: translateY(0);
+    .btn-gold:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
     }
 
     .btn-ghost {
@@ -204,10 +206,15 @@
       transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
     }
 
-    .btn-ghost:hover {
+    .btn-ghost:hover:not(:disabled) {
       background: rgba(226, 184, 87, 0.12);
       border-color: var(--border-gold-strong);
       transform: translateY(-1px);
+    }
+
+    .btn-ghost:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
     }
 
     .container-shell {
@@ -922,6 +929,11 @@
       gap: 0.85rem;
     }
 
+    .table-status-card.is-locked {
+      border-color: var(--status-occ-border);
+      background: rgba(26, 14, 17, 0.86);
+    }
+
     .status-pill {
       display: inline-flex;
       align-items: center;
@@ -942,6 +954,21 @@
       background: var(--status-occ-bg);
       border: 1px solid var(--status-occ-border);
       color: var(--status-occ-text);
+    }
+
+    .table-card-cta {
+      width: 100%;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      border-radius: var(--radius-sm);
+    }
+
+    .table-card-cta.is-locked {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(251, 113, 133, 0.28);
+      color: var(--status-occ-text);
+      cursor: not-allowed;
     }
 
     /* =====================================================================
@@ -1139,6 +1166,24 @@
       border-color: var(--gold-300);
     }
 
+    .field-select option:disabled {
+      color: #988b76;
+      background: #181410;
+    }
+
+    .lock-warning-box {
+      padding: 0.78rem 0.95rem;
+      border-radius: var(--radius-sm);
+      background: var(--status-occ-bg);
+      border: 1px solid var(--status-occ-border);
+      color: var(--status-occ-text);
+      font-size: 0.82rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
     .owner-section-box {
       padding: 1.15rem;
       border-radius: var(--radius-lg);
@@ -1166,7 +1211,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      max-width: min(92vw, 390px);
+      max-width: min(92vw, 410px);
     }
 
     .toast-item {
@@ -1224,7 +1269,7 @@
 </head>
 <body>
   <!-- =====================================================================
-       شاشة التحميل الآمنة (تختفي خلال <= 600ms أو عند النقر الفوري)
+       شاشة التحميل الآمنة (تختفي خلال <= 500ms أو عند النقر الفوري)
        ===================================================================== -->
   <div id="royalPreloader" role="button" tabindex="0" aria-label="دخول فوري إلى ديوان الرافدين الملكي">
     <div class="preloader-crest">
@@ -1355,7 +1400,7 @@
 
           <div class="flag-caption-box">
             <div class="flag-caption-title">ديوان الرافدين الملكي • كرم الضيافة العراقية</div>
-            <div class="flag-caption-sub">ثلاثة أشرطة أفقية (أحمر قرمزي، أبيض ناصع، أسود قاتم) مع عبارة «الله أكبر» الخضراء في منتصف الشريط الأبيض بحركة نسيج وطيات سينمائية.</div>
+            <div class="flag-caption-sub">ثلاثة أشرطة أفقية (أحمر، أبيض، أسود) مع عبارة «الله أكبر» الخضراء في منتصف الشريط الأبيض بحركة أمواج وطيات نسيج سينمائية.</div>
           </div>
         </div>
       </div>
@@ -1447,7 +1492,7 @@
           <div>
             <span class="section-tag">متابعة حالة الجلسات</span>
             <h2 class="section-title">المجالس وطاولات الديوان</h2>
-            <p class="section-desc">حالة الطاولات (فاضية / مشغولة) مرتبطة مباشرة بلوحة تحكم المالك وقبول الحجوزات.</p>
+            <p class="section-desc">الطاولات والمجالس المشغولة أو المحجوزة مقفلة تلقائياً ولا يمكن حجزها من قبل الضيوف حتى يتم إخلاءها من المالك.</p>
           </div>
 
           <button id="sectionReserveBtn" type="button" class="btn-gold" style="padding: 0.72rem 1.25rem; font-size: 0.88rem;">
@@ -1521,14 +1566,14 @@
   </aside>
 
   <!-- =====================================================================
-       نافذة حجز الطاولة / المجلس
+       نافذة حجز الطاولة / المجلس (مع قفل صارم للطاولات المشغولة/المحجوزة)
        ===================================================================== -->
   <div id="reserveModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="reserveModalTitle">
     <div class="modal-sheet">
       <div class="modal-top">
         <div>
           <h2 id="reserveModalTitle" style="font-size: 1.2rem; font-weight: 900; color: var(--gold-100);">حجز طاولة أو مجلس</h2>
-          <p style="font-size: 0.8rem; color: var(--text-secondary);">سيظهر طلبك فوراً في لوحة تحكم المالك لاعتماده.</p>
+          <p style="font-size: 0.8rem; color: var(--text-secondary);">لا يمكن حجز الطاولات المشغولة أو التي عليها حجز نشط.</p>
         </div>
         <button id="closeReserveModalBtn" type="button" class="btn-ghost" style="padding: 0.45rem 0.75rem;" aria-label="إغلاق نافذة الحجز">
           <i class="fa-solid fa-xmark"></i>
@@ -1536,6 +1581,11 @@
       </div>
 
       <form id="reserveForm" class="form-grid">
+        <div id="reserveLockWarning" class="lock-warning-box hidden" role="alert">
+          <i class="fa-solid fa-lock"></i>
+          <span id="reserveLockWarningText"></span>
+        </div>
+
         <div>
           <label for="resGuestName" class="field-label">اسم الضيف الكريم</label>
           <input id="resGuestName" type="text" required class="field-input" placeholder="مثال: علي الكاظمي" />
@@ -1558,11 +1608,11 @@
         </div>
 
         <div>
-          <label for="resTableSelect" class="field-label">اختيار الطاولة أو المجلس</label>
+          <label for="resTableSelect" class="field-label">اختيار الطاولة أو المجلس المتاح (فاضية فقط)</label>
           <select id="resTableSelect" class="field-select"></select>
         </div>
 
-        <button type="submit" class="btn-gold" style="width: 100%; padding: 0.85rem; margin-top: 0.35rem; font-size: 0.92rem;">
+        <button id="submitReserveBtn" type="submit" class="btn-gold" style="width: 100%; padding: 0.85rem; margin-top: 0.35rem; font-size: 0.92rem;">
           إرسال طلب الحجز
         </button>
       </form>
@@ -1695,13 +1745,15 @@
       setDoc,
       updateDoc,
       deleteDoc,
-      getDocs
+      getDoc,
+      getDocs,
+      runTransaction
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     (function () {
       "use strict";
 
-      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_state_v2";
+      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_state_v3";
 
       const FIREBASE_CONFIG = {
         apiKey: "AIzaSyCnRxL_1Dc_XDFTkZxuy6nenmt1ZqGqiJI",
@@ -1781,10 +1833,10 @@
       ];
 
       const DEFAULT_TABLES = [
-        { id: "T-1", name: "مجلس دجلة ١", zone: "القاعة الرئيسية", seats: 4, status: "empty" },
+        { id: "T-1", name: "مجلس دجلة ١", zone: "القاعة الرئيسية", seats: 4, status: "available" },
         { id: "T-2", name: "مجلس دجلة ٢", zone: "القاعة الرئيسية", seats: 6, status: "occupied" },
-        { id: "T-3", name: "ركن الصفصاف ٣", zone: "شرفة الديوان", seats: 4, status: "empty" },
-        { id: "T-4", name: "ديوان الرافدين ٤", zone: "الجناح الخاص", seats: 8, status: "empty" }
+        { id: "T-3", name: "ركن الصفصاف ٣", zone: "شرفة الديوان", seats: 4, status: "available" },
+        { id: "T-4", name: "ديوان الرافدين ٤", zone: "الجناح الخاص", seats: 8, status: "available" }
       ];
 
       const DEFAULT_RESERVATIONS = [
@@ -1853,10 +1905,14 @@
         }
       ];
 
+      function normalizeTableStatus(rawStatus) {
+        return rawStatus === "occupied" ? "occupied" : "available";
+      }
+
       function cloneDefaultData() {
         return {
           dishes: DEFAULT_DISHES.map((d) => ({ ...d })),
-          tables: DEFAULT_TABLES.map((t) => ({ ...t })),
+          tables: DEFAULT_TABLES.map((t) => ({ ...t, status: normalizeTableStatus(t.status) })),
           reservations: DEFAULT_RESERVATIONS.map((r) => ({ ...r })),
           passcode: "B7R-2026"
         };
@@ -1877,7 +1933,7 @@
           }
           return {
             dishes: parsed.dishes,
-            tables: parsed.tables,
+            tables: parsed.tables.map((t) => ({ ...t, status: normalizeTableStatus(t.status) })),
             reservations: parsed.reservations,
             passcode: typeof parsed.passcode === "string" && parsed.passcode.trim()
               ? parsed.passcode.trim()
@@ -1896,6 +1952,34 @@
         } catch (_err) {
           // تجاهل أخطاء التخزين في حال وضع التصفح الخاص
         }
+      }
+
+      /* -------------------------------------------------------------------
+         قواعد القفل الصارم للطاولات المشغولة أو المحجوزة
+         ------------------------------------------------------------------- */
+      function getTableLockReason(tableId, tablesList = db.tables, reservationsList = db.reservations) {
+        const tbl = tablesList.find((t) => t.id === tableId);
+        if (!tbl) return "الطاولة غير موجودة";
+
+        if (normalizeTableStatus(tbl.status) === "occupied") {
+          return "مشغولة حالياً";
+        }
+
+        const activeRes = reservationsList.find(
+          (r) => r.tableId === tableId && (r.status === "pending" || r.status === "accepted")
+        );
+
+        if (activeRes) {
+          return activeRes.status === "accepted"
+            ? "محجوزة ومؤكدة (مشغولة)"
+            : "عليها طلب حجز قيد المراجعة";
+        }
+
+        return null;
+      }
+
+      function isTableAvailableForBooking(tableId, tablesList = db.tables, reservationsList = db.reservations) {
+        return getTableLockReason(tableId, tablesList, reservationsList) === null;
       }
 
       const state = {
@@ -1927,7 +2011,6 @@
           const dishesCol = collection(firestoreDb, "dishes");
           const resCol = collection(firestoreDb, "reservations");
 
-          // تهيئة أولية تلقائية (Seeding) عندما تكون المجموعات فارغة
           try {
             const [tSnap, dSnap, rSnap] = await Promise.all([
               getDocs(tablesCol),
@@ -1937,7 +2020,9 @@
 
             if (tSnap.empty) {
               await Promise.all(
-                DEFAULT_TABLES.map((t) => setDoc(doc(firestoreDb, "tables", t.id), { ...t }))
+                DEFAULT_TABLES.map((t) =>
+                  setDoc(doc(firestoreDb, "tables", t.id), { ...t, status: normalizeTableStatus(t.status) })
+                )
               );
             }
             if (dSnap.empty) {
@@ -1951,14 +2036,19 @@
               );
             }
           } catch (_seedErr) {
-            // إذا كانت قواعد الكتابة مقيدة، نعتمد على البيانات المحلية ويعرض المستمع ما يُسمح بقراءته
+            // نعتمد على البيانات المحلية والمستمع اللحظي
           }
 
           onSnapshot(tablesCol, (snap) => {
             if (!snap.empty) {
-              db.tables = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              db.tables = snap.docs.map((d) => ({
+                id: d.id,
+                ...d.data(),
+                status: normalizeTableStatus(d.data().status)
+              }));
               savePersistedData();
               renderPublicTables();
+              syncReserveModalAvailability();
               if (state.ownerUnlocked) renderOwnerPanel();
             }
           });
@@ -1984,6 +2074,8 @@
             if (!snap.empty) {
               db.reservations = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
               savePersistedData();
+              renderPublicTables();
+              syncReserveModalAvailability();
               if (state.ownerUnlocked) renderOwnerPanel();
             }
           });
@@ -2016,11 +2108,11 @@
           item.style.transform = "translateY(8px)";
           item.style.transition = "all 0.25s ease";
           setTimeout(() => item.remove(), 260);
-        }, 3000);
+        }, 3200);
       }
 
       /* -------------------------------------------------------------------
-         ٠. شاشة التحميل الآمنة (إغلاق خلال <= 600ms أو بالنقر الفوري)
+         ٠. شاشة التحميل الآمنة (إغلاق خلال <= 500ms أو بالنقر الفوري)
          ------------------------------------------------------------------- */
       function initFailSafePreloader() {
         const preloader = document.getElementById("royalPreloader");
@@ -2043,9 +2135,9 @@
           }
         });
 
-        setTimeout(dismiss, 280);
+        setTimeout(dismiss, 220);
         window.addEventListener("load", dismiss, { once: true });
-        setTimeout(dismiss, 600);
+        setTimeout(dismiss, 500);
       }
 
       /* -------------------------------------------------------------------
@@ -2108,7 +2200,6 @@
 
             ctx.drawImage(off, x, 0, sliceW, h, x, yPos, sliceW, drawH);
 
-            // ظلال وإضاءة طيات القماش
             const foldShade = Math.cos(x * 0.045 - phase) * 0.22 * hoistRatio;
             if (foldShade >= 0) {
               ctx.fillStyle = `rgba(255, 255, 255, ${foldShade.toFixed(3)})`;
@@ -2357,61 +2448,204 @@
       }
 
       /* -------------------------------------------------------------------
-         ٥. عرض حالة الطاولات في الواجهة العامة + قائمة اختيار الحجز
+         ٥. عرض الطاولات وقفل الحجز على الطاولات المشغولة أو المحجوزة
          ------------------------------------------------------------------- */
       function renderPublicTables() {
         const grid = document.getElementById("publicTablesGrid");
-        const select = document.getElementById("resTableSelect");
         const statEmpty = document.getElementById("statEmptyTablesCount");
 
-        const emptyCount = db.tables.filter((t) => t.status === "empty").length;
-        if (statEmpty) statEmpty.textContent = String(emptyCount);
+        const availableCount = db.tables.filter((t) => isTableAvailableForBooking(t.id)).length;
+        if (statEmpty) statEmpty.textContent = String(availableCount);
 
         if (grid) {
           grid.innerHTML = db.tables
             .map((t) => {
-              const isEmpty = t.status === "empty";
+              const lockReason = getTableLockReason(t.id);
+              const isLocked = lockReason !== null;
               return `
-                <div class="glass-card table-status-card">
+                <div class="glass-card table-status-card ${isLocked ? "is-locked" : ""}">
                   <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
                     <strong style="font-size: 0.98rem; font-weight: 900; color: var(--gold-100);">${t.name}</strong>
-                    <span class="status-pill ${isEmpty ? "is-empty" : "is-occupied"}">
-                      <i class="fa-solid ${isEmpty ? "fa-circle-check" : "fa-circle-xmark"}"></i>
-                      <span>${isEmpty ? "فاضية" : "مشغولة"}</span>
+                    <span class="status-pill ${isLocked ? "is-occupied" : "is-empty"}">
+                      <i class="fa-solid ${isLocked ? "fa-lock" : "fa-circle-check"}"></i>
+                      <span>${isLocked ? "مشغولة" : "فاضية"}</span>
                     </span>
                   </div>
                   <div style="font-size: 0.82rem; color: var(--text-secondary);">
                     ${t.zone} • ${t.seats} مقاعد
                   </div>
+                  ${
+                    isLocked
+                      ? `<div class="table-card-cta is-locked" aria-disabled="true"><i class="fa-solid fa-ban"></i> ${lockReason}</div>`
+                      : `<button type="button" class="btn-gold table-card-cta" data-quick-reserve-table="${t.id}"><i class="fa-solid fa-calendar-plus"></i> احجز هذه الطاولة</button>`
+                  }
                 </div>
               `;
             })
             .join("");
+
+          grid.querySelectorAll("[data-quick-reserve-table]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const chosenId = btn.getAttribute("data-quick-reserve-table");
+              toggleReserveModal(true, chosenId);
+            });
+          });
         }
 
-        if (select) {
-          select.innerHTML = db.tables
-            .map((t) => {
-              const stateText = t.status === "empty" ? "فاضية" : "مشغولة";
-              return `<option value="${t.id}">${t.name} (${t.seats} مقاعد — ${stateText})</option>`;
-            })
-            .join("");
+        syncReserveModalAvailability();
+      }
+
+      function syncReserveModalAvailability(preferredTableId = null) {
+        const select = document.getElementById("resTableSelect");
+        const warningBox = document.getElementById("reserveLockWarning");
+        const warningText = document.getElementById("reserveLockWarningText");
+        const submitBtn = document.getElementById("submitReserveBtn");
+        if (!select) return;
+
+        const prevSelected = preferredTableId || select.value;
+        const availableTables = db.tables.filter((t) => isTableAvailableForBooking(t.id));
+
+        select.innerHTML = db.tables
+          .map((t) => {
+            const lockReason = getTableLockReason(t.id);
+            const locked = lockReason !== null;
+            if (locked) {
+              return `<option value="${t.id}" disabled>${t.name} (${t.seats} مقاعد — مشغولة - غير متاحة للحجز)</option>`;
+            }
+            return `<option value="${t.id}">${t.name} (${t.seats} مقاعد — فاضية)</option>`;
+          })
+          .join("");
+
+        if (prevSelected && isTableAvailableForBooking(prevSelected)) {
+          select.value = prevSelected;
+        } else if (availableTables.length > 0) {
+          select.value = availableTables[0].id;
+        } else {
+          select.value = "";
+        }
+
+        if (availableTables.length === 0) {
+          if (warningBox && warningText) {
+            warningText.textContent = "جميع الطاولات والمجالس مشغولة أو محجوزة حالياً ولا توجد طاولة متاحة للحجز.";
+            warningBox.classList.remove("hidden");
+          }
+          select.disabled = true;
+          if (submitBtn) submitBtn.disabled = true;
+        } else {
+          select.disabled = false;
+          if (submitBtn) submitBtn.disabled = false;
+          const activeId = select.value;
+          const activeLock = activeId ? getTableLockReason(activeId) : null;
+          if (activeLock && warningBox && warningText) {
+            warningText.textContent = `هذه الطاولة (${activeLock}) ولا يمكن حجزها.`;
+            warningBox.classList.remove("hidden");
+            if (submitBtn) submitBtn.disabled = true;
+          } else if (warningBox) {
+            warningBox.classList.add("hidden");
+          }
         }
       }
 
-      function toggleReserveModal(open) {
+      function toggleReserveModal(open, preferredTableId = null) {
         const modal = document.getElementById("reserveModal");
         if (!modal) return;
-        renderPublicTables();
+        syncReserveModalAvailability(preferredTableId);
         modal.classList.toggle("is-open", open);
         document.body.classList.toggle("no-scroll", open);
       }
 
+      /**
+       * إرسال الحجز مع فحص فوري في Firestore لمنع حجز الطاولة المشغولة أو الحجز المزدوج المتزامن
+       */
+      async function submitReservation(reservationDraft) {
+        const tableId = reservationDraft.tableId;
+
+        // فحص فوري في الحالة المحلية أولاً
+        const localLock = getTableLockReason(tableId);
+        if (localLock) {
+          throw new Error(`عذراً، هذه الطاولة ${localLock} ولا يمكن حجزها.`);
+        }
+
+        if (firestoreReady && firestoreDb) {
+          try {
+            const tableRef = doc(firestoreDb, "tables", tableId);
+            const resRef = doc(firestoreDb, "reservations", reservationDraft.id);
+
+            await runTransaction(firestoreDb, async (tx) => {
+              const tableSnap = await tx.get(tableRef);
+              if (!tableSnap.exists()) {
+                throw new Error("الطاولة المختارة غير موجودة في قاعدة البيانات.");
+              }
+              const latestTableData = tableSnap.data();
+              if (normalizeTableStatus(latestTableData.status) === "occupied") {
+                throw new Error("عذراً، هذه الطاولة أصبحت مشغولة للتو ولا يمكن حجزها.");
+              }
+
+              // التحقق من وجود حجز نشط (pending أو accepted) لنفس الطاولة
+              const existingResSnap = await getDocs(collection(firestoreDb, "reservations"));
+              const hasActiveConflict = existingResSnap.docs.some((docItem) => {
+                const rData = docItem.data();
+                return (
+                  rData &&
+                  rData.tableId === tableId &&
+                  (rData.status === "pending" || rData.status === "accepted")
+                );
+              });
+
+              if (hasActiveConflict) {
+                throw new Error("عذراً، توجد طاولة عليها حجز فعال مسبقاً ولا يمكن حجزها مرة أخرى.");
+              }
+
+              tx.set(resRef, { ...reservationDraft });
+              tx.update(tableRef, {
+                status: "occupied",
+                updatedAt: Date.now()
+              });
+            });
+
+            // تحديث الحالة المحلية بعد نجاح المعاملة السحابية
+            db.reservations.unshift(reservationDraft);
+            const tbl = db.tables.find((t) => t.id === tableId);
+            if (tbl) tbl.status = "occupied";
+            savePersistedData();
+            return;
+          } catch (txErr) {
+            if (txErr && typeof txErr.message === "string" && txErr.message.startsWith("عذراً")) {
+              throw txErr;
+            }
+            notifyLocalFallbackOnce();
+          }
+        }
+
+        // مسار احتياطي محلي مع إعادة التحقق من السجلات
+        const recheckSnap = firestoreReady && firestoreDb
+          ? await getDoc(doc(firestoreDb, "tables", tableId)).catch(() => null)
+          : null;
+        if (recheckSnap && recheckSnap.exists() && normalizeTableStatus(recheckSnap.data().status) === "occupied") {
+          throw new Error("عذراً، الطاولة مشغولة ولا يمكن حجزها.");
+        }
+
+        const latestLock = getTableLockReason(tableId);
+        if (latestLock) {
+          throw new Error(`عذراً، هذه الطاولة ${latestLock} ولا يمكن حجزها.`);
+        }
+
+        db.reservations.unshift(reservationDraft);
+        const tbl = db.tables.find((t) => t.id === tableId);
+        if (tbl) tbl.status = "occupied";
+        savePersistedData();
+      }
+
       async function persistTableStatus(table) {
+        table.status = normalizeTableStatus(table.status);
         savePersistedData();
         if (firestoreReady && firestoreDb) {
           try {
-            await setDoc(doc(firestoreDb, "tables", table.id), { ...table }, { merge: true });
+            await setDoc(
+              doc(firestoreDb, "tables", table.id),
+              { ...table, updatedAt: Date.now() },
+              { merge: true }
+            );
           } catch (_err) {
             notifyLocalFallbackOnce();
           }
@@ -2462,18 +2696,18 @@
         if (tablesList) {
           tablesList.innerHTML = db.tables
             .map((t) => {
-              const isEmpty = t.status === "empty";
+              const isOccupied = normalizeTableStatus(t.status) === "occupied";
               return `
-                <div class="glass-card table-status-card" style="padding: 1rem;">
+                <div class="glass-card table-status-card ${isOccupied ? "is-locked" : ""}" style="padding: 1rem;">
                   <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
                     <strong style="font-size: 0.92rem; font-weight: 900; color: var(--text-primary);">${t.name}</strong>
-                    <span class="status-pill ${isEmpty ? "is-empty" : "is-occupied"}">
-                      ${isEmpty ? "فاضية" : "مشغولة"}
+                    <span class="status-pill ${isOccupied ? "is-occupied" : "is-empty"}">
+                      ${isOccupied ? "مشغولة" : "فاضية"}
                     </span>
                   </div>
                   <div style="font-size: 0.78rem; color: var(--text-muted);">${t.zone} • ${t.seats} مقاعد</div>
                   <button type="button" data-owner-toggle-table="${t.id}" class="btn-ghost" style="width: 100%; padding: 0.52rem; font-size: 0.78rem;">
-                    تحويل إلى: ${isEmpty ? "مشغولة" : "فاضية"}
+                    تحويل إلى: ${isOccupied ? "فاضية (متاحة للحجز)" : "مشغولة (مقفلة)"}
                   </button>
                 </div>
               `;
@@ -2485,11 +2719,11 @@
               const id = btn.getAttribute("data-owner-toggle-table");
               const tbl = db.tables.find((x) => x.id === id);
               if (!tbl) return;
-              tbl.status = tbl.status === "empty" ? "occupied" : "empty";
+              tbl.status = normalizeTableStatus(tbl.status) === "occupied" ? "available" : "occupied";
               renderPublicTables();
               renderOwnerPanel();
               await persistTableStatus(tbl);
-              showToast(`تم تحديث حالة "${tbl.name}" إلى (${tbl.status === "empty" ? "فاضية" : "مشغولة"})`);
+              showToast(`تم تحديث حالة "${tbl.name}" إلى (${tbl.status === "available" ? "فاضية" : "مشغولة"})`);
             });
           });
         }
@@ -2557,8 +2791,17 @@
                 const res = db.reservations.find((x) => x.id === id);
                 if (!res) return;
                 res.status = "rejected";
+                const tbl = db.tables.find((t) => t.id === res.tableId);
+                const otherActive = db.reservations.some(
+                  (other) => other.id !== res.id && other.tableId === res.tableId && (other.status === "pending" || other.status === "accepted")
+                );
+                if (tbl && !otherActive) {
+                  tbl.status = "available";
+                }
+                renderPublicTables();
                 renderOwnerPanel();
                 await persistReservation(res, false);
+                if (tbl && !otherActive) await persistTableStatus(tbl);
                 showToast(`تم رفض حجز ${res.guestName}`);
               });
             });
@@ -2731,12 +2974,22 @@
         });
         document.getElementById("closeReserveModalBtn")?.addEventListener("click", () => toggleReserveModal(false));
 
+        document.getElementById("resTableSelect")?.addEventListener("change", () => {
+          syncReserveModalAvailability();
+        });
+
         document.getElementById("reserveForm")?.addEventListener("submit", async (e) => {
           e.preventDefault();
           const guestName = document.getElementById("resGuestName")?.value.trim() || "ضيف الديوان";
           const phone = document.getElementById("resGuestPhone")?.value.trim() || "0770 000 0000";
           const guests = document.getElementById("resGuestsCount")?.value || "4 أشخاص";
-          const tableId = document.getElementById("resTableSelect")?.value || "T-1";
+          const tableId = document.getElementById("resTableSelect")?.value || "";
+
+          if (!tableId || !isTableAvailableForBooking(tableId)) {
+            syncReserveModalAvailability();
+            showToast("عذراً، هذه الطاولة مشغولة أو غير متاحة للحجز");
+            return;
+          }
 
           const newRes = {
             id: "RES-" + Math.floor(300 + Math.random() * 699),
@@ -2747,12 +3000,18 @@
             status: "pending"
           };
 
-          db.reservations.unshift(newRes);
-          if (state.ownerUnlocked) renderOwnerPanel();
-          e.target.reset();
-          toggleReserveModal(false);
-          await persistReservation(newRes, true);
-          showToast(`تم إرسال طلب حجز ${guestName} (${guests}) بانتظار موافقة المالك`);
+          try {
+            await submitReservation(newRes);
+            renderPublicTables();
+            if (state.ownerUnlocked) renderOwnerPanel();
+            e.target.reset();
+            toggleReserveModal(false);
+            showToast(`تم إرسال طلب حجز ${guestName} (${guests}) وتأمين الطاولة فوراً`);
+          } catch (err) {
+            renderPublicTables();
+            syncReserveModalAvailability();
+            showToast(err && err.message ? err.message : "تعذر إتمام الحجز لأن الطاولة مشغولة.");
+          }
         });
 
         document.getElementById("openControlPanelBtn")?.addEventListener("click", () => toggleControlPanel(true));
