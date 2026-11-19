@@ -16,24 +16,24 @@
     :root {
       --bg-obsidian: #090807;
       --bg-elevated: #120f0c;
-      --bg-card: rgba(23, 19, 15, 0.8);
-      --bg-card-hover: rgba(35, 29, 23, 0.94);
+      --bg-card: rgba(23, 19, 15, 0.84);
+      --bg-card-hover: rgba(35, 29, 23, 0.95);
       --border-gold: rgba(226, 184, 87, 0.24);
-      --border-gold-strong: rgba(235, 195, 98, 0.54);
+      --border-gold-strong: rgba(235, 195, 98, 0.56);
       --gold-100: #fff4cf;
       --gold-200: #f3d484;
       --gold-300: #e2b857;
       --gold-400: #c8962e;
       --gold-500: #9f7017;
       --text-primary: #f7f3eb;
-      --text-secondary: #cbbFA9;
+      --text-secondary: #cbbfa9;
       --text-muted: #988b76;
-      --emerald-soft: rgba(16, 185, 129, 0.14);
-      --emerald-text: #6ee7b7;
-      --emerald-border: rgba(52, 211, 153, 0.35);
-      --rose-soft: rgba(244, 63, 94, 0.15);
-      --rose-text: #fda4af;
-      --rose-border: rgba(251, 113, 133, 0.35);
+      --status-empty-bg: rgba(226, 184, 87, 0.14);
+      --status-empty-text: #f3d484;
+      --status-empty-border: rgba(235, 195, 98, 0.45);
+      --status-occ-bg: rgba(244, 63, 94, 0.15);
+      --status-occ-text: #fda4af;
+      --status-occ-border: rgba(251, 113, 133, 0.36);
       --shadow-royal: 0 22px 60px rgba(0, 0, 0, 0.68);
       --shadow-gold: 0 10px 28px rgba(212, 165, 62, 0.24);
       --radius-sm: 12px;
@@ -95,7 +95,7 @@
     }
 
     /* =====================================================================
-       ٢. شاشة التحميل السريعة الآمنة (Fail-Safe Preloader <= 600ms)
+       ٢. شاشة التحميل السريعة الآمنة (Fail-Safe Preloader <= 600ms + Click)
        ===================================================================== */
     #royalPreloader {
       position: fixed;
@@ -107,7 +107,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.85rem;
-      transition: opacity 0.28s ease, visibility 0.28s ease;
+      cursor: pointer;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
     }
 
     #royalPreloader.is-done {
@@ -129,7 +130,7 @@
     }
 
     .preloader-track {
-      width: 190px;
+      width: 196px;
       height: 4px;
       border-radius: var(--radius-full);
       background: rgba(255, 244, 207, 0.12);
@@ -140,7 +141,13 @@
       width: 35%;
       height: 100%;
       background: linear-gradient(90deg, var(--gold-400), var(--gold-100));
-      transition: width 0.35s ease;
+      transition: width 0.3s ease;
+    }
+
+    .preloader-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 700;
     }
 
     /* =====================================================================
@@ -217,7 +224,7 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(11, 9, 7, 0.86);
+      background: rgba(11, 9, 7, 0.88);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border-gold);
@@ -254,7 +261,7 @@
     }
 
     .brand-title {
-      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-size: clamp(1rem, 1.8vw, 1.22rem);
       font-weight: 900;
       color: var(--gold-100);
       line-height: 1.2;
@@ -270,17 +277,17 @@
     .nav-links {
       display: none;
       align-items: center;
-      gap: 1.4rem;
+      gap: 1.35rem;
     }
 
-    @media (min-width: 960px) {
+    @media (min-width: 980px) {
       .nav-links {
         display: flex;
       }
     }
 
     .nav-links a {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--text-secondary);
       padding-block: 0.35rem;
@@ -309,13 +316,13 @@
     }
 
     .owner-pill-btn {
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid var(--emerald-border);
-      color: var(--emerald-text);
+      background: rgba(226, 184, 87, 0.1);
+      border: 1px solid var(--border-gold-strong);
+      color: var(--gold-200);
     }
 
     .owner-pill-btn:hover {
-      background: rgba(16, 185, 129, 0.22);
+      background: rgba(226, 184, 87, 0.2);
     }
 
     .bag-badge {
@@ -460,29 +467,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 800;
       color: var(--gold-200);
-    }
-
-    .flag-live-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: var(--radius-full);
-      background: rgba(16, 185, 129, 0.14);
-      border: 1px solid var(--emerald-border);
-      color: var(--emerald-text);
-      font-size: 0.72rem;
-    }
-
-    .flag-live-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #34d399;
-      box-shadow: 0 0 8px #34d399;
     }
 
     .flag-stage {
@@ -946,15 +933,15 @@
     }
 
     .status-pill.is-empty {
-      background: var(--emerald-soft);
-      border: 1px solid var(--emerald-border);
-      color: var(--emerald-text);
+      background: var(--status-empty-bg);
+      border: 1px solid var(--status-empty-border);
+      color: var(--status-empty-text);
     }
 
     .status-pill.is-occupied {
-      background: var(--rose-soft);
-      border: 1px solid var(--rose-border);
-      color: var(--rose-text);
+      background: var(--status-occ-bg);
+      border: 1px solid var(--status-occ-border);
+      color: var(--status-occ-text);
     }
 
     /* =====================================================================
@@ -1237,20 +1224,21 @@
 </head>
 <body>
   <!-- =====================================================================
-       شاشة التحميل الآمنة (تختفي تلقائياً خلال أقل من 600ms)
+       شاشة التحميل الآمنة (تختفي خلال <= 600ms أو عند النقر الفوري)
        ===================================================================== -->
-  <div id="royalPreloader" aria-hidden="true">
+  <div id="royalPreloader" role="button" tabindex="0" aria-label="دخول فوري إلى ديوان الرافدين الملكي">
     <div class="preloader-crest">
       <i class="fa-solid fa-crown"></i>
     </div>
-    <div style="font-size: 0.95rem; font-weight: 900; color: var(--gold-100);">ديوان الرافدين الملكي • استوديو B7r</div>
+    <div style="font-size: 0.98rem; font-weight: 900; color: var(--gold-100);">ديوان الرافدين الملكي • استوديو B7r</div>
     <div class="preloader-track">
       <div id="preloaderBar" class="preloader-bar"></div>
     </div>
+    <span class="preloader-hint">انقر للدخول الفوري</span>
   </div>
 
   <!-- =====================================================================
-       شريط التنقل العلوي
+       شريط التنقل العلوي (بدون أي شارات خضراء أو مؤشرات اتصال)
        ===================================================================== -->
   <header class="top-nav">
     <div class="container-shell top-nav-inner">
@@ -1339,7 +1327,7 @@
             </div>
             <div class="stat-box">
               <div class="stat-num" id="statEmptyTablesCount">3</div>
-              <div class="stat-label">طاولات متاحة الآن</div>
+              <div class="stat-label">طاولات فاضية الآن</div>
             </div>
             <div class="stat-box">
               <div class="stat-num">IQD (د.ع)</div>
@@ -1351,11 +1339,8 @@
         <!-- منصة علم العراق السينمائي -->
         <div class="flag-showcase-card">
           <div class="flag-header-bar">
-            <span><i class="fa-solid fa-flag"></i> راية العراق في مقدمة الديوان</span>
-            <span class="flag-live-pill">
-              <span class="flag-live-dot"></span>
-              <span>حركة سينمائية حية</span>
-            </span>
+            <span><i class="fa-solid fa-flag"></i> علم العراق في مقدمة الديوان</span>
+            <span style="color: var(--gold-300); font-size: 0.76rem;">راية الرافدين</span>
           </div>
 
           <div class="flag-stage">
@@ -1370,7 +1355,7 @@
 
           <div class="flag-caption-box">
             <div class="flag-caption-title">ديوان الرافدين الملكي • كرم الضيافة العراقية</div>
-            <div class="flag-caption-sub">أشرطة العلم الثلاثة مع عبارة «الله أكبر» الخضراء في منتصف الشريط الأبيض بحركة نسيج متموجة.</div>
+            <div class="flag-caption-sub">ثلاثة أشرطة أفقية (أحمر قرمزي، أبيض ناصع، أسود قاتم) مع عبارة «الله أكبر» الخضراء في منتصف الشريط الأبيض بحركة نسيج وطيات سينمائية.</div>
           </div>
         </div>
       </div>
@@ -1460,7 +1445,7 @@
       <div class="container-shell">
         <div class="section-head section-head-row">
           <div>
-            <span class="section-tag">متابعة فورية للجلسات</span>
+            <span class="section-tag">متابعة حالة الجلسات</span>
             <h2 class="section-title">المجالس وطاولات الديوان</h2>
             <p class="section-desc">حالة الطاولات (فاضية / مشغولة) مرتبطة مباشرة بلوحة تحكم المالك وقبول الحجوزات.</p>
           </div>
@@ -1684,7 +1669,7 @@
               </button>
             </form>
 
-            <button id="resetOwnerDataBtn" type="button" class="btn-ghost" style="padding: 0.65rem 1rem; font-size: 0.8rem; border-color: var(--rose-border); color: var(--rose-text);">
+            <button id="resetOwnerDataBtn" type="button" class="btn-ghost" style="padding: 0.65rem 1rem; font-size: 0.8rem; border-color: var(--status-occ-border); color: var(--status-occ-text);">
               <i class="fa-solid fa-rotate-left"></i>
               <span>استعادة البيانات الافتراضية</span>
             </button>
@@ -1698,13 +1683,35 @@
   <div id="toastHost" class="toast-host" aria-live="polite"></div>
 
   <!-- =====================================================================
-       البرمجيات التفاعلية الكاملة (Embedded JavaScript)
+       البرمجيات التفاعلية والربط اللحظي بـ Firebase Firestore (restaurant-c2c69)
        ===================================================================== -->
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      onSnapshot,
+      setDoc,
+      updateDoc,
+      deleteDoc,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
     (function () {
       "use strict";
 
-      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_state_v1";
+      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_state_v2";
+
+      const FIREBASE_CONFIG = {
+        apiKey: "AIzaSyCnRxL_1Dc_XDFTkZxuy6nenmt1ZqGqiJI",
+        authDomain: "restaurant-c2c69.firebaseapp.com",
+        projectId: "restaurant-c2c69",
+        storageBucket: "restaurant-c2c69.firebasestorage.app",
+        messagingSenderId: "622861471624",
+        appId: "1:622861471624:web:ee966930a9c75f0daff43d",
+        measurementId: "G-DT60RLZMBG"
+      };
 
       const DEFAULT_DISHES = [
         {
@@ -1899,6 +1906,92 @@
         ownerUnlocked: false
       };
 
+      let firestoreDb = null;
+      let firestoreReady = false;
+      let localFallbackNotified = false;
+
+      function notifyLocalFallbackOnce() {
+        if (!localFallbackNotified) {
+          localFallbackNotified = true;
+          showToast("تم الحفظ محلياً (تحقق من صلاحيات Firestore للكتابة السحابية)");
+        }
+      }
+
+      async function initFirestoreSync() {
+        try {
+          const app = initializeApp(FIREBASE_CONFIG);
+          firestoreDb = getFirestore(app);
+          firestoreReady = true;
+
+          const tablesCol = collection(firestoreDb, "tables");
+          const dishesCol = collection(firestoreDb, "dishes");
+          const resCol = collection(firestoreDb, "reservations");
+
+          // تهيئة أولية تلقائية (Seeding) عندما تكون المجموعات فارغة
+          try {
+            const [tSnap, dSnap, rSnap] = await Promise.all([
+              getDocs(tablesCol),
+              getDocs(dishesCol),
+              getDocs(resCol)
+            ]);
+
+            if (tSnap.empty) {
+              await Promise.all(
+                DEFAULT_TABLES.map((t) => setDoc(doc(firestoreDb, "tables", t.id), { ...t }))
+              );
+            }
+            if (dSnap.empty) {
+              await Promise.all(
+                DEFAULT_DISHES.map((d) => setDoc(doc(firestoreDb, "dishes", d.id), { ...d }))
+              );
+            }
+            if (rSnap.empty) {
+              await Promise.all(
+                DEFAULT_RESERVATIONS.map((r) => setDoc(doc(firestoreDb, "reservations", r.id), { ...r }))
+              );
+            }
+          } catch (_seedErr) {
+            // إذا كانت قواعد الكتابة مقيدة، نعتمد على البيانات المحلية ويعرض المستمع ما يُسمح بقراءته
+          }
+
+          onSnapshot(tablesCol, (snap) => {
+            if (!snap.empty) {
+              db.tables = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              savePersistedData();
+              renderPublicTables();
+              if (state.ownerUnlocked) renderOwnerPanel();
+            }
+          });
+
+          onSnapshot(dishesCol, (snap) => {
+            if (!snap.empty) {
+              db.dishes = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              state.bag.forEach((bItem) => {
+                const updatedDish = db.dishes.find((x) => x.id === bItem.id);
+                if (updatedDish) {
+                  bItem.name = updatedDish.name;
+                  bItem.price = updatedDish.price;
+                }
+              });
+              savePersistedData();
+              renderMenu();
+              renderBag();
+              if (state.ownerUnlocked) renderOwnerPanel();
+            }
+          });
+
+          onSnapshot(resCol, (snap) => {
+            if (!snap.empty) {
+              db.reservations = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              savePersistedData();
+              if (state.ownerUnlocked) renderOwnerPanel();
+            }
+          });
+        } catch (_err) {
+          firestoreReady = false;
+        }
+      }
+
       function formatIQD(amount) {
         const num = Number.isFinite(Number(amount)) ? Math.round(Number(amount)) : 0;
         return `${num.toLocaleString("en-US")} د.ع`;
@@ -1927,7 +2020,7 @@
       }
 
       /* -------------------------------------------------------------------
-         ٠. إخفاء شاشة التحميل بأمان خلال أقل من 600ms
+         ٠. شاشة التحميل الآمنة (إغلاق خلال <= 600ms أو بالنقر الفوري)
          ------------------------------------------------------------------- */
       function initFailSafePreloader() {
         const preloader = document.getElementById("royalPreloader");
@@ -1942,7 +2035,15 @@
           preloader.classList.add("is-done");
         };
 
-        setTimeout(dismiss, 320);
+        preloader.addEventListener("click", dismiss);
+        preloader.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            dismiss();
+          }
+        });
+
+        setTimeout(dismiss, 280);
         window.addEventListener("load", dismiss, { once: true });
         setTimeout(dismiss, 600);
       }
@@ -1966,19 +2067,19 @@
         const octx = off.getContext("2d");
         if (!octx) return;
 
-        // الشريط العلوي: أحمر
+        // الشريط العلوي: أحمر قرمزي
         octx.fillStyle = "#ce1126";
         octx.fillRect(0, 0, w, stripeH);
 
-        // الشريط الأوسط: أبيض
+        // الشريط الأوسط: أبيض ناصع
         octx.fillStyle = "#ffffff";
         octx.fillRect(0, stripeH, w, stripeH);
 
-        // الشريط السفلي: أسود
+        // الشريط السفلي: أسود قاتم
         octx.fillStyle = "#000000";
         octx.fillRect(0, stripeH * 2, w, stripeH);
 
-        // عبارة "الله أكبر" باللون الأخضر في منتصف الشريط الأبيض
+        // عبارة "الله أكبر" باللون الأخضر الزمردي في منتصف الشريط الأبيض
         octx.save();
         octx.fillStyle = "#007a3d";
         octx.textAlign = "center";
@@ -2205,7 +2306,7 @@
                   <span style="min-width: 18px; text-align: center; font-size: 0.82rem; font-weight: 900;">${item.qty}</span>
                   <button type="button" class="qty-btn" data-bag-inc="${item.id}" aria-label="زيادة الكمية">+</button>
                 </div>
-                <button type="button" class="qty-btn" data-bag-del="${item.id}" style="color: var(--rose-text); background: var(--rose-soft);" aria-label="حذف الطبق">
+                <button type="button" class="qty-btn" data-bag-del="${item.id}" style="color: var(--status-occ-text); background: var(--status-occ-bg);" aria-label="حذف الطبق">
                   <i class="fa-solid fa-trash-can"></i>
                 </button>
               </div>
@@ -2306,6 +2407,47 @@
         document.body.classList.toggle("no-scroll", open);
       }
 
+      async function persistTableStatus(table) {
+        savePersistedData();
+        if (firestoreReady && firestoreDb) {
+          try {
+            await setDoc(doc(firestoreDb, "tables", table.id), { ...table }, { merge: true });
+          } catch (_err) {
+            notifyLocalFallbackOnce();
+          }
+        }
+      }
+
+      async function persistReservation(reservation, isNew = false) {
+        savePersistedData();
+        if (firestoreReady && firestoreDb) {
+          try {
+            if (isNew) {
+              await setDoc(doc(firestoreDb, "reservations", reservation.id), { ...reservation });
+            } else {
+              await updateDoc(doc(firestoreDb, "reservations", reservation.id), { status: reservation.status });
+            }
+          } catch (_err) {
+            notifyLocalFallbackOnce();
+          }
+        }
+      }
+
+      async function persistDish(dish, isDeleted = false) {
+        savePersistedData();
+        if (firestoreReady && firestoreDb) {
+          try {
+            if (isDeleted) {
+              await deleteDoc(doc(firestoreDb, "dishes", dish.id));
+            } else {
+              await setDoc(doc(firestoreDb, "dishes", dish.id), { ...dish }, { merge: true });
+            }
+          } catch (_err) {
+            notifyLocalFallbackOnce();
+          }
+        }
+      }
+
       /* -------------------------------------------------------------------
          ٦. لوحة تحكم المالك (Owner Control Panel)
          ------------------------------------------------------------------- */
@@ -2339,14 +2481,14 @@
             .join("");
 
           tablesList.querySelectorAll("[data-owner-toggle-table]").forEach((btn) => {
-            btn.addEventListener("click", () => {
+            btn.addEventListener("click", async () => {
               const id = btn.getAttribute("data-owner-toggle-table");
               const tbl = db.tables.find((x) => x.id === id);
               if (!tbl) return;
               tbl.status = tbl.status === "empty" ? "occupied" : "empty";
-              savePersistedData();
               renderPublicTables();
               renderOwnerPanel();
+              await persistTableStatus(tbl);
               showToast(`تم تحديث حالة "${tbl.name}" إلى (${tbl.status === "empty" ? "فاضية" : "مشغولة"})`);
             });
           });
@@ -2384,7 +2526,7 @@
                       <button type="button" data-accept-res="${r.id}" class="btn-gold" style="padding: 0.45rem 0.85rem; font-size: 0.78rem;">
                         قبول الحجز
                       </button>
-                      <button type="button" data-reject-res="${r.id}" class="btn-ghost" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; border-color: var(--rose-border); color: var(--rose-text);">
+                      <button type="button" data-reject-res="${r.id}" class="btn-ghost" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; border-color: var(--status-occ-border); color: var(--status-occ-text);">
                         رفض
                       </button>
                     </div>
@@ -2394,28 +2536,29 @@
               .join("");
 
             resList.querySelectorAll("[data-accept-res]").forEach((btn) => {
-              btn.addEventListener("click", () => {
+              btn.addEventListener("click", async () => {
                 const id = btn.getAttribute("data-accept-res");
                 const res = db.reservations.find((x) => x.id === id);
                 if (!res) return;
                 res.status = "accepted";
                 const tbl = db.tables.find((t) => t.id === res.tableId);
                 if (tbl) tbl.status = "occupied";
-                savePersistedData();
                 renderPublicTables();
                 renderOwnerPanel();
+                await persistReservation(res, false);
+                if (tbl) await persistTableStatus(tbl);
                 showToast(`تم قبول حجز ${res.guestName} وتعيين الطاولة كمشغولة`);
               });
             });
 
             resList.querySelectorAll("[data-reject-res]").forEach((btn) => {
-              btn.addEventListener("click", () => {
+              btn.addEventListener("click", async () => {
                 const id = btn.getAttribute("data-reject-res");
                 const res = db.reservations.find((x) => x.id === id);
                 if (!res) return;
                 res.status = "rejected";
-                savePersistedData();
                 renderOwnerPanel();
+                await persistReservation(res, false);
                 showToast(`تم رفض حجز ${res.guestName}`);
               });
             });
@@ -2434,7 +2577,7 @@
                   <button type="button" data-save-dish="${d.id}" class="btn-gold" style="padding: 0.45rem 0.9rem; font-size: 0.78rem;">
                     حفظ التعديل
                   </button>
-                  <button type="button" data-del-dish="${d.id}" class="btn-ghost" style="padding: 0.45rem 0.75rem; font-size: 0.78rem; border-color: var(--rose-border); color: var(--rose-text);">
+                  <button type="button" data-del-dish="${d.id}" class="btn-ghost" style="padding: 0.45rem 0.75rem; font-size: 0.78rem; border-color: var(--status-occ-border); color: var(--status-occ-text);">
                     حذف
                   </button>
                 </div>
@@ -2443,7 +2586,7 @@
             .join("");
 
           dishesEditor.querySelectorAll("[data-save-dish]").forEach((btn) => {
-            btn.addEventListener("click", () => {
+            btn.addEventListener("click", async () => {
               const id = btn.getAttribute("data-save-dish");
               const dish = db.dishes.find((x) => x.id === id);
               if (!dish) return;
@@ -2472,25 +2615,25 @@
                 }
               });
 
-              savePersistedData();
               renderMenu();
               renderBag();
               renderOwnerPanel();
+              await persistDish(dish, false);
               showToast(`تم حفظ تعديلات "${dish.name}" (${formatIQD(dish.price)})`);
             });
           });
 
           dishesEditor.querySelectorAll("[data-del-dish]").forEach((btn) => {
-            btn.addEventListener("click", () => {
+            btn.addEventListener("click", async () => {
               const id = btn.getAttribute("data-del-dish");
               const idx = db.dishes.findIndex((x) => x.id === id);
               if (idx === -1) return;
               const [removed] = db.dishes.splice(idx, 1);
               state.bag = state.bag.filter((bItem) => bItem.id !== id);
-              savePersistedData();
               renderMenu();
               renderBag();
               renderOwnerPanel();
+              await persistDish(removed, true);
               showToast(`تم حذف "${removed.name}" من القائمة`);
             });
           });
@@ -2530,12 +2673,10 @@
          ٧. ربط الأحداث والتهيئة النهائية
          ------------------------------------------------------------------- */
       function bindEvents() {
-        // إضافة سريعة للمسكوف من مقدمة الموقع
         document.getElementById("heroQuickAddSpecialBtn")?.addEventListener("click", () => {
           addDishToBag("dish-maskoof");
         });
 
-        // أزرار التنقل في رحلة التذوق
         document.getElementById("prevStageBtn")?.addEventListener("click", () => {
           state.stageIndex = (state.stageIndex - 1 + JOURNEY_STAGES.length) % JOURNEY_STAGES.length;
           renderJourney();
@@ -2546,7 +2687,6 @@
           renderJourney();
         });
 
-        // فلاتر الأقسام والبحث
         document.querySelectorAll("#categoryPills .filter-pill").forEach((pill) => {
           pill.addEventListener("click", () => {
             state.category = pill.getAttribute("data-cat") || "all";
@@ -2562,7 +2702,6 @@
           renderMenu();
         });
 
-        // سلة التذوق
         document.getElementById("openBagBtn")?.addEventListener("click", () => toggleBagDrawer(true));
         document.getElementById("closeBagBtn")?.addEventListener("click", () => toggleBagDrawer(false));
         document.getElementById("bagBackdrop")?.addEventListener("click", () => toggleBagDrawer(false));
@@ -2587,36 +2726,35 @@
           showToast(`تم تأكيد طلبك (${formatIQD(grandTotal)}) • رقم الطلب: ${orderNum}`);
         });
 
-        // نافذة الحجز
         ["openReserveBtn", "heroReserveBtn", "sectionReserveBtn"].forEach((id) => {
           document.getElementById(id)?.addEventListener("click", () => toggleReserveModal(true));
         });
         document.getElementById("closeReserveModalBtn")?.addEventListener("click", () => toggleReserveModal(false));
 
-        document.getElementById("reserveForm")?.addEventListener("submit", (e) => {
+        document.getElementById("reserveForm")?.addEventListener("submit", async (e) => {
           e.preventDefault();
           const guestName = document.getElementById("resGuestName")?.value.trim() || "ضيف الديوان";
           const phone = document.getElementById("resGuestPhone")?.value.trim() || "0770 000 0000";
           const guests = document.getElementById("resGuestsCount")?.value || "4 أشخاص";
           const tableId = document.getElementById("resTableSelect")?.value || "T-1";
 
-          db.reservations.unshift({
+          const newRes = {
             id: "RES-" + Math.floor(300 + Math.random() * 699),
             guestName,
             phone,
             guests,
             tableId,
             status: "pending"
-          });
+          };
 
-          savePersistedData();
+          db.reservations.unshift(newRes);
           if (state.ownerUnlocked) renderOwnerPanel();
           e.target.reset();
           toggleReserveModal(false);
+          await persistReservation(newRes, true);
           showToast(`تم إرسال طلب حجز ${guestName} (${guests}) بانتظار موافقة المالك`);
         });
 
-        // لوحة تحكم المالك وحمايتها
         document.getElementById("openControlPanelBtn")?.addEventListener("click", () => toggleControlPanel(true));
         document.getElementById("closeControlPanelBtn")?.addEventListener("click", () => toggleControlPanel(false));
 
@@ -2639,7 +2777,7 @@
           showToast("تم قفل لوحة تحكم المالك");
         });
 
-        document.getElementById("ownerAddDishForm")?.addEventListener("submit", (e) => {
+        document.getElementById("ownerAddDishForm")?.addEventListener("submit", async (e) => {
           e.preventDefault();
           const name = document.getElementById("newDishName")?.value.trim() || "";
           const category = document.getElementById("newDishCategory")?.value || "feasts";
@@ -2651,19 +2789,20 @@
             return;
           }
 
-          db.dishes.unshift({
+          const newDish = {
             id: "dish-" + Date.now(),
             name,
             category,
             price: Math.round(price),
             icon: "fa-bowl-food",
             desc
-          });
+          };
 
-          savePersistedData();
+          db.dishes.unshift(newDish);
           e.target.reset();
           renderMenu();
           renderOwnerPanel();
+          await persistDish(newDish, false);
           showToast(`تمت إضافة "${name}" (${formatIQD(price)}) إلى القائمة`);
         });
 
@@ -2681,7 +2820,7 @@
           showToast("تم تحديث رمز دخول المالك بنجاح");
         });
 
-        document.getElementById("resetOwnerDataBtn")?.addEventListener("click", () => {
+        document.getElementById("resetOwnerDataBtn")?.addEventListener("click", async () => {
           const fresh = cloneDefaultData();
           db.dishes = fresh.dishes;
           db.tables = fresh.tables;
@@ -2691,10 +2830,20 @@
           renderMenu();
           renderPublicTables();
           renderOwnerPanel();
+          if (firestoreReady && firestoreDb) {
+            try {
+              await Promise.all([
+                ...fresh.tables.map((t) => setDoc(doc(firestoreDb, "tables", t.id), { ...t })),
+                ...fresh.dishes.map((d) => setDoc(doc(firestoreDb, "dishes", d.id), { ...d })),
+                ...fresh.reservations.map((r) => setDoc(doc(firestoreDb, "reservations", r.id), { ...r }))
+              ]);
+            } catch (_err) {
+              notifyLocalFallbackOnce();
+            }
+          }
           showToast("تمت استعادة البيانات الافتراضية بالدينار العراقي بنجاح");
         });
 
-        // إغلاق النوافذ عبر مفتاح Escape
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") {
             toggleControlPanel(false);
@@ -2712,6 +2861,7 @@
         renderPublicTables();
         renderBag();
         bindEvents();
+        initFirestoreSync();
       }
 
       if (document.readyState === "loading") {
