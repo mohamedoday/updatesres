@@ -1,1490 +1,279 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
-<head>
-  <!-- =====================================================================
-       ديوان الرافدين الملكي | DIWAN AL-RAFIDAIN ROYAL
-       تطبيق ويب متكامل في ملف واحد (HTML + Tailwind CSS + Canvas + JS)
-       صُمم وطُوّر بواسطة: استوديو B7r لتطوير المواقع | B7r Web Development Studio
-       ===================================================================== -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ديوان الرافدين الملكي - تجربة ضيافة ومأكولات عراقية أصيلة من ضفاف دجلة والفرات، صُمم وطُوّر بواسطة استوديو B7r لتطوير المواقع." />
-  <meta name="theme-color" content="#09090b" />
-  <title>ديوان الرافدين الملكي | DIWAN AL-RAFIDAIN ROYAL — استوديو B7r لتطوير المواقع</title>
-
-  <!-- تحميل Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['"Amiri"', '"Cairo"', 'serif'],
-            sans: ['"Cairo"', '"Tajawal"', 'sans-serif']
-          },
-          colors: {
-            meso: {
-              void: '#09090b',
-              obsidian: '#111115',
-              card: '#17171d',
-              gold: '#d4af37',
-              goldBright: '#f3d374',
-              goldDim: '#9e7d22',
-              tigris: '#0d9488'
-            }
-          }
-        }
-      }
-    };
-  </script>
-
-  <!-- خطوط عربية فاخرة: Amiri, Cairo, Tajawal -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
-
-  <!-- أيقونات Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
-  <style>
-    /* =====================================================================
-       التنسيقات الجمالية والهوية البصرية الرافدينية الملكية
-       ===================================================================== */
-    :root {
-      --bg-void: #09090b;
-      --bg-obsidian: #111115;
-      --bg-card: rgba(23, 23, 29, 0.88);
-      --gold-bright: #f3d374;
-      --gold-main: #d4af37;
-      --gold-dim: #9e7d22;
-      --tigris-teal: #0d9488;
-      --border-gold: rgba(212, 175, 55, 0.26);
-      --text-primary: #faf8f5;
-      --text-secondary: #d4cfc5;
-      --text-muted: #9a9488;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Cairo', 'Tajawal', sans-serif;
-      background-color: var(--bg-void);
-      color: var(--text-primary);
-      overflow-x: hidden;
-      background-image:
-        radial-gradient(circle at 15% 12%, rgba(212, 175, 55, 0.09), transparent 40%),
-        radial-gradient(circle at 86% 22%, rgba(13, 148, 136, 0.08), transparent 42%),
-        radial-gradient(circle at 50% 92%, rgba(212, 175, 55, 0.06), transparent 52%);
-    }
-
-    body.drawer-open,
-    body.modal-open {
-      overflow: hidden;
-    }
-
-    .gold-text {
-      background: linear-gradient(135deg, #fff0b8 0%, var(--gold-main) 52%, var(--gold-dim) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .glass-surface {
-      background: var(--bg-card);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--border-gold);
-    }
-
-    .btn-meso-gold {
-      background: linear-gradient(135deg, #f3d374 0%, #d4af37 52%, #b08b26 100%);
-      color: #09090b;
-      font-weight: 800;
-      border: 1px solid rgba(255, 240, 184, 0.45);
-      box-shadow: 0 10px 26px rgba(212, 175, 55, 0.25);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-    }
-
-    .btn-meso-gold:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.06);
-      box-shadow: 0 14px 32px rgba(212, 175, 55, 0.36);
-    }
-
-    .btn-meso-gold:active {
-      transform: translateY(0);
-    }
-
-    /* =====================================================================
-       شاشة التمهيد السريعة والمضمونة الإغلاق خلال 750ms كحد أقصى
-       ===================================================================== */
-    .meso-preloader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      background: radial-gradient(circle at center, #18171e 0%, #09090b 80%);
-      transition: opacity 0.28s ease, visibility 0.28s ease;
-    }
-
-    .meso-preloader.is-done {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .preloader-progress {
-      height: 100%;
-      width: 30%;
-      border-radius: 9999px;
-      background: linear-gradient(90deg, #b08b26, #fff0b8, #d4af37);
-      transition: width 0.35s ease;
-    }
-
-    /* =====================================================================
-       منصة علم العراق السينمائي المتموج
-       ===================================================================== */
-    .flag-assembly {
-      position: relative;
-      display: inline-flex;
-      align-items: flex-start;
-      padding-top: 6px;
-      padding-right: 12px;
-      flex-shrink: 0;
-      filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.75));
-    }
-
-    .flag-finial {
-      position: absolute;
-      top: 0;
-      right: 2px;
-      width: 12px;
-      height: 12px;
-      border-radius: 9999px;
-      background: radial-gradient(circle at 30% 30%, #fff0b8, #d4af37 65%, #8a6914);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.65);
-      z-index: 4;
-    }
-
-    .flag-mast {
-      position: relative;
-      width: 6px;
-      height: 152px;
-      border-radius: 9999px;
-      background: linear-gradient(90deg, #684c0c 0%, #fff0b8 45%, #d4af37 80%, #473206 100%);
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.65);
-      z-index: 3;
-    }
-
-    .flag-canvas-frame {
-      position: relative;
-      width: 224px;
-      height: 136px;
-      margin-top: 6px;
-      margin-right: -1px;
-      border-radius: 2px 10px 10px 2px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 240, 184, 0.28);
-      background: #0d0d10;
-    }
-
-    .iraqi-flag-canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .flag-specular-sheen {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(
-        112deg,
-        transparent 15%,
-        rgba(255, 255, 255, 0.16) 38%,
-        rgba(255, 240, 184, 0.24) 50%,
-        transparent 72%
-      );
-      background-size: 240% 100%;
-      animation: specularSweep 4.4s ease-in-out infinite;
-      mix-blend-mode: screen;
-    }
-
-    @keyframes specularSweep {
-      0%, 100% { background-position: 180% 0; opacity: 0.5; }
-      50% { background-position: -60% 0; opacity: 1; }
-    }
-
-    /* =====================================================================
-       درج سلة التذوق الجانبي
-       ===================================================================== */
-    .tasting-drawer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      max-width: 430px;
-      z-index: 80;
-      display: flex;
-      flex-direction: column;
-      background: #111115;
-      border-right: 1px solid var(--border-gold);
-      box-shadow: 20px 0 50px rgba(0, 0, 0, 0.78);
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .tasting-drawer.is-open {
-      transform: translateX(0);
-    }
-
-    .bag-count-pill.bump {
-      transform: scale(1.24);
-    }
-
-    .bag-count-pill {
-      transition: transform 0.2s ease;
-    }
-
-    .reveal-card {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-
-    .reveal-card.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
-</head>
-
-<body class="antialiased selection:bg-amber-400/25 selection:text-amber-200">
-
-  <!-- =====================================================================
-       ١. شاشة التمهيد الملكية (تختفي تلقائياً خلال 750ms كحد أقصى)
-       ===================================================================== -->
-  <div id="royalPreloader" class="meso-preloader" role="status" aria-live="polite" aria-label="جاري فتح ديوان الرافدين الملكي">
-    <div class="w-full max-w-sm text-center">
-      <div class="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300 shadow-lg">
-        <i class="fa-solid fa-crown text-2xl"></i>
-      </div>
-      <p class="font-display text-2xl sm:text-3xl font-bold gold-text">ديوان الرافدين الملكي</p>
-      <p class="mt-1 text-[11px] font-bold tracking-wider uppercase text-amber-200/75">
-        DIWAN AL-RAFIDAIN ROYAL • B7R WEB STUDIO
-      </p>
-
-      <div class="mx-auto mt-4 h-1.5 w-52 overflow-hidden rounded-full bg-amber-400/15 border border-amber-400/20">
-        <div id="preloaderBar" class="preloader-progress"></div>
-      </div>
-
-      <button
-        id="dismissPreloaderBtn"
-        type="button"
-        class="mt-4 inline-flex items-center gap-1.5 rounded-full border border-amber-400/35 bg-amber-400/10 px-3.5 py-1 text-xs font-bold text-amber-200 hover:bg-amber-400/20 transition cursor-pointer"
-      >
-        <span>دخول فوري</span>
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- =====================================================================
-       ٢. شريط التقدم العلوي والشريط الملاحي
-       ===================================================================== -->
-  <div class="fixed top-0 left-0 right-0 z-50 h-1 bg-transparent pointer-events-none">
-    <div id="scrollProgress" class="h-full w-0 bg-gradient-to-l from-amber-200 via-amber-400 to-teal-500 transition-[width] duration-150"></div>
-  </div>
-
-  <header class="sticky top-0 z-40 border-b border-amber-400/15 bg-[#09090b]/88 backdrop-blur-xl">
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
-      <!-- شعار الديوان واستوديو B7r -->
-      <a href="#hero" class="flex items-center gap-3 group">
-        <div class="flex h-11 w-11 items-center justify-center rounded-xl border border-amber-400/35 bg-gradient-to-br from-amber-300/20 to-teal-700/15 text-amber-300 group-hover:scale-105 transition">
-          <i class="fa-solid fa-crown text-lg"></i>
-        </div>
-        <div class="leading-tight">
-          <span class="block font-display text-lg sm:text-xl font-bold gold-text">ديوان الرافدين الملكي</span>
-          <span class="block text-[10px] sm:text-[11px] font-semibold text-amber-200/75">
-            استوديو B7r لتطوير المواقع • B7r Web Studio
-          </span>
-        </div>
-      </a>
-
-      <!-- روابط التنقل -->
-      <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-stone-300" aria-label="التنقل الرئيسي">
-        <a href="#hero" class="hover:text-amber-300 transition py-1">الرئيسية</a>
-        <a href="#tasting-journey" class="hover:text-amber-300 transition py-1">رحلة التذوق</a>
-        <a href="#menu" class="hover:text-amber-300 transition py-1">قائمة الأطباق</a>
-        <a href="#majalis" class="hover:text-amber-300 transition py-1">مجالس الديوان</a>
-        <a href="#contact" class="hover:text-amber-300 transition py-1">التواصل</a>
-      </nav>
-
-      <!-- أزرار سلة التذوق وحجز المجلس -->
-      <div class="flex items-center gap-2 sm:gap-2.5">
-        <button
-          id="openBagBtn"
-          type="button"
-          class="inline-flex items-center gap-2 rounded-full border border-amber-400/35 bg-amber-400/10 px-3.5 py-2 text-xs font-extrabold text-amber-200 hover:bg-amber-400/20 transition cursor-pointer"
-          aria-label="فتح سلة التذوق"
-        >
-          <i class="fa-solid fa-bag-shopping text-amber-300"></i>
-          <span class="hidden sm:inline">سلة التذوق</span>
-          <span id="bagCountBadge" class="bag-count-pill inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-400 px-1.5 text-[11px] font-black text-stone-950">0</span>
-        </button>
-
-        <button
-          id="openMajlisNavBtn"
-          type="button"
-          class="btn-meso-gold hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs cursor-pointer"
-        >
-          <i class="fa-regular fa-calendar-check"></i>
-          <span>احجز مجلسك</span>
-        </button>
-
-        <button
-          id="mobileMenuBtn"
-          type="button"
-          class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-amber-400/25 bg-white/5 text-amber-200 cursor-pointer"
-          aria-label="قائمة الموبايل"
-          aria-expanded="false"
-        >
-          <i id="mobileMenuIcon" class="fa-solid fa-bars-staggered"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- قائمة الموبايل -->
-    <div id="mobileMenuDrawer" class="hidden lg:hidden border-t border-amber-400/15 bg-[#111115]/95 px-4 py-4 space-y-2">
-      <a href="#hero" class="mobile-link block rounded-xl px-3 py-2 text-sm font-semibold text-stone-200 hover:bg-amber-400/10 hover:text-amber-300">الرئيسية</a>
-      <a href="#tasting-journey" class="mobile-link block rounded-xl px-3 py-2 text-sm font-semibold text-stone-200 hover:bg-amber-400/10 hover:text-amber-300">رحلة التذوق</a>
-      <a href="#menu" class="mobile-link block rounded-xl px-3 py-2 text-sm font-semibold text-stone-200 hover:bg-amber-400/10 hover:text-amber-300">قائمة الأطباق</a>
-      <a href="#majalis" class="mobile-link block rounded-xl px-3 py-2 text-sm font-semibold text-stone-200 hover:bg-amber-400/10 hover:text-amber-300">مجالس الديوان</a>
-      <a href="#contact" class="mobile-link block rounded-xl px-3 py-2 text-sm font-semibold text-stone-200 hover:bg-amber-400/10 hover:text-amber-300">التواصل</a>
-      <button id="openMajlisMobileBtn" type="button" class="btn-meso-gold mt-2 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm cursor-pointer">
-        <i class="fa-regular fa-calendar-check"></i>
-        <span>احجز مجلسك الآن</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- =====================================================================
-       ٣. القسم البطولي مع علم العراق السينمائي ("الله أكبر" في وسط الشريط الأبيض)
-       ===================================================================== -->
-  <section id="hero" class="relative overflow-hidden py-12 sm:py-16 lg:py-20">
-    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <div class="absolute -top-24 right-1/4 h-80 w-80 rounded-full bg-amber-400/10 blur-3xl"></div>
-      <div class="absolute bottom-0 left-1/5 h-96 w-96 rounded-full bg-teal-600/10 blur-3xl"></div>
-    </div>
-
-    <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
-      <!-- العمود الأيمن: علم العراق السينمائي + العناوين + أزرار الدعوة للعمل -->
-      <div class="lg:col-span-7 reveal-card">
-        <!-- بطاقة علم العراق السينمائي -->
-        <div class="mb-6 flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-amber-400/25 bg-gradient-to-br from-amber-400/10 via-[#15151b]/95 to-[#0d1414]/95 p-4 shadow-2xl">
-          <div class="flag-assembly" role="img" aria-label="علم العراق يرفرف وعبارة الله أكبر في وسط الشريط الأبيض">
-            <div class="flag-finial" aria-hidden="true"></div>
-            <div class="flag-mast" aria-hidden="true"></div>
-            <div class="flag-canvas-frame">
-              <canvas id="iraqiFlagCanvas" class="iraqi-flag-canvas" width="240" height="148"></canvas>
-              <div class="flag-specular-sheen" aria-hidden="true"></div>
-            </div>
-          </div>
-
-          <div class="space-y-1.5">
-            <div class="inline-flex items-center gap-2 rounded-full border border-teal-400/30 bg-teal-500/10 px-3 py-1 text-xs font-bold text-teal-300">
-              <i class="fa-solid fa-landmark-dome"></i>
-              <span>راية الرافدين • DIWAN AL-RAFIDAIN ROYAL</span>
-            </div>
-            <p class="font-display text-lg font-bold text-amber-100">
-              بغداد ودجلة والفرات.. حيث تبدأ حكاية الكرم والضيافة
-            </p>
-            <p class="text-xs sm:text-sm leading-relaxed text-stone-300">
-              صُمم وطُوّر بكل إتقان بواسطة <strong class="text-amber-300">استوديو B7r لتطوير المواقع</strong> (B7r Web Development Studio).
-            </p>
-          </div>
-        </div>
-
-        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.2] text-stone-50">
-          مائدة <span class="gold-text">بلاد الرافدين</span>
-          <br />
-          بروح <span class="text-teal-300">الديوان الملكي</span>
-        </h1>
-
-        <p class="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-stone-300">
-          مرحباً بك في <strong class="text-amber-200">ديوان الرافدين الملكي</strong> — تجربة رقمية ومطبخ عراقي أصيل يجمع بين
-          مسكوف دجلة على جمر الصفصاف، قوزي الزعفران واللوز، دولمة دبس الرمان، كبة الموصل المقرمشة، وكاهي وكيمر الصباح والمساء.
-        </p>
-
-        <div class="mt-7 flex flex-wrap items-center gap-3.5">
-          <button id="openMajlisHeroBtn" type="button" class="btn-meso-gold inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 text-sm cursor-pointer">
-            <i class="fa-solid fa-crown"></i>
-            <span>احجز مجلسك الملكي</span>
-          </button>
-
-          <a href="#menu" class="inline-flex items-center gap-2 rounded-full border border-amber-400/35 bg-white/5 px-6 py-3.5 text-sm font-bold text-amber-200 hover:bg-amber-400/10 transition">
-            <span>استعرض قائمة الأطباق</span>
-            <i class="fa-solid fa-arrow-left"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- العمود الأيسر: بطاقة طبق الافتتاح المميز -->
-      <div class="lg:col-span-5 reveal-card">
-        <div class="glass-surface rounded-3xl p-6 shadow-2xl">
-          <div class="flex items-center justify-between gap-2 mb-5">
-            <span class="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs font-bold text-amber-300">
-              <i class="fa-solid fa-fire-flame-curved"></i>
-              <span>أيقونة الديوان اليوم</span>
-            </span>
-            <span class="text-xs font-bold text-teal-300">دجلة • بغداد</span>
-          </div>
-
-          <div class="my-5 flex items-center justify-center">
-            <div class="flex h-36 w-36 flex-col items-center justify-center rounded-full border border-amber-400/35 bg-gradient-to-br from-amber-400/15 via-teal-600/10 to-transparent text-center p-3">
-              <i class="fa-solid fa-fish text-3xl text-amber-300 mb-1.5"></i>
-              <span class="font-display text-base font-bold text-amber-100">مسكوف دجلة</span>
-              <span class="text-[11px] text-stone-300">جمر الصفصاف</span>
-            </div>
-          </div>
-
-          <h2 class="font-display text-xl font-bold text-stone-50">مسكوف دجلة الملكي على أخشاب الصفصاف</h2>
-          <p class="mt-1.5 text-xs sm:text-sm leading-relaxed text-stone-300">
-            سمك قطّان طازج مشقوق ومشوي ببطء على أخشاب الصفصاف العطرية مع تتبيلة تمر الهند والكركم والملح الخشن، يُقدم مع حامض وبصل مشوي.
-          </p>
-
-          <div class="mt-5 flex items-center justify-between border-t border-amber-400/15 pt-4">
-            <div>
-              <span class="block text-sm font-black text-amber-300">45,000 د.ع</span>
-              <span class="text-[11px] text-stone-400">حوالي $34 USD</span>
-            </div>
-            <button
-              type="button"
-              data-add-dish="dish-masgouf"
-              class="btn-meso-gold inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs cursor-pointer"
-            >
-              <i class="fa-solid fa-plus"></i>
-              <span>أضف للسلة</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       ٤. رحلة التذوق الرافدينية التفاعلية (4 محطات)
-       ===================================================================== -->
-  <section id="tasting-journey" class="py-16 sm:py-20 border-t border-amber-400/10 bg-white/[0.015]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl text-center reveal-card">
-        <span class="inline-block rounded-full border border-amber-400/30 bg-amber-400/10 px-3.5 py-1 text-xs font-bold text-amber-300">
-          رحلة التذوق الرافدينية
-        </span>
-        <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold">
-          أربع محطات <span class="gold-text">للكرم والنكهة العراقية</span>
-        </h2>
-        <p class="mt-3 text-sm sm:text-base text-stone-300">
-          اختر أي محطة للاطلاع على تفاصيل التجربة كما صُممت في ديوان الرافدين الملكي.
-        </p>
-      </div>
-
-      <!-- أزرار المحطات الأربع -->
-      <div id="journeyTabs" class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 reveal-card" role="tablist" aria-label="محطات رحلة التذوق الرافدينية">
-        <button type="button" data-journey="0" class="journey-btn rounded-2xl border border-amber-400/25 bg-white/5 px-4 py-3 text-xs sm:text-sm font-bold text-stone-200 transition cursor-pointer">
-          ١. الاستقبال والهيل
-        </button>
-        <button type="button" data-journey="1" class="journey-btn rounded-2xl border border-amber-400/25 bg-white/5 px-4 py-3 text-xs sm:text-sm font-bold text-stone-200 transition cursor-pointer">
-          ٢. كبة الموصل والمقبلات
-        </button>
-        <button type="button" data-journey="2" class="journey-btn rounded-2xl border border-amber-400/25 bg-white/5 px-4 py-3 text-xs sm:text-sm font-bold text-stone-200 transition cursor-pointer">
-          ٣. المسكوف والولائم
-        </button>
-        <button type="button" data-journey="3" class="journey-btn rounded-2xl border border-amber-400/25 bg-white/5 px-4 py-3 text-xs sm:text-sm font-bold text-stone-200 transition cursor-pointer">
-          ٤. الكاهي والشاي العراقي
-        </button>
-      </div>
-
-      <!-- بطاقة تفاصيل المحطة النشطة -->
-      <div class="mt-6 glass-surface rounded-3xl p-6 sm:p-8 reveal-card">
-        <div class="grid grid-cols-1 items-center gap-6 lg:grid-cols-12">
-          <div class="lg:col-span-4 flex flex-col items-center justify-center rounded-2xl border border-amber-400/20 bg-amber-400/[0.04] p-6 text-center">
-            <span id="journeyBadge" class="rounded-full bg-teal-500/15 border border-teal-400/30 px-3 py-1 text-xs font-bold text-teal-300">المحطة الأولى</span>
-            <div class="my-5 flex h-24 w-24 items-center justify-center rounded-full border border-amber-400/35 bg-amber-400/10 text-amber-300">
-              <i id="journeyIcon" class="fa-solid fa-mug-hot text-3xl"></i>
-            </div>
-            <p id="journeyMeta" class="text-xs font-semibold text-stone-300">بغداد • ضيافة الديوان</p>
-          </div>
-
-          <div class="lg:col-span-8 space-y-4">
-            <h3 id="journeyTitle" class="font-display text-2xl sm:text-3xl font-bold text-amber-100"></h3>
-            <p id="journeyDescription" class="text-sm sm:text-base leading-relaxed text-stone-300"></p>
-            <ul id="journeyHighlights" class="space-y-2 text-xs sm:text-sm text-stone-200 bg-black/25 rounded-2xl p-4 border border-amber-400/15 list-disc list-inside"></ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       ٥. قائمة الأطباق الملكية (بحث + فئات + إضافة للسلة)
-       ===================================================================== -->
-  <section id="menu" class="py-16 sm:py-20 border-t border-amber-400/10">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl text-center reveal-card">
-        <span class="inline-block rounded-full border border-amber-400/30 bg-amber-400/10 px-3.5 py-1 text-xs font-bold text-amber-300">
-          قائمة الأطباق الملكية
-        </span>
-        <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold">
-          أطباق عراقية <span class="gold-text">بروح رافدينية أصيلة</span>
-        </h2>
-        <p class="mt-3 text-sm sm:text-base text-stone-300">
-          صفِّ حسب الفئة أو ابحث عن طبقك المفضل وأضفه مباشرة إلى سلة التذوق.
-        </p>
-      </div>
-
-      <!-- فلاتر الفئات وحقل البحث -->
-      <div class="mt-8 glass-surface rounded-2xl p-4 sm:p-5 space-y-4 reveal-card">
-        <div class="flex flex-wrap gap-2" id="categoryFilterBar" role="tablist" aria-label="تصنيف الأطباق">
-          <button type="button" data-cat="all" class="cat-filter-btn rounded-xl border border-amber-400/30 px-4 py-2 text-xs sm:text-sm font-bold transition cursor-pointer">الكل</button>
-          <button type="button" data-cat="feasts" class="cat-filter-btn rounded-xl border border-amber-400/20 bg-white/5 px-4 py-2 text-xs sm:text-sm font-bold text-stone-200 hover:bg-amber-400/10 transition cursor-pointer">المسكوف والولائم</button>
-          <button type="button" data-cat="heritage" class="cat-filter-btn rounded-xl border border-amber-400/20 bg-white/5 px-4 py-2 text-xs sm:text-sm font-bold text-stone-200 hover:bg-amber-400/10 transition cursor-pointer">الأطباق التراثية</button>
-          <button type="button" data-cat="sweets" class="cat-filter-btn rounded-xl border border-amber-400/20 bg-white/5 px-4 py-2 text-xs sm:text-sm font-bold text-stone-200 hover:bg-amber-400/10 transition cursor-pointer">الحلويات والمشروبات</button>
-        </div>
-
-        <div class="relative">
-          <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-1/2 -translate-y-1/2 text-amber-300/75 text-sm"></i>
-          <input
-            id="dishSearchInput"
-            type="search"
-            placeholder="ابحث عن مسكوف، قوزي، دولمة، تشريب، كبة موصل، كاهي وكيمر، كليجة، شاي..."
-            class="w-full rounded-xl border border-amber-400/25 bg-black/35 py-2.5 pr-10 pl-10 text-sm text-stone-100 placeholder-stone-400 focus:border-amber-400 focus:outline-none"
-            aria-label="البحث في قائمة الأطباق"
-          />
-          <button id="clearDishSearchBtn" type="button" class="hidden absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-amber-300 cursor-pointer" aria-label="مسح البحث">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="mt-4 flex items-center justify-between text-xs sm:text-sm text-stone-300">
-        <span id="menuCounterText">عرض جميع الأطباق الملكية</span>
-        <button id="resetMenuBtn" type="button" class="hidden font-bold text-amber-300 hover:underline cursor-pointer">إعادة الضبط</button>
-      </div>
-
-      <!-- شبكة الأطباق -->
-      <div id="dishesGrid" class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
-
-      <!-- حالة عدم وجود نتائج -->
-      <div id="noDishesFound" class="hidden mt-8 glass-surface rounded-2xl p-10 text-center">
-        <i class="fa-solid fa-utensils text-3xl text-amber-300 mb-3"></i>
-        <h3 class="text-lg font-bold text-stone-100">لا توجد أطباق مطابقة لبحثك</h3>
-        <p class="mt-1 text-sm text-stone-400">جرّب كلمة بحث أخرى أو اختر فئة "الكل".</p>
-        <button id="emptyStateResetBtn" type="button" class="btn-meso-gold mt-4 rounded-xl px-5 py-2.5 text-xs sm:text-sm cursor-pointer">
-          عرض كل الأطباق
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       ٦. مجالس الديوان (مجلس دجلة، فناء بابل، قاعة كلكامش)
-       ===================================================================== -->
-  <section id="majalis" class="py-16 sm:py-20 border-t border-amber-400/10 bg-white/[0.015]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl text-center reveal-card">
-        <span class="inline-block rounded-full border border-teal-400/30 bg-teal-500/10 px-3.5 py-1 text-xs font-bold text-teal-300">
-          مجالس الديوان الملكي
-        </span>
-        <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold">
-          مساحات ضيافة <span class="gold-text">مستوحاة من الرافدين</span>
-        </h2>
-      </div>
-
-      <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-        <div class="glass-surface rounded-2xl p-6 reveal-card">
-          <div class="mb-4 flex h-28 items-center justify-center rounded-xl bg-teal-500/10 border border-teal-400/20 text-teal-300">
-            <i class="fa-solid fa-water text-3xl"></i>
-          </div>
-          <h3 class="font-display text-xl font-bold text-amber-100">مجلس دجلة</h3>
-          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-stone-300">
-            إطلالة هادئة وأجواء دافئة مثالية للقاءات العائلية وجلسات المسكوف وشاي نومي بصرة.
-          </p>
-        </div>
-
-        <div class="glass-surface rounded-2xl p-6 reveal-card">
-          <div class="mb-4 flex h-28 items-center justify-center rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-300">
-            <i class="fa-solid fa-archway text-3xl"></i>
-          </div>
-          <h3 class="font-display text-xl font-bold text-amber-100">فناء بابل</h3>
-          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-stone-300">
-            فناء أنيق بلمسات معمارية رافدينية وإضاءة ذهبية لطيفة للولائم والأمسيات الخاصة.
-          </p>
-        </div>
-
-        <div class="glass-surface rounded-2xl p-6 reveal-card">
-          <div class="mb-4 flex h-28 items-center justify-center rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-300">
-            <i class="fa-solid fa-crown text-3xl"></i>
-          </div>
-          <h3 class="font-display text-xl font-bold text-amber-100">قاعة كلكامش</h3>
-          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-stone-300">
-            قاعة ملكية رحبة للولائم الكبرى والمناسبات الرسمية وضيافة كبار الضيوف بأعلى مستوى.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       ٧. التواصل والتذييل الملكي (استوديو B7r لتطوير المواقع)
-       ===================================================================== -->
-  <footer id="contact" class="border-t border-amber-400/15 bg-[#070709] pt-14 pb-8">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 gap-8 md:grid-cols-3">
-      <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-amber-400/35 bg-amber-400/10 text-amber-300">
-            <i class="fa-solid fa-crown"></i>
-          </div>
-          <div>
-            <p class="font-display text-lg font-bold gold-text">ديوان الرافدين الملكي</p>
-            <p class="text-[11px] text-amber-200/75">DIWAN AL-RAFIDAIN ROYAL</p>
-          </div>
-        </div>
-        <p class="text-xs sm:text-sm leading-relaxed text-stone-400">
-          وجهة ضيافة عراقية أصيلة في قلب بغداد، مقدّمة بتجربة ويب حديثة من <strong class="text-amber-300">استوديو B7r لتطوير المواقع</strong>.
-        </p>
-      </div>
-
-      <div class="space-y-2 text-xs sm:text-sm text-stone-300">
-        <h3 class="font-bold text-amber-200 mb-2">العنوان والمواعيد</h3>
-        <p><i class="fa-solid fa-location-dot text-amber-400 ml-1.5"></i>بغداد — الكرادة، شارع أبي نؤاس</p>
-        <p><i class="fa-regular fa-clock text-amber-400 ml-1.5"></i>يومياً من ١:٠٠ ظهراً حتى ١:٠٠ بعد منتصف الليل</p>
-        <p dir="ltr" class="text-right"><i class="fa-solid fa-phone text-amber-400 ml-1.5"></i>+964 770 274 8800</p>
-      </div>
-
-      <div class="space-y-3">
-        <h3 class="font-bold text-amber-200">احجز مجلسك أو استعرض سلتك</h3>
-        <div class="flex flex-wrap gap-2.5">
-          <button id="openMajlisFooterBtn" type="button" class="btn-meso-gold inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs cursor-pointer">
-            <i class="fa-regular fa-calendar-check"></i>
-            <span>حجز مجلس ملكي</span>
-          </button>
-          <button id="openBagFooterBtn" type="button" class="inline-flex items-center gap-2 rounded-xl border border-amber-400/30 bg-white/5 px-4 py-2.5 text-xs font-bold text-amber-200 hover:bg-amber-400/10 transition cursor-pointer">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span>سلة التذوق</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="mx-auto mt-10 max-w-7xl border-t border-amber-400/10 px-4 pt-6 text-center sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-stone-400">
-      <p>© <span id="footerYear">2026</span> ديوان الرافدين الملكي (DIWAN AL-RAFIDAIN ROYAL). جميع الحقوق محفوظة.</p>
-      <p>صُمم وطُوّر بواسطة <strong class="text-amber-300">استوديو B7r لتطوير المواقع</strong> • B7r Web Development Studio</p>
-    </div>
-  </footer>
-
-  <!-- =====================================================================
-       ٨. درج سلة التذوق الجانبي (Tasting Bag Drawer)
-       ===================================================================== -->
-  <div id="bagOverlay" class="hidden fixed inset-0 z-70 bg-black/70 backdrop-blur-xs"></div>
-
-  <aside id="tastingBagDrawer" class="tasting-drawer" aria-label="سلة التذوق" aria-hidden="true">
-    <div class="flex items-center justify-between border-b border-amber-400/20 px-5 py-4">
-      <div>
-        <h2 class="text-base font-extrabold text-stone-100">سلة التذوق</h2>
-        <p id="bagDrawerSubtitle" class="text-xs text-stone-400">0 أطباق مختارة</p>
-      </div>
-      <button id="closeBagBtn" type="button" class="flex h-9 w-9 items-center justify-center rounded-xl border border-amber-400/20 text-stone-300 hover:text-amber-300 cursor-pointer" aria-label="إغلاق سلة التذوق">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-
-    <div id="bagItemsContainer" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
-
-    <div id="bagEmptyBox" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
-      <i class="fa-solid fa-bag-shopping text-3xl text-amber-300/65 mb-3"></i>
-      <p class="text-sm font-bold text-stone-200">سلة التذوق فارغة حالياً</p>
-      <p class="mt-1 text-xs text-stone-400">أضف أطباقك العراقية المفضلة من القائمة.</p>
-    </div>
-
-    <div id="bagSummaryBox" class="hidden border-t border-amber-400/20 bg-black/30 p-5 space-y-3">
-      <div class="flex items-center justify-between text-xs text-stone-300">
-        <span>المجموع الفرعي</span>
-        <span id="bagSubtotalIqd" class="font-bold text-amber-200">0 د.ع</span>
-      </div>
-      <div class="flex items-center justify-between text-xs text-stone-400">
-        <span>التقدير بالدولار الأمريكي</span>
-        <span id="bagSubtotalUsd">$0 USD</span>
-      </div>
-      <button id="checkoutBagBtn" type="button" class="btn-meso-gold flex w-full items-center justify-center gap-2 rounded-xl py-3 text-xs sm:text-sm cursor-pointer">
-        <i class="fa-solid fa-check-circle"></i>
-        <span>تأكيد الطلب والانتقال للحجز</span>
-      </button>
-    </div>
-  </aside>
-
-  <!-- =====================================================================
-       ٩. نافذة حجز مجلس ملكي (Majlis & Table Reservation Modal)
-       ===================================================================== -->
-  <div id="majlisModal" class="hidden fixed inset-0 z-80 flex items-center justify-center bg-black/75 backdrop-blur-xs p-4" role="dialog" aria-modal="true" aria-labelledby="majlisModalHeading">
-    <div class="glass-surface w-full max-w-lg rounded-3xl p-6 sm:p-7 max-h-[92vh] overflow-y-auto">
-      <div class="flex items-start justify-between gap-3 border-b border-amber-400/15 pb-4">
-        <div>
-          <span class="text-xs font-bold text-teal-300">حجز مجلس ملكي</span>
-          <h2 id="majlisModalHeading" class="font-display text-2xl font-bold text-stone-50">حجز مجلس أو طاولة</h2>
-        </div>
-        <button id="closeMajlisModalBtn" type="button" class="flex h-9 w-9 items-center justify-center rounded-xl border border-amber-400/20 text-stone-300 hover:text-amber-300 cursor-pointer" aria-label="إغلاق نافذة الحجز">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <form id="majlisForm" class="mt-5 space-y-4" novalidate>
-        <div>
-          <label for="majlisGuestName" class="block text-xs font-bold text-amber-100 mb-1.5">اسم الضيف الكامل <span class="text-amber-400">*</span></label>
-          <input id="majlisGuestName" type="text" placeholder="مثال: زيد العراقي" class="w-full rounded-xl border border-amber-400/25 bg-black/35 px-3.5 py-2.5 text-sm text-stone-100 focus:border-amber-400 focus:outline-none" />
-          <p id="majlisNameErr" class="mt-1 text-xs text-rose-400"></p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label for="majlisGuestContact" class="block text-xs font-bold text-amber-100 mb-1.5">رقم الهاتف أو البريد <span class="text-amber-400">*</span></label>
-            <input id="majlisGuestContact" type="text" placeholder="077XXXXXXXX أو name@example.com" class="w-full rounded-xl border border-amber-400/25 bg-black/35 px-3.5 py-2.5 text-sm text-stone-100 focus:border-amber-400 focus:outline-none" />
-            <p id="majlisContactErr" class="mt-1 text-xs text-rose-400"></p>
-          </div>
-
-          <div>
-            <label for="majlisDate" class="block text-xs font-bold text-amber-100 mb-1.5">التاريخ <span class="text-amber-400">*</span></label>
-            <input id="majlisDate" type="date" class="w-full rounded-xl border border-amber-400/25 bg-black/35 px-3.5 py-2.5 text-sm text-stone-100 focus:border-amber-400 focus:outline-none" />
-            <p id="majlisDateErr" class="mt-1 text-xs text-rose-400"></p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label for="majlisGuestsCount" class="block text-xs font-bold text-amber-100 mb-1.5">عدد الضيوف</label>
-            <select id="majlisGuestsCount" class="w-full rounded-xl border border-amber-400/25 bg-[#17171d] px-3.5 py-2.5 text-sm text-stone-100 focus:border-amber-400 focus:outline-none">
-              <option value="2 ضيوف">٢ ضيوف</option>
-              <option value="4 ضيوف" selected>٤ ضيوف</option>
-              <option value="6 ضيوف">٦ ضيوف</option>
-              <option value="10 ضيوف">١٠ ضيوف</option>
-              <option value="16 ضيفاً">١٦ ضيفاً</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="majlisAreaSelect" class="block text-xs font-bold text-amber-100 mb-1.5">اختيار المجلس</label>
-            <select id="majlisAreaSelect" class="w-full rounded-xl border border-amber-400/25 bg-[#17171d] px-3.5 py-2.5 text-sm text-stone-100 focus:border-amber-400 focus:outline-none">
-              <option value="مجلس دجلة" selected>مجلس دجلة</option>
-              <option value="فناء بابل">فناء بابل</option>
-              <option value="قاعة كلكامش">قاعة كلكامش</option>
-            </select>
-          </div>
-        </div>
-
-        <button type="submit" class="btn-meso-gold flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm cursor-pointer">
-          <i class="fa-solid fa-calendar-check"></i>
-          <span>تأكيد حجز المجلس الملكي</span>
-        </button>
-      </form>
-
-      <div id="majlisConfirmationView" class="hidden mt-5 text-center space-y-4">
-        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal-500/20 text-teal-300 border border-teal-400/35">
-          <i class="fa-solid fa-check text-2xl"></i>
-        </div>
-        <h3 class="font-display text-2xl font-bold text-amber-100">تم تأكيد حجز المجلس بنجاح</h3>
-        <div id="majlisSummaryDetails" class="rounded-2xl border border-amber-400/20 bg-black/30 p-4 text-right text-xs sm:text-sm space-y-1.5 text-stone-200"></div>
-        <div class="flex justify-center gap-3 pt-2">
-          <button id="bookAnotherMajlisBtn" type="button" class="rounded-xl border border-amber-400/30 bg-white/5 px-4 py-2 text-xs font-bold text-amber-200 cursor-pointer">حجز جديد</button>
-          <button id="finishMajlisModalBtn" type="button" class="btn-meso-gold rounded-xl px-5 py-2 text-xs cursor-pointer">تم</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- حاوية الإشعارات -->
-  <div id="toastBannerArea" class="fixed bottom-5 left-5 z-90 flex flex-col gap-2 max-w-sm pointer-events-none" aria-live="polite"></div>
-
-  <!-- =====================================================================
-       ١٠. الجافاسكريبت الكامل والمستقل
-       ===================================================================== -->
-  <script>
-    (function () {
-      "use strict";
-
-      /* -------------------------------------------------------------------
-         ٥. رسم علم العراق المتموج سينمائياً مطابق للعلم المرفق بدقة عالية
-            - ثلاثة أشرطة أفقية متساوية: أحمر (#ce1126)، أبيض (#ffffff)، أسود (#000000)
-            - عبارة "الله أكبر" بالخط العربي الأخضر (#007a3d) في وسط الشريط الأبيض
-            - محاكاة قماشية عالية الدقة عبر SVG متجهي يترجم إلى Canvas ثم يشوّه بموجات الرياح والظلال والإضاءة
-         ------------------------------------------------------------------- */
-      function initWavingIraqiFlag() {
-        const canvas = document.getElementById("iraqiFlagCanvas");
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        // أبعاد عالية الدقة (2x) لضمان حدة الخط العربي وتفاصيل القماش
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const logicalW = 360;
-        const logicalH = 220;
-        canvas.width = logicalW * dpr;
-        canvas.height = logicalH * dpr;
-
-        const flagWidth = 360;
-        const flagHeight = 240;
-        const stripeHeight = flagHeight / 3;
-
-        // بناء مصدر SVG عالي الدقة يطابق نسب وألوان وخط العلم العراقي المرفق ("الله أكبر" باللون الأخضر في وسط الشريط الأبيض)
-        const svgMarkup = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${flagWidth} ${flagHeight}" width="${flagWidth}" height="${flagHeight}">
-            <rect x="0" y="0" width="${flagWidth}" height="${stripeHeight}" fill="#ce1126" />
-            <rect x="0" y="${stripeHeight}" width="${flagWidth}" height="${stripeHeight}" fill="#ffffff" />
-            <rect x="0" y="${stripeHeight * 2}" width="${flagWidth}" height="${stripeHeight}" fill="#000000" />
-            <text
-              x="${flagWidth / 2}"
-              y="${stripeHeight * 1.5}"
-              fill="#007a3d"
-              font-family="'Amiri', 'Cairo', 'Traditional Arabic', serif"
-              font-size="38"
-              font-weight="700"
-              text-anchor="middle"
-              dominant-baseline="central"
-              direction="rtl"
-            >الله أكبر</text>
-          </svg>
-        `.trim();
-
-        const svgDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgMarkup)}`;
-
-        // لوحة أوف-سكرين عالية الدقة لتخزين القماش المستوي قبل تطبيق تشويه الرياح
-        const flatBuffer = document.createElement("canvas");
-        flatBuffer.width = flagWidth * dpr;
-        flatBuffer.height = flagHeight * dpr;
-        const fctx = flatBuffer.getContext("2d");
-
-        // رسم احتياطي فوري لضمان ظهور العلم مباشرة دون انتظار تحميل الصورة
-        function drawFallbackFlatFlag() {
-          if (!fctx) return;
-          fctx.save();
-          fctx.scale(dpr, dpr);
-          fctx.fillStyle = "#ce1126";
-          fctx.fillRect(0, 0, flagWidth, stripeHeight);
-          fctx.fillStyle = "#ffffff";
-          fctx.fillRect(0, stripeHeight, flagWidth, stripeHeight);
-          fctx.fillStyle = "#000000";
-          fctx.fillRect(0, stripeHeight * 2, flagWidth, stripeHeight);
-          fctx.fillStyle = "#007a3d";
-          fctx.font = "700 38px 'Amiri', 'Cairo', serif";
-          fctx.textAlign = "center";
-          fctx.textBaseline = "middle";
-          fctx.fillText("الله أكبر", flagWidth / 2, stripeHeight * 1.5);
-          fctx.restore();
-        }
-
-        drawFallbackFlatFlag();
-
-        const svgImg = new Image();
-        svgImg.onload = function () {
-          if (!fctx) return;
-          fctx.clearRect(0, 0, flatBuffer.width, flatBuffer.height);
-          fctx.save();
-          fctx.scale(dpr, dpr);
-          fctx.drawImage(svgImg, 0, 0, flagWidth, flagHeight);
-          fctx.restore();
-        };
-        svgImg.src = svgDataUrl;
-
-        const reducedMotion =
-          window.matchMedia &&
-          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-        const startTime = performance.now();
-
-        function renderClothMesh(now) {
-          const elapsed = (now - startTime) * 0.001;
-          const windPhase = reducedMotion ? 0.55 : elapsed * 3.1;
-
-          ctx.save();
-          ctx.scale(dpr, dpr);
-          ctx.clearRect(0, 0, logicalW, logicalH);
-
-          // مواءمة أبعاد العلم بالكامل داخل الكانفاس بحيث تظهر الأشرطة الثلاثة والكتابة كاملة دون قص
-          const originX = 10;
-          const originY = 14;
-          const renderW = logicalW - 18;
-          const renderH = logicalH - 28;
-
-          // شبكة أعمدة قماشية رفيعة لتمثيل انحناء الرياح وطيات القماش
-          const cols = 90;
-          const colW = renderW / cols;
-          const srcColW = flatBuffer.width / cols;
-
-          for (let i = 0; i < cols; i++) {
-            const u = i / cols; // 0 عند السارية، 1 عند الطرف الحر
-            const xNorm = i * colW;
-            const xDest = originX + xNorm;
-
-            // تثبيت حافة السارية وتقليل سعة الموجة الرأسية حتى لا يخرج الشريط الأسود خارج الإطار
-            const hoistPin = Math.pow(u, 1.2);
-            const waveAmp = (0.8 + hoistPin * 4.2) * (reducedMotion ? 0.3 : 1);
-
-            const wave1 = Math.sin(u * 6.4 - windPhase);
-            const wave2 = Math.sin(u * 11.8 - windPhase * 1.25 + 0.6) * 0.25;
-            const displacement = wave1 + wave2;
-
-            const yOffset = displacement * waveAmp * 0.52;
-            const foreshortenScaleX = 1 - Math.abs(Math.cos(u * 6.4 - windPhase)) * 0.03 * hoistPin;
-
-            const yDest = originY + yOffset;
-            const sliceDestW = Math.max(1.2, colW * foreshortenScaleX + 0.45);
-
-            ctx.drawImage(
-              flatBuffer,
-              i * srcColW,
-              0,
-              srcColW,
-              flatBuffer.height,
-              xDest,
-              yDest,
-              sliceDestW,
-              renderH
-            );
-
-            // حساب ميل الموجة لإبراز القمم المضيئة والوديان المظللة في طيات القماش
-            const slope = Math.cos(u * 6.4 - windPhase);
-            if (slope > 0) {
-              const highlightAlpha = Math.min(0.18, slope * 0.15 * (0.25 + hoistPin * 0.75));
-              ctx.fillStyle = `rgba(255, 252, 240, ${highlightAlpha.toFixed(3)})`;
-            } else {
-              const shadowAlpha = Math.min(0.22, Math.abs(slope) * 0.19 * (0.25 + hoistPin * 0.75));
-              ctx.fillStyle = `rgba(8, 8, 12, ${shadowAlpha.toFixed(3)})`;
-            }
-            ctx.fillRect(xDest, yDest, sliceDestW, renderH);
-          }
-
-          // ظل خفيف قرب السارية لإبراز عمق تثبيت القماش
-          const hoistShadow = ctx.createLinearGradient(originX, 0, originX + 24, 0);
-          hoistShadow.addColorStop(0, "rgba(0, 0, 0, 0.28)");
-          hoistShadow.addColorStop(1, "rgba(0, 0, 0, 0)");
-          ctx.fillStyle = hoistShadow;
-          ctx.fillRect(originX, originY - 4, 24, renderH + 8);
-
-          ctx.restore();
-
-          if (!reducedMotion) {
-            requestAnimationFrame(renderClothMesh);
-          }
-        }
-
-        requestAnimationFrame(renderClothMesh);
-      }
-
-      /* -------------------------------------------------------------------
-         ٦. رحلة التذوق الرافدينية (4 محطات)
-         ------------------------------------------------------------------- */
-      function setJourneyStage(index) {
-        const count = TASTING_STAGES.length;
-        const safeIndex = ((index % count) + count) % count;
-        appState.stage = safeIndex;
-        const item = TASTING_STAGES[safeIndex];
-
-        document.querySelectorAll(".journey-btn").forEach((btn, i) => {
-          const active = i === safeIndex;
-          btn.classList.toggle("bg-amber-400", active);
-          btn.classList.toggle("text-stone-950", active);
-          btn.classList.toggle("border-amber-300", active);
-        });
-
-        const badge = document.getElementById("journeyBadge");
-        const icon = document.getElementById("journeyIcon");
-        const meta = document.getElementById("journeyMeta");
-        const title = document.getElementById("journeyTitle");
-        const desc = document.getElementById("journeyDescription");
-        const highlights = document.getElementById("journeyHighlights");
-
-        if (badge) badge.textContent = item.badge;
-        if (icon) icon.className = `fa-solid ${item.icon} text-3xl`;
-        if (meta) meta.textContent = item.meta;
-        if (title) title.textContent = item.title;
-        if (desc) desc.textContent = item.description;
-        if (highlights) {
-          highlights.innerHTML = item.highlights.map((h) => `<li>${h}</li>`).join("");
-        }
-      }
-
-      function initJourneyTabs() {
-        document.querySelectorAll(".journey-btn").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            setJourneyStage(Number(btn.getAttribute("data-journey")));
-          });
-        });
-        setJourneyStage(0);
-      }
-
-      /* -------------------------------------------------------------------
-         ٧. قائمة الأطباق الملكية (فئات + بحث + إضافة للسلة)
-         ------------------------------------------------------------------- */
-      function getMatchingDishes() {
-        const term = appState.search.trim().toLowerCase();
-        return IRAQI_DISHES.filter((dish) => {
-          const catMatch = appState.category === "all" || dish.category === appState.category;
-          const textMatch =
-            !term ||
-            dish.name.toLowerCase().includes(term) ||
-            dish.description.toLowerCase().includes(term) ||
-            dish.badge.toLowerCase().includes(term);
-          return catMatch && textMatch;
-        });
-      }
-
-      function renderDishes() {
-        const grid = document.getElementById("dishesGrid");
-        const emptyBox = document.getElementById("noDishesFound");
-        const counter = document.getElementById("menuCounterText");
-        const resetBtn = document.getElementById("resetMenuBtn");
-        const clearBtn = document.getElementById("clearDishSearchBtn");
-
-        if (!grid) return;
-        const list = getMatchingDishes();
-        const isFiltered = appState.category !== "all" || appState.search.trim().length > 0;
-
-        if (resetBtn) resetBtn.classList.toggle("hidden", !isFiltered);
-        if (clearBtn) clearBtn.classList.toggle("hidden", appState.search.trim().length === 0);
-        if (counter) {
-          counter.textContent =
-            list.length === IRAQI_DISHES.length
-              ? `عرض جميع الأطباق الملكية (${list.length} أطباق)`
-              : `تم العثور على ${list.length} طبق`;
-        }
-
-        if (list.length === 0) {
-          grid.innerHTML = "";
-          if (emptyBox) emptyBox.classList.remove("hidden");
-          return;
-        }
-
-        if (emptyBox) emptyBox.classList.add("hidden");
-
-        grid.innerHTML = list
-          .map(
-            (dish) => `
-              <article class="glass-surface rounded-2xl p-5 flex flex-col justify-between gap-4 hover:border-amber-400/45 transition">
-                <div>
-                  <div class="flex items-center justify-between gap-2 mb-3">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-400/15 text-amber-300">
-                      <i class="fa-solid ${dish.icon} text-lg"></i>
-                    </div>
-                    <span class="rounded-full border border-teal-400/25 bg-teal-500/10 px-2.5 py-0.5 text-[11px] font-bold text-teal-300">
-                      ${dish.badge}
-                    </span>
-                  </div>
-                  <h3 class="text-base sm:text-lg font-bold text-stone-50">${dish.name}</h3>
-                  <p class="mt-1.5 text-xs sm:text-sm leading-relaxed text-stone-300">${dish.description}</p>
-                </div>
-
-                <div class="flex items-center justify-between gap-2 border-t border-amber-400/15 pt-3.5">
-                  <div>
-                    <span class="block text-sm sm:text-base font-black text-amber-300">${formatIQD(dish.iqd)}</span>
-                    <span class="text-[11px] text-stone-400">~$${dish.usd} USD</span>
-                  </div>
-                  <button
-                    type="button"
-                    data-add-dish="${dish.id}"
-                    class="btn-meso-gold inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs cursor-pointer"
-                  >
-                    <i class="fa-solid fa-plus"></i>
-                    <span>أضف للسلة</span>
-                  </button>
-                </div>
-              </article>
-            `
-          )
-          .join("");
-      }
-
-      function clearMenuFilters() {
-        appState.category = "all";
-        appState.search = "";
-        const input = document.getElementById("dishSearchInput");
-        if (input) input.value = "";
-        document.querySelectorAll(".cat-filter-btn").forEach((btn) => {
-          const active = btn.getAttribute("data-cat") === "all";
-          btn.classList.toggle("bg-amber-400", active);
-          btn.classList.toggle("text-stone-950", active);
-        });
-        renderDishes();
-      }
-
-      function initMenuFilters() {
-        document.querySelectorAll(".cat-filter-btn").forEach((btn, idx) => {
-          if (idx === 0) btn.classList.add("bg-amber-400", "text-stone-950");
-          btn.addEventListener("click", () => {
-            appState.category = btn.getAttribute("data-cat") || "all";
-            document.querySelectorAll(".cat-filter-btn").forEach((b) => {
-              const active = b === btn;
-              b.classList.toggle("bg-amber-400", active);
-              b.classList.toggle("text-stone-950", active);
-            });
-            renderDishes();
-          });
-        });
-
-        const searchInput = document.getElementById("dishSearchInput");
-        if (searchInput) {
-          searchInput.addEventListener("input", (e) => {
-            appState.search = e.target.value || "";
-            renderDishes();
-          });
-        }
-
-        const clearBtn = document.getElementById("clearDishSearchBtn");
-        if (clearBtn) {
-          clearBtn.addEventListener("click", () => {
-            appState.search = "";
-            if (searchInput) searchInput.value = "";
-            renderDishes();
-          });
-        }
-
-        const resetBtn = document.getElementById("resetMenuBtn");
-        const emptyResetBtn = document.getElementById("emptyStateResetBtn");
-        if (resetBtn) resetBtn.addEventListener("click", clearMenuFilters);
-        if (emptyResetBtn) emptyResetBtn.addEventListener("click", clearMenuFilters);
-
-        document.addEventListener("click", (e) => {
-          const btn = e.target.closest("[data-add-dish]");
-          if (btn) {
-            addToBag(btn.getAttribute("data-add-dish"));
-          }
-        });
-
-        renderDishes();
-      }
-
-      /* -------------------------------------------------------------------
-         ٨. سلة التذوق الجانبية
-         ------------------------------------------------------------------- */
-      function addToBag(dishId) {
-        const dish = IRAQI_DISHES.find((d) => d.id === dishId);
-        if (!dish) return;
-        const existing = appState.bag.find((item) => item.id === dish.id);
-        if (existing) {
-          existing.qty += 1;
-        } else {
-          appState.bag.push({
-            id: dish.id,
-            name: dish.name,
-            iqd: dish.iqd,
-            usd: dish.usd,
-            qty: 1
-          });
-        }
-        persistBag();
-        renderBagDrawer();
-        const badge = document.getElementById("bagCountBadge");
-        if (badge) {
-          badge.classList.add("bump");
-          setTimeout(() => badge.classList.remove("bump"), 200);
-        }
-        showToast(`تمت إضافة "${dish.name}" إلى سلة التذوق`, "fa-bag-shopping");
-      }
-
-      function adjustBagQty(dishId, delta) {
-        const index = appState.bag.findIndex((i) => i.id === dishId);
-        if (index === -1) return;
-        appState.bag[index].qty += delta;
-        if (appState.bag[index].qty <= 0) {
-          appState.bag.splice(index, 1);
-        }
-        persistBag();
-        renderBagDrawer();
-      }
-
-      function deleteBagItem(dishId) {
-        appState.bag = appState.bag.filter((i) => i.id !== dishId);
-        persistBag();
-        renderBagDrawer();
-      }
-
-      function renderBagDrawer() {
-        const totalQty = appState.bag.reduce((sum, i) => sum + i.qty, 0);
-        const totalIqd = appState.bag.reduce((sum, i) => sum + i.iqd * i.qty, 0);
-        const totalUsd = appState.bag.reduce((sum, i) => sum + i.usd * i.qty, 0);
-
-        const badge = document.getElementById("bagCountBadge");
-        const subtitle = document.getElementById("bagDrawerSubtitle");
-        const itemsWrap = document.getElementById("bagItemsContainer");
-        const emptyBox = document.getElementById("bagEmptyBox");
-        const summaryBox = document.getElementById("bagSummaryBox");
-
-        if (badge) badge.textContent = String(totalQty);
-        if (subtitle) {
-          subtitle.textContent =
-            totalQty > 0 ? `${totalQty} ${totalQty === 1 ? "طبق مختار" : "أطباق مختارة"}` : "0 أطباق مختارة";
-        }
-
-        const isEmpty = appState.bag.length === 0;
-        if (emptyBox) emptyBox.classList.toggle("hidden", !isEmpty);
-        if (summaryBox) summaryBox.classList.toggle("hidden", isEmpty);
-        if (itemsWrap) itemsWrap.classList.toggle("hidden", isEmpty);
-
-        if (!isEmpty && itemsWrap) {
-          itemsWrap.innerHTML = appState.bag
-            .map(
-              (item) => `
-                <div class="flex items-center justify-between gap-2 rounded-2xl border border-amber-400/20 bg-white/[0.03] p-3.5">
-                  <div class="min-w-0">
-                    <p class="truncate text-xs sm:text-sm font-bold text-stone-100">${item.name}</p>
-                    <p class="text-xs font-extrabold text-amber-300 mt-0.5">${formatIQD(item.iqd * item.qty)} <span class="text-stone-400 font-normal">(~$${item.usd * item.qty})</span></p>
-                  </div>
-                  <div class="flex items-center gap-1.5 shrink-0">
-                    <button type="button" data-dec-id="${item.id}" class="h-7 w-7 rounded-lg border border-amber-400/25 text-xs font-bold text-amber-200 hover:bg-amber-400/15 cursor-pointer" aria-label="إنقاص الكمية">−</button>
-                    <span class="w-5 text-center text-xs font-extrabold text-stone-100">${item.qty}</span>
-                    <button type="button" data-inc-id="${item.id}" class="h-7 w-7 rounded-lg border border-amber-400/25 text-xs font-bold text-amber-200 hover:bg-amber-400/15 cursor-pointer" aria-label="زيادة الكمية">+</button>
-                    <button type="button" data-del-id="${item.id}" class="mr-1 h-7 w-7 rounded-lg text-xs text-stone-400 hover:text-rose-400 cursor-pointer" aria-label="حذف الطبق">
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-              `
-            )
-            .join("");
-        }
-
-        const iqdEl = document.getElementById("bagSubtotalIqd");
-        const usdEl = document.getElementById("bagSubtotalUsd");
-        if (iqdEl) iqdEl.textContent = formatIQD(totalIqd);
-        if (usdEl) usdEl.textContent = `~$${totalUsd} USD`;
-      }
-
-      function setBagDrawerOpen(open) {
-        const drawer = document.getElementById("tastingBagDrawer");
-        const overlay = document.getElementById("bagOverlay");
-        if (!drawer || !overlay) return;
-        drawer.classList.toggle("is-open", open);
-        drawer.setAttribute("aria-hidden", String(!open));
-        overlay.classList.toggle("hidden", !open);
-        document.body.classList.toggle("drawer-open", open);
-      }
-
-      function initBagDrawer() {
-        const openBtn = document.getElementById("openBagBtn");
-        const openFooterBtn = document.getElementById("openBagFooterBtn");
-        const closeBtn = document.getElementById("closeBagBtn");
-        const overlay = document.getElementById("bagOverlay");
-        const list = document.getElementById("bagItemsContainer");
-        const checkoutBtn = document.getElementById("checkoutBagBtn");
-
-        if (openBtn) openBtn.addEventListener("click", () => setBagDrawerOpen(true));
-        if (openFooterBtn) openFooterBtn.addEventListener("click", () => setBagDrawerOpen(true));
-        if (closeBtn) closeBtn.addEventListener("click", () => setBagDrawerOpen(false));
-        if (overlay) overlay.addEventListener("click", () => setBagDrawerOpen(false));
-
-        if (list) {
-          list.addEventListener("click", (e) => {
-            const inc = e.target.closest("[data-inc-id]");
-            if (inc) return adjustBagQty(inc.getAttribute("data-inc-id"), 1);
-            const dec = e.target.closest("[data-dec-id]");
-            if (dec) return adjustBagQty(dec.getAttribute("data-dec-id"), -1);
-            const del = e.target.closest("[data-del-id]");
-            if (del) return deleteBagItem(del.getAttribute("data-del-id"));
-          });
-        }
-
-        if (checkoutBtn) {
-          checkoutBtn.addEventListener("click", () => {
-            setBagDrawerOpen(false);
-            setMajlisModalOpen(true);
-            showToast("تم تجهيز أطباقك — أكمل بيانات حجز المجلس", "fa-crown");
-          });
-        }
-
-        renderBagDrawer();
-      }
-
-      /* -------------------------------------------------------------------
-         ٩. نافذة حجز مجلس ملكي
-         ------------------------------------------------------------------- */
-      function setMajlisModalOpen(open) {
-        const modal = document.getElementById("majlisModal");
-        const dateInput = document.getElementById("majlisDate");
-        if (!modal) return;
-        if (open && dateInput && !dateInput.value) {
-          dateInput.value = new Date().toISOString().split("T")[0];
-        }
-        modal.classList.toggle("hidden", !open);
-        document.body.classList.toggle("modal-open", open);
-      }
-
-      function initMajlisModal() {
-        ["openMajlisNavBtn", "openMajlisMobileBtn", "openMajlisHeroBtn", "openMajlisFooterBtn"].forEach((id) => {
-          const el = document.getElementById(id);
-          if (el) el.addEventListener("click", () => setMajlisModalOpen(true));
-        });
-
-        const modal = document.getElementById("majlisModal");
-        const closeBtn = document.getElementById("closeMajlisModalBtn");
-        const finishBtn = document.getElementById("finishMajlisModalBtn");
-        const bookAgainBtn = document.getElementById("bookAnotherMajlisBtn");
-        const form = document.getElementById("majlisForm");
-        const confirmView = document.getElementById("majlisConfirmationView");
-
-        if (closeBtn) closeBtn.addEventListener("click", () => setMajlisModalOpen(false));
-        if (finishBtn) finishBtn.addEventListener("click", () => setMajlisModalOpen(false));
-        if (modal) {
-          modal.addEventListener("click", (e) => {
-            if (e.target === modal) setMajlisModalOpen(false);
-          });
-        }
-
-        if (bookAgainBtn && form && confirmView) {
-          bookAgainBtn.addEventListener("click", () => {
-            form.reset();
-            form.classList.remove("hidden");
-            confirmView.classList.add("hidden");
-          });
-        }
-
-        if (form) {
-          form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const nameInput = document.getElementById("majlisGuestName");
-            const contactInput = document.getElementById("majlisGuestContact");
-            const dateInput = document.getElementById("majlisDate");
-            const guestsSelect = document.getElementById("majlisGuestsCount");
-            const areaSelect = document.getElementById("majlisAreaSelect");
-
-            const nameErr = document.getElementById("majlisNameErr");
-            const contactErr = document.getElementById("majlisContactErr");
-            const dateErr = document.getElementById("majlisDateErr");
-
-            if (nameErr) nameErr.textContent = "";
-            if (contactErr) contactErr.textContent = "";
-            if (dateErr) dateErr.textContent = "";
-
-            let ok = true;
-            const nameVal = nameInput ? nameInput.value.trim() : "";
-            const contactVal = contactInput ? contactInput.value.trim() : "";
-            const dateVal = dateInput ? dateInput.value : "";
-
-            if (nameVal.length < 3) {
-              if (nameErr) nameErr.textContent = "يرجى إدخال اسم الضيف (٣ أحرف على الأقل).";
-              ok = false;
-            }
-            if (contactVal.length < 6) {
-              if (contactErr) contactErr.textContent = "يرجى إدخال رقم هاتف أو بريد إلكتروني صحيح.";
-              ok = false;
-            }
-            if (!dateVal) {
-              if (dateErr) dateErr.textContent = "يرجى اختيار تاريخ الحجز.";
-              ok = false;
-            }
-
-            if (!ok) return;
-
-            const refCode = `B7R-${Math.floor(1000 + Math.random() * 9000)}`;
-            const summary = document.getElementById("majlisSummaryDetails");
-            if (summary) {
-              summary.innerHTML = `
-                <div><strong>رقم الحجز:</strong> <span class="text-amber-300">${refCode}</span></div>
-                <div><strong>الضيف:</strong> ${nameVal}</div>
-                <div><strong>التواصل:</strong> <span dir="ltr">${contactVal}</span></div>
-                <div><strong>التاريخ:</strong> ${dateVal}</div>
-                <div><strong>عدد الضيوف:</strong> ${guestsSelect ? guestsSelect.value : "٤ ضيوف"}</div>
-                <div><strong>المجلس:</strong> ${areaSelect ? areaSelect.value : "مجلس دجلة"}</div>
-              `;
-            }
-
-            form.classList.add("hidden");
-            if (confirmView) confirmView.classList.remove("hidden");
-            showToast(`تم تأكيد حجز المجلس • ${refCode}`, "fa-calendar-check");
-          });
-        }
-      }
-
-      /* -------------------------------------------------------------------
-         ١٠. التنقل، التمرير، ظهور البطاقات، وتهيئة التطبيق
-         ------------------------------------------------------------------- */
-      function initChrome() {
-        const dismissBtn = document.getElementById("dismissPreloaderBtn");
-        if (dismissBtn) dismissBtn.addEventListener("click", closePreloaderNow);
-
-        const mobileBtn = document.getElementById("mobileMenuBtn");
-        const mobileDrawer = document.getElementById("mobileMenuDrawer");
-        const mobileIcon = document.getElementById("mobileMenuIcon");
-        if (mobileBtn && mobileDrawer) {
-          mobileBtn.addEventListener("click", () => {
-            const willOpen = mobileDrawer.classList.contains("hidden");
-            mobileDrawer.classList.toggle("hidden", !willOpen);
-            mobileBtn.setAttribute("aria-expanded", String(willOpen));
-            if (mobileIcon) {
-              mobileIcon.className = willOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars-staggered";
-            }
-          });
-          mobileDrawer.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", () => {
-              mobileDrawer.classList.add("hidden");
-              if (mobileIcon) mobileIcon.className = "fa-solid fa-bars-staggered";
-            });
-          });
-        }
-
-        const yearSpan = document.getElementById("footerYear");
-        if (yearSpan) yearSpan.textContent = String(new Date().getFullYear());
-
-        const cards = document.querySelectorAll(".reveal-card");
-        if ("IntersectionObserver" in window) {
-          const observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add("is-visible");
-                  observer.unobserve(entry.target);
+<!-- ... existing code ... -->
+    <div id="toastBannerArea" class="fixed bottom-5 left-5 z-90 flex flex-col gap-2 max-w-sm pointer-events-none" aria-live="polite"></div>
+
+    <!-- =====================================================================
+         ١٠. الجافاسكريبت الكامل والمستقل
+         ===================================================================== -->
+    <script>
+      // إغلاق فوري ومضمون لشاشة الدخول حتى لا تتوقف أبداً
+      (function forceDismissPreloaderEarly() {
+        function hideLoaderNow() {
+          try {
+            var loader = document.getElementById("royalPreloader");
+            if (loader) {
+              loader.classList.add("is-done");
+              loader.style.opacity = "0";
+              loader.style.visibility = "hidden";
+              loader.style.pointerEvents = "none";
+              setTimeout(function () {
+                if (loader && loader.parentNode) {
+                  loader.style.display = "none";
                 }
-              });
-            },
-            { threshold: 0.1 }
-          );
-          cards.forEach((c) => observer.observe(c));
-        } else {
-          cards.forEach((c) => c.classList.add("is-visible"));
+              }, 250);
+            }
+          } catch (_) {}
         }
 
-        window.addEventListener(
-          "scroll",
-          () => {
-            const scrollY = window.scrollY || document.documentElement.scrollTop;
-            const totalScrollable = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const bar = document.getElementById("scrollProgress");
-            if (bar && totalScrollable > 0) {
-              bar.style.width = `${Math.min(100, (scrollY / totalScrollable) * 100)}%`;
-            }
-          },
-          { passive: true }
-        );
-
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") {
-            setMajlisModalOpen(false);
-            setBagDrawerOpen(false);
-          }
+        if (document.readyState !== "loading") {
+          setTimeout(hideLoaderNow, 250);
+        } else {
+          document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(hideLoaderNow, 250);
+          });
+        }
+        window.addEventListener("load", function () {
+          setTimeout(hideLoaderNow, 150);
         });
-      }
+        setTimeout(hideLoaderNow, 650);
+        window.__hideRoyalPreloader = hideLoaderNow;
+      })();
+    </script>
 
-      initWavingIraqiFlag();
-      initJourneyTabs();
-      initMenuFilters();
-      initBagDrawer();
-      initMajlisModal();
-      initChrome();
-    })();
-  </script>
-</body>
+    <script>
+      (function () {
+        "use strict";
+
+        // بيانات رحلة التذوق الرافدينية (4 محطات)
+        var TASTING_STAGES = [
+          {
+            badge: "المحطة الأولى",
+            icon: "fa-mug-hot",
+            meta: "بغداد • ضيافة الديوان",
+            title: "استقبال الكرم والقهوة المعطرة بالهيل",
+            description:
+              "نستهل رحلتك في ديوان الرافدين الملكي بفناجين الهيل العراقي الأصيل والتمور الفاخرة مع ترحيب يليق بضيوف بلاد الرافدين.",
+            highlights: [
+              "قهوة عراقية وهيل طازج محمّص يومياً",
+              "تمور عراقية مختارة مع جوز محمص",
+              "أجواء ضيافة هادئة ومريحة"
+            ]
+          },
+          {
+            badge: "المحطة الثانية",
+            icon: "fa-circle-dot",
+            meta: "الموصل وبغداد • مقبلات",
+            title: "كبة الموصل المقرمشة ومقبلات الديوان",
+            description:
+              "ننتقل إلى النكهات الغنية مع كبة الموصل الذهبية المقرمشة والمتبلات العراقية والطرشي والعمبة والخبز الحار.",
+            highlights: [
+              "قشرة رقيقة مقرمشة وحشوة لحم وصنوبر",
+              "متبل باذنجان وعمبة بصرية أصلية",
+              "توازن متقن بين النكهات والتوابل"
+            ]
+          },
+          {
+            badge: "المحطة الثالثة",
+            icon: "fa-fish",
+            meta: "دجلة • أخشاب الصفصاف",
+            title: "مسكوف دجلة الملكي والولائم الكبرى",
+            description:
+              "قلب المائدة الرافدينية حيث يُشوى سمك القطّان على أخشاب الصفصاف العطرية إلى جانب قوزي الزعفران والدولمة الملكية.",
+            highlights: [
+              "شواء على أخشاب الصفصاف بنكهة مدخنة أصيلة",
+              "قوزي ضأن مطهو ببطء مع أرز بالزعفران والهيل",
+              "دولمة مطهوة بدبس الرمان والحامض"
+            ]
+          },
+          {
+            badge: "المحطة الرابعة",
+            icon: "fa-cake-candles",
+            meta: "الختام • كاهي وشاي",
+            title: "كاهي وكيمر وشاي نومي بصرة الأصيل",
+            description:
+              "نختتم الأمسية برقائق الكاهي الذهبية مع الكيمر الطازج وكليجة التمر والهيل، يليها شاي عراقي دافئ بنومي بصرة.",
+            highlights: [
+              "كاهي مقرمش مع كيمر كثيف طازج",
+              "كليجة عراقية معطرة بالهيل",
+              "شاي عراقي أصيل بنومي بصرة"
+            ]
+          }
+        ];
+
+        // قائمة الأطباق العراقية الملكية
+        var IRAQI_DISHES = [
+          {
+            id: "dish-masgouf",
+            name: "مسكوف دجلة الملكي على أخشاب الصفصاف",
+            category: "feasts",
+            badge: "المسكوف والولائم",
+            icon: "fa-fish",
+            iqd: 45000,
+            usd: 34,
+            description:
+              "سمك قطّان طازج مشقوق ومشوي ببطء على أخشاب الصفصاف العطرية مع تتبيلة تمر الهند والكركم والملح الخشن."
+          },
+          {
+            id: "dish-quzi",
+            name: "قوزي الضيافة بالزعفران واللوز والكشمش",
+            category: "feasts",
+            badge: "المسكوف والولائم",
+            icon: "fa-crown",
+            iqd: 48000,
+            usd: 36,
+            description:
+              "لحم ضأن مطهو ببطء فوق أرز بسمتي معطر بالهيل والزعفران مع لوز محمص وكشمش ذهبي ومرق غني."
+          },
+          {
+            id: "dish-dolma",
+            name: "دولمة عراقية ملكية بدبس الرمان والحامض",
+            category: "heritage",
+            badge: "الأطباق التراثية",
+            icon: "fa-leaf",
+            iqd: 34000,
+            usd: 26,
+            description:
+              "تشكيلة ورق عنب، سلق، بصل، باذنجان، وفلفل محشوة بالأرز واللحم والأعشاب ومطهوة بدبس الرمان وعصير الليمون."
+          },
+          {
+            id: "dish-kubba-mosul",
+            name: "كبة الموصل المقرمشة بالبرغل واللحم والصنوبر",
+            category: "heritage",
+            badge: "الأطباق التراثية",
+            icon: "fa-circle-dot",
+            iqd: 18000,
+            usd: 14,
+            description:
+              "أقراص كبة موصلية رقيقة محضّرة من البرغل الناعم واللحم المتبل بحشوة اللحم المفروم والصنوبر المحمص."
+          },
+          {
+            id: "dish-tashreeb",
+            name: "تشريب لحم عراقي بالخبز والحمص والبهارات",
+            category: "heritage",
+            badge: "الأطباق التراثية",
+            icon: "fa-bowl-food",
+            iqd: 26000,
+            usd: 20,
+            description:
+              "مرق لحم عراقي غني بالتوابل والليمون الأسود والحمص يُقدّم فوق خبز التنور العراقي الأصيل."
+          },
+          {
+            id: "dish-kahi-kaymar",
+            name: "كاهي وكيمر عرب أصيل بالهيل والقطر",
+            category: "sweets",
+            badge: "الحلويات والمشروبات",
+            icon: "fa-cake-candles",
+            iqd: 15000,
+            usd: 11,
+            description:
+              "رقائق كاهي ذهبية مقرمشة تُقدم مع كيمر طازج كثيف ولمسة قطر معطر بالهيل."
+          },
+          {
+            id: "dish-kleicha",
+            name: "كليجة عراقية بالتمر والجوز والهيل",
+            category: "sweets",
+            badge: "الحلويات والمشروبات",
+            icon: "fa-cookie-bite",
+            iqd: 12000,
+            usd: 9,
+            description:
+              "كليجة هشة معطرة بالهيل ومحشوة بالتمر الفاخر والجوز المطحون، مثالية مع فنجان الشاي."
+          },
+          {
+            id: "dish-iraqi-tea",
+            name: "شاي عراقي بالهيل ونومي بصرة الأصيل",
+            category: "sweets",
+            badge: "الحلويات والمشروبات",
+            icon: "fa-mug-saucer",
+            iqd: 7000,
+            usd: 5,
+            description:
+              "شاي أسود غني مُعد على نار هادئة مع حبات الهيل وشرائح نومي بصرة المجفف."
+          }
+        ];
+
+        var BAG_STORAGE_KEY = "diwan_rafidain_b7r_bag_v2";
+
+        function formatIQD(amount) {
+          var safe = Number.isFinite(Number(amount)) ? Number(amount) : 0;
+          return safe.toLocaleString("en-US") + " د.ع";
+        }
+
+        function loadBag() {
+          try {
+            var raw = localStorage.getItem(BAG_STORAGE_KEY);
+            if (!raw) return [];
+            var parsed = JSON.parse(raw);
+            if (!Array.isArray(parsed)) return [];
+            return parsed.filter(function (item) {
+              return item && typeof item.id === "string" && typeof item.qty === "number" && item.qty > 0;
+            });
+          } catch (_) {
+            return [];
+          }
+        }
+
+        function persistBag() {
+          try {
+            localStorage.setItem(BAG_STORAGE_KEY, JSON.stringify(appState.bag));
+          } catch (_) {}
+        }
+
+        var appState = {
+          category: "all",
+          search: "",
+          stage: 0,
+          bag: loadBag()
+        };
+
+        function showToast(message, iconName) {
+          var area = document.getElementById("toastBannerArea");
+          if (!area) return;
+          var toast = document.createElement("div");
+          toast.className =
+            "pointer-events-auto flex items-center gap-2.5 rounded-2xl border border-amber-400/35 bg-[#17171d]/95 px-4 py-3 text-xs sm:text-sm font-bold text-amber-100 shadow-2xl";
+          toast.innerHTML =
+            '<i class="fa-solid ' +
+            (iconName || "fa-crown") +
+            ' text-amber-300"></i><span>' +
+            message +
+            "</span>";
+          area.appendChild(toast);
+          setTimeout(function () {
+            toast.style.opacity = "0";
+            toast.style.transition = "opacity 0.25s ease";
+            setTimeout(function () {
+              toast.remove();
+            }, 260);
+          }, 2800);
+        }
+
+        function closePreloaderNow() {
+          if (typeof window.__hideRoyalPreloader === "function") {
+            window.__hideRoyalPreloader();
+          }
+          var preloader = document.getElementById("royalPreloader");
+          if (preloader) {
+            preloader.classList.add("is-done");
+            preloader.style.opacity = "0";
+            preloader.style.visibility = "hidden";
+            preloader.style.pointerEvents = "none";
+          }
+        }
+
+        /* -------------------------------------------------------------------
+           ٥. رسم علم العراق المتموج سينمائياً مطابق للعلم المرفق بدقة عالية
+              - ثلاثة أشرطة أفقية متساوية: أحمر (#ce1126)، أبيض (#ffffff)، أسود (#000000)
+              - عبارة "الله أكبر" بالخط العربي الأخضر (#007a3d) في وسط الشريط الأبيض
+              - محاكاة قماشية عالية الدقة عبر SVG متجهي يترجم إلى Canvas ثم يشوّه بموجات الرياح والظلال والإضاءة
+           ------------------------------------------------------------------- */
+<!-- ... existing code ... -->
+        window.addEventListener("load", function () {
+          var bar = document.getElementById("preloaderBar");
+          if (bar) bar.style.width = "100%";
+          setTimeout(closePreloaderNow, 120);
+        });
+        setTimeout(closePreloaderNow, 650);
+      })();
+    </script>
+  </body>
 </html>
