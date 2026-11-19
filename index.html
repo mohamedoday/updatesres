@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ديوان الرافدين الملكي | DIWAN AL-RAFIDAIN ROYAL — استوديو B7r</title>
+  <title>ديوان الرافدين الملكي | DIWAN AL-RAFIDAIN ROYAL — استوديو B7r لتطوير المواقع</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
@@ -16,10 +16,10 @@
     :root {
       --bg-obsidian: #090807;
       --bg-elevated: #120f0c;
-      --bg-card: rgba(23, 19, 15, 0.78);
-      --bg-card-hover: rgba(34, 28, 22, 0.92);
-      --border-gold: rgba(226, 185, 88, 0.24);
-      --border-gold-strong: rgba(235, 195, 98, 0.52);
+      --bg-card: rgba(23, 19, 15, 0.8);
+      --bg-card-hover: rgba(35, 29, 23, 0.94);
+      --border-gold: rgba(226, 184, 87, 0.24);
+      --border-gold-strong: rgba(235, 195, 98, 0.54);
       --gold-100: #fff4cf;
       --gold-200: #f3d484;
       --gold-300: #e2b857;
@@ -34,7 +34,7 @@
       --rose-soft: rgba(244, 63, 94, 0.15);
       --rose-text: #fda4af;
       --rose-border: rgba(251, 113, 133, 0.35);
-      --shadow-royal: 0 22px 60px rgba(0, 0, 0, 0.65);
+      --shadow-royal: 0 22px 60px rgba(0, 0, 0, 0.68);
       --shadow-gold: 0 10px 28px rgba(212, 165, 62, 0.24);
       --radius-sm: 12px;
       --radius-md: 18px;
@@ -95,7 +95,56 @@
     }
 
     /* =====================================================================
-       ٢. مكونات الزجاج الفاخر والأزرار (Glassmorphism & Royal Buttons)
+       ٢. شاشة التحميل السريعة الآمنة (Fail-Safe Preloader <= 600ms)
+       ===================================================================== */
+    #royalPreloader {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: #090807;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    #royalPreloader.is-done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .preloader-crest {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: rgba(226, 184, 87, 0.14);
+      border: 1px solid var(--border-gold-strong);
+      color: var(--gold-200);
+      font-size: 1.4rem;
+    }
+
+    .preloader-track {
+      width: 190px;
+      height: 4px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 244, 207, 0.12);
+      overflow: hidden;
+    }
+
+    .preloader-bar {
+      width: 35%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-400), var(--gold-100));
+      transition: width 0.35s ease;
+    }
+
+    /* =====================================================================
+       ٣. مكونات الزجاج الفاخر والأزرار (Glassmorphism & Royal Buttons)
        ===================================================================== */
     .glass-card {
       background: var(--bg-card);
@@ -162,13 +211,13 @@
     }
 
     /* =====================================================================
-       ٣. شريط التنقل العلوي (Top Navigation Bar)
+       ٤. شريط التنقل العلوي (Top Navigation Bar)
        ===================================================================== */
     .top-nav {
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(11, 9, 7, 0.84);
+      background: rgba(11, 9, 7, 0.86);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border-gold);
@@ -284,7 +333,7 @@
     }
 
     /* =====================================================================
-       ٤. واجهة المقدمة وعلم العراق السينمائي (Hero & Waving Iraqi Flag)
+       ٥. واجهة المقدمة وعلم العراق السينمائي (Hero & Waving Iraqi Flag)
        ===================================================================== */
     .hero-section {
       padding-block: clamp(2.2rem, 5vw, 4.4rem) clamp(2rem, 4vw, 3.2rem);
@@ -337,7 +386,21 @@
       font-size: clamp(0.98rem, 1.4vw, 1.12rem);
       color: var(--text-secondary);
       max-width: 62ch;
-      margin-bottom: 1.65rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .hero-featured-price-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 0.85rem 1.1rem;
+      border-radius: var(--radius-md);
+      background: rgba(226, 184, 87, 0.08);
+      border: 1px solid var(--border-gold);
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
     }
 
     .hero-cta-row {
@@ -367,7 +430,7 @@
     }
 
     .stat-num {
-      font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+      font-size: clamp(1.15rem, 2.1vw, 1.55rem);
       font-weight: 900;
       color: var(--gold-200);
       line-height: 1.15;
@@ -495,7 +558,7 @@
     }
 
     /* =====================================================================
-       ٥. الأقسام العامة والرحلة والقائمة والمجالس (Sections)
+       ٦. الأقسام العامة والرحلة والقائمة والمجالس (Sections)
        ===================================================================== */
     .section-block {
       padding-block: clamp(2.5rem, 5vw, 4.2rem);
@@ -617,6 +680,20 @@
     .journey-stage-desc {
       font-size: 0.95rem;
       color: var(--text-secondary);
+      margin-bottom: 0.85rem;
+    }
+
+    .journey-stage-price {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background: rgba(226, 184, 87, 0.1);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-200);
+      font-size: 0.86rem;
+      font-weight: 800;
       margin-bottom: 1.1rem;
     }
 
@@ -708,7 +785,7 @@
 
     .search-box {
       position: relative;
-      min-width: min(100%, 300px);
+      min-width: min(100%, 310px);
     }
 
     .search-box i {
@@ -821,7 +898,7 @@
     }
 
     .dish-price {
-      font-size: 1rem;
+      font-size: 1.02rem;
       font-weight: 900;
       color: var(--gold-200);
     }
@@ -881,7 +958,7 @@
     }
 
     /* =====================================================================
-       ٦. سلة التذوق المنزلقة (Slide-over Tasting Bag Drawer)
+       ٧. سلة التذوق المنزلقة (Slide-over Tasting Bag Drawer)
        ===================================================================== */
     .drawer-backdrop {
       position: fixed;
@@ -971,11 +1048,31 @@
       background: rgba(15, 12, 9, 0.96);
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.65rem;
+    }
+
+    .bag-summary-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .bag-summary-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--gold-100);
+      padding-top: 0.5rem;
+      border-top: 1px dashed rgba(226, 184, 87, 0.25);
     }
 
     /* =====================================================================
-       ٧. النوافذ المنبثقة ولوحة تحكم المالك (Modals & Owner Control Panel)
+       ٨. النوافذ المنبثقة ولوحة تحكم المالك (Modals & Owner Control Panel)
        ===================================================================== */
     .modal-overlay {
       position: fixed;
@@ -1140,6 +1237,19 @@
 </head>
 <body>
   <!-- =====================================================================
+       شاشة التحميل الآمنة (تختفي تلقائياً خلال أقل من 600ms)
+       ===================================================================== -->
+  <div id="royalPreloader" aria-hidden="true">
+    <div class="preloader-crest">
+      <i class="fa-solid fa-crown"></i>
+    </div>
+    <div style="font-size: 0.95rem; font-weight: 900; color: var(--gold-100);">ديوان الرافدين الملكي • استوديو B7r</div>
+    <div class="preloader-track">
+      <div id="preloaderBar" class="preloader-bar"></div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
        شريط التنقل العلوي
        ===================================================================== -->
   <header class="top-nav">
@@ -1150,7 +1260,7 @@
         </div>
         <div>
           <div class="brand-title">ديوان الرافدين الملكي</div>
-          <div class="brand-subtitle">DIWAN AL-RAFIDAIN ROYAL • استوديو B7r</div>
+          <div class="brand-subtitle">DIWAN AL-RAFIDAIN ROYAL • استوديو B7r لتطوير المواقع</div>
         </div>
       </a>
 
@@ -1200,6 +1310,17 @@
             من ضفاف دجلة والفرات إلى مجالس الضيافة الراقية؛ نُعدّ المسكوف العراقي على أخشاب الصفصاف، وقوزي الزعفران، والدولمة، والقهوة بالهيل في تجربة تجمع الأصالة بالفخامة المعاصرة.
           </p>
 
+          <div class="hero-featured-price-banner">
+            <div>
+              <strong style="color: var(--gold-200);">وليمة الديوان الملكية (مسكوف دجلة + قوزي):</strong>
+              <span id="heroSpecialPriceText" style="color: var(--gold-100); font-weight: 900; margin-right: 0.35rem;">83,000 د.ع</span>
+            </div>
+            <button id="heroQuickAddSpecialBtn" type="button" class="btn-gold" style="padding: 0.45rem 0.9rem; font-size: 0.78rem;">
+              <i class="fa-solid fa-plus"></i>
+              <span>أضف المسكوف (38,000 د.ع)</span>
+            </button>
+          </div>
+
           <div class="hero-cta-row">
             <a href="#menu" class="btn-gold">
               <i class="fa-solid fa-utensils"></i>
@@ -1214,20 +1335,20 @@
           <div class="hero-stats">
             <div class="stat-box">
               <div class="stat-num" id="statDishesCount">8</div>
-              <div class="stat-label">أطباق ملكية مختارة</div>
+              <div class="stat-label">أطباق عراقية مختارة</div>
             </div>
             <div class="stat-box">
               <div class="stat-num" id="statEmptyTablesCount">3</div>
               <div class="stat-label">طاولات متاحة الآن</div>
             </div>
             <div class="stat-box">
-              <div class="stat-num">B7r</div>
-              <div class="stat-label">استوديو تطوير المواقع</div>
+              <div class="stat-num">IQD (د.ع)</div>
+              <div class="stat-label">تسعير بالدينار العراقي</div>
             </div>
           </div>
         </div>
 
-        <!-- علم العراق المتموج سينمائياً -->
+        <!-- منصة علم العراق السينمائي -->
         <div class="flag-showcase-card">
           <div class="flag-header-bar">
             <span><i class="fa-solid fa-flag"></i> راية العراق في مقدمة الديوان</span>
@@ -1249,7 +1370,7 @@
 
           <div class="flag-caption-box">
             <div class="flag-caption-title">ديوان الرافدين الملكي • كرم الضيافة العراقية</div>
-            <div class="flag-caption-sub">أشرطة العلم الثلاثة مع عبارة «الله أكبر» في المنتصف بحركة نسيج متموجة.</div>
+            <div class="flag-caption-sub">أشرطة العلم الثلاثة مع عبارة «الله أكبر» الخضراء في منتصف الشريط الأبيض بحركة نسيج متموجة.</div>
           </div>
         </div>
       </div>
@@ -1263,7 +1384,7 @@
         <div class="section-head">
           <span class="section-tag">تجربة متكاملة على أصولها</span>
           <h2 class="section-title">رحلة التذوق في ديوان الرافدين</h2>
-          <p class="section-desc">اختر محطة من محطات الضيافة للتعرّف على تسلسل الكرم العراقي من الاستقبال وحتى الختام.</p>
+          <p class="section-desc">اختر محطة من محطات الضيافة للتعرّف على تسلسل الكرم العراقي والباقات التقديرية بالدينار العراقي.</p>
         </div>
 
         <div id="journeyTabs" class="journey-tabs" role="tablist"></div>
@@ -1273,12 +1394,16 @@
             <span id="journeyBadge" class="journey-badge">المحطة ١</span>
             <h3 id="journeyTitle" class="journey-stage-title"></h3>
             <p id="journeyDesc" class="journey-stage-desc"></p>
+            <div id="journeyPriceTag" class="journey-stage-price">
+              <i class="fa-solid fa-coins"></i>
+              <span>الباقة التقديرية: 12,000 د.ع</span>
+            </div>
             <div class="journey-nav-btns">
-              <button id="prevStageBtn" type="button" class="btn-ghost px-4 py-2 text-sm" style="padding: 0.6rem 1.1rem; font-size: 0.85rem;">
+              <button id="prevStageBtn" type="button" class="btn-ghost" style="padding: 0.6rem 1.1rem; font-size: 0.85rem;">
                 <i class="fa-solid fa-arrow-right"></i>
                 <span>المحطة السابقة</span>
               </button>
-              <button id="nextStageBtn" type="button" class="btn-gold px-4 py-2 text-sm" style="padding: 0.6rem 1.1rem; font-size: 0.85rem;">
+              <button id="nextStageBtn" type="button" class="btn-gold" style="padding: 0.6rem 1.1rem; font-size: 0.85rem;">
                 <span>المحطة التالية</span>
                 <i class="fa-solid fa-arrow-left"></i>
               </button>
@@ -1300,7 +1425,7 @@
       <div class="container-shell">
         <div class="section-head section-head-row">
           <div>
-            <span class="section-tag">مطبخ الديوان</span>
+            <span class="section-tag">مطبخ الديوان • الأسعار بالدينار العراقي (د.ع)</span>
             <h2 class="section-title">قائمة الأطباق الملكية</h2>
             <p class="section-desc">تصفّح الأطباق العراقية الأصيلة وأضف ما تشتهيه إلى سلة التذوق مباشرة.</p>
           </div>
@@ -1357,7 +1482,7 @@
   <footer class="site-footer">
     <div class="container-shell footer-inner">
       <div>
-        <strong style="color: var(--gold-200);">ديوان الرافدين الملكي</strong> — بغداد، العراق
+        <strong style="color: var(--gold-200);">ديوان الرافدين الملكي</strong> — بغداد، العراق • جميع الأسعار بالدينار العراقي (د.ع)
       </div>
       <div>
         صُمم وطُوّر بواسطة <strong style="color: var(--gold-200);">استوديو B7r لتطوير المواقع</strong>
@@ -1386,11 +1511,19 @@
     <div id="bagItemsContainer" class="bag-body"></div>
 
     <div class="bag-footer">
-      <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.95rem; font-weight: 900;">
-        <span style="color: var(--text-secondary);">المجموع الفرعي:</span>
-        <span id="bagSubtotalText" style="color: var(--gold-200);">0 د.ع</span>
+      <div class="bag-summary-line">
+        <span>المجموع الفرعي:</span>
+        <span id="bagSubtotalText" style="color: var(--gold-200); font-weight: 800;">0 د.ع</span>
       </div>
-      <div style="display: flex; gap: 0.6rem;">
+      <div class="bag-summary-line">
+        <span>خدمة الديوان والضيافة (10%):</span>
+        <span id="bagServiceFeeText" style="color: var(--gold-200); font-weight: 800;">0 د.ع</span>
+      </div>
+      <div class="bag-summary-total">
+        <span>الإجمالي النهائي:</span>
+        <span id="bagGrandTotalText" style="color: var(--gold-200);">0 د.ع</span>
+      </div>
+      <div style="display: flex; gap: 0.6rem; margin-top: 0.25rem;">
         <button id="clearBagBtn" type="button" class="btn-ghost" style="padding: 0.72rem 0.95rem; font-size: 0.82rem;">
           إفراغ
         </button>
@@ -1452,7 +1585,7 @@
   </div>
 
   <!-- =====================================================================
-       لوحة تحكم المالك (Owner Control Panel Modal)
+       لوحة تحكم المالك (Owner Control Panel)
        ===================================================================== -->
   <div id="controlPanelModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="ownerModalTitle">
     <div class="modal-sheet is-wide">
@@ -1463,7 +1596,7 @@
           </div>
           <div>
             <h2 id="ownerModalTitle" style="font-size: 1.2rem; font-weight: 900; color: var(--gold-100);">لوحة تحكم المالك • ديوان الرافدين</h2>
-            <p style="font-size: 0.78rem; color: var(--text-secondary);">إدارة الأطباق والأسعار، حالة الطاولات (فاضية / مشغولة)، وقبول أو رفض الحجوزات</p>
+            <p style="font-size: 0.78rem; color: var(--text-secondary);">إدارة الأطباق والأسعار بالدينار العراقي (د.ع)، حالة الطاولات (فاضية / مشغولة)، وقبول أو رفض الحجوزات</p>
           </div>
         </div>
 
@@ -1520,7 +1653,7 @@
         <div class="owner-section-box">
           <h3 class="owner-section-title">
             <i class="fa-solid fa-utensils"></i>
-            <span>إضافة طبق جديد وتعديل الأطباق والأسعار الحالية</span>
+            <span>إضافة طبق جديد وتعديل الأطباق والأسعار الحالية (بالدينار العراقي د.ع)</span>
           </h3>
 
           <form id="ownerAddDishForm" class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-bottom: 1.15rem; padding: 0.9rem; border-radius: var(--radius-md); background: rgba(20, 17, 13, 0.85); border: 1px solid var(--border-gold);">
@@ -1571,7 +1704,7 @@
     (function () {
       "use strict";
 
-      const STORAGE_KEY = "diwan_rafidain_b7r_owner_state_v1";
+      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_state_v1";
 
       const DEFAULT_DISHES = [
         {
@@ -1586,7 +1719,7 @@
           id: "dish-quzi",
           name: "قوزي الضيافة بالزعفران واللوز",
           category: "feasts",
-          price: 42000,
+          price: 45000,
           icon: "fa-crown",
           desc: "لحم ضأن طري مطهو على نار هادئة فوق رز بسمتي معطر بالهيل والزعفران مع اللوز المحمص والكشمش."
         },
@@ -1594,7 +1727,7 @@
           id: "dish-dolma",
           name: "دولمة بغداد بدبس الرمان والحامض",
           category: "heritage",
-          price: 26000,
+          price: 24000,
           icon: "fa-leaf",
           desc: "تشكيلة ورق عنب، سلق، بصل، باذنجان وفلفل محشوة برز متبل بالأعشاب واللحم مع دبس الرمان الأصيل."
         },
@@ -1602,7 +1735,7 @@
           id: "dish-tepsi",
           name: "تبسي باذنجان وطماطم بالفرن",
           category: "heritage",
-          price: 19000,
+          price: 18000,
           icon: "fa-utensils",
           desc: "شرائح الباذنجان والبطاطا والطماطم مع قطع اللحم المتبلة وصلصة غنية، يُقدم مع رز أبيض ساخن."
         },
@@ -1610,7 +1743,7 @@
           id: "dish-kubba-mosul",
           name: "كبة الموصل المقرمشة بالصنوبر",
           category: "heritage",
-          price: 14000,
+          price: 16000,
           icon: "fa-circle-dot",
           desc: "أقراص كبة مقرمشة من البرغل واللحم بحشوة اللحم المفروم والصنوبر والبقدونس الطازج."
         },
@@ -1618,7 +1751,7 @@
           id: "dish-kahy-kaymar",
           name: "كاهي وكيمر عرب أصيل بالهيل",
           category: "sweets",
-          price: 11000,
+          price: 12000,
           icon: "fa-cake-candles",
           desc: "رقائق كاهي ذهبية مقرمشة تُقدم مع كيمر كثيف طازج ولمسة قطر معطر بالهيل."
         },
@@ -1626,7 +1759,7 @@
           id: "dish-kleicha",
           name: "كليجة عراقية بالتمر والجوز والهيل",
           category: "sweets",
-          price: 9000,
+          price: 10000,
           icon: "fa-cookie-bite",
           desc: "مخبوزات كليجة هشة معطرة بالهيل ومحشوة بالتمر الفاخر والجوز المطحون."
         },
@@ -1671,6 +1804,7 @@
           badge: "المحطة ١ • الاستقبال",
           title: "ضيافة البداية والقهوة بالهيل",
           desc: "نستقبلك في الديوان بفناجين القهوة المعطرة بالهيل وشاي نومي بصرة مع التمور الفاخرة لتهيئة الأجواء.",
+          price: 12000,
           highlights: [
             "تحميص وتبهير يومي يمنح الهيل عبقه الواضح",
             "شاي نومي بصرة طبيعي بلمسة حموضة عطرية",
@@ -1681,6 +1815,7 @@
           badge: "المحطة ٢ • الجمر والصفصاف",
           title: "المسكوف العراقي على أخشاب الصفصاف",
           desc: "يُشوى سمك القطّان ببطء على جمر أخشاب الصفصاف العطرية ليمنح النكهة المدخنة الفريدة والقوام الطري.",
+          price: 38000,
           highlights: [
             "أخشاب صفصاف طبيعية تضيف عبراً مميزاً",
             "تتبيلة تمر الهند والملح الخشن والليمون الطازج",
@@ -1691,6 +1826,7 @@
           badge: "المحطة ٣ • كرم المائدة",
           title: "قوزي الزعفران والدولمة وتبسي بغداد",
           desc: "تتكامل موائد الديوان بقوزي اللحم فوق الرز بالزعفران واللوز، مع الدولمة بدبس الرمان وتبسي بغداد.",
+          price: 45000,
           highlights: [
             "رز بسمتي طويل الحبة معطر بالزعفران والهيل",
             "دولمة متوازنة بين دبس الرمان والحامض والأعشاب",
@@ -1701,6 +1837,7 @@
           badge: "المحطة ٤ • الختام الملكي",
           title: "كاهي وكيمر، كليجة الهيل، وشاي الديوان",
           desc: "نختتم الجلسة برقائق الكاهي المقرمشة مع الكيمر الطازج وكليجة التمر والجوز مع كوب شاي عراقي دافئ.",
+          price: 16000,
           highlights: [
             "كاهي مقرمش مع كيمر طازج وقطر بالهيل",
             "كليجة عراقية بحشوات التمر والجوز",
@@ -1763,7 +1900,7 @@
       };
 
       function formatIQD(amount) {
-        const num = Number.isFinite(Number(amount)) ? Number(amount) : 0;
+        const num = Number.isFinite(Number(amount)) ? Math.round(Number(amount)) : 0;
         return `${num.toLocaleString("en-US")} د.ع`;
       }
 
@@ -1787,6 +1924,27 @@
           item.style.transition = "all 0.25s ease";
           setTimeout(() => item.remove(), 260);
         }, 3000);
+      }
+
+      /* -------------------------------------------------------------------
+         ٠. إخفاء شاشة التحميل بأمان خلال أقل من 600ms
+         ------------------------------------------------------------------- */
+      function initFailSafePreloader() {
+        const preloader = document.getElementById("royalPreloader");
+        const bar = document.getElementById("preloaderBar");
+        if (!preloader) return;
+
+        requestAnimationFrame(() => {
+          if (bar) bar.style.width = "100%";
+        });
+
+        const dismiss = () => {
+          preloader.classList.add("is-done");
+        };
+
+        setTimeout(dismiss, 320);
+        window.addEventListener("load", dismiss, { once: true });
+        setTimeout(dismiss, 600);
       }
 
       /* -------------------------------------------------------------------
@@ -1873,6 +2031,7 @@
         const badgeEl = document.getElementById("journeyBadge");
         const titleEl = document.getElementById("journeyTitle");
         const descEl = document.getElementById("journeyDesc");
+        const priceEl = document.getElementById("journeyPriceTag");
         const listEl = document.getElementById("journeyHighlights");
 
         if (!tabsWrap) return;
@@ -1895,6 +2054,9 @@
         if (badgeEl) badgeEl.textContent = current.badge;
         if (titleEl) titleEl.textContent = current.title;
         if (descEl) descEl.textContent = current.desc;
+        if (priceEl) {
+          priceEl.innerHTML = `<i class="fa-solid fa-coins"></i><span>الباقة التقديرية: ${formatIQD(current.price)}</span>`;
+        }
         if (listEl) {
           listEl.innerHTML = current.highlights
             .map((h) => `<li><i class="fa-solid fa-star"></i><span>${h}</span></li>`)
@@ -1905,11 +2067,28 @@
       /* -------------------------------------------------------------------
          ٣. القائمة، الفلاتر، والبحث
          ------------------------------------------------------------------- */
+      function syncHeroSpecialHighlight() {
+        const maskoof = db.dishes.find((d) => d.id === "dish-maskoof");
+        const quzi = db.dishes.find((d) => d.id === "dish-quzi");
+        const bundlePrice = (maskoof ? maskoof.price : 38000) + (quzi ? quzi.price : 45000);
+
+        const specialText = document.getElementById("heroSpecialPriceText");
+        if (specialText) {
+          specialText.textContent = formatIQD(bundlePrice);
+        }
+
+        const quickAddBtn = document.getElementById("heroQuickAddSpecialBtn");
+        if (quickAddBtn && maskoof) {
+          quickAddBtn.innerHTML = `<i class="fa-solid fa-plus"></i><span>أضف المسكوف (${formatIQD(maskoof.price)})</span>`;
+        }
+      }
+
       function renderMenu() {
         const grid = document.getElementById("menuGrid");
         const emptyEl = document.getElementById("menuEmptyState");
         const statDishes = document.getElementById("statDishesCount");
         if (statDishes) statDishes.textContent = String(db.dishes.length);
+        syncHeroSpecialHighlight();
 
         if (!grid) return;
         const q = state.search.trim().toLowerCase();
@@ -1964,7 +2143,7 @@
       }
 
       /* -------------------------------------------------------------------
-         ٤. سلة التذوق (Tasting Bag)
+         ٤. سلة التذوق (Tasting Bag — IQD Subtotal, Service Fee & Total)
          ------------------------------------------------------------------- */
       function addDishToBag(dishId) {
         const dish = db.dishes.find((d) => d.id === dishId);
@@ -1976,7 +2155,7 @@
           state.bag.push({ id: dish.id, name: dish.name, price: dish.price, qty: 1 });
         }
         renderBag();
-        showToast(`تمت إضافة "${dish.name}" إلى السلة`);
+        showToast(`تمت إضافة "${dish.name}" (${formatIQD(dish.price)}) إلى السلة`);
       }
 
       function renderBag() {
@@ -1984,22 +2163,28 @@
         const summary = document.getElementById("bagItemsSummary");
         const container = document.getElementById("bagItemsContainer");
         const subtotalEl = document.getElementById("bagSubtotalText");
+        const serviceFeeEl = document.getElementById("bagServiceFeeText");
+        const grandTotalEl = document.getElementById("bagGrandTotalText");
 
         const totalQty = state.bag.reduce((sum, item) => sum + item.qty, 0);
         const subtotal = state.bag.reduce((sum, item) => sum + item.price * item.qty, 0);
+        const serviceFee = Math.round(subtotal * 0.1);
+        const grandTotal = subtotal + serviceFee;
 
         if (badge) badge.textContent = String(totalQty);
         if (summary) {
           summary.textContent = totalQty > 0 ? `عدد الأطباق في السلة: ${totalQty}` : "السلة فارغة حالياً";
         }
         if (subtotalEl) subtotalEl.textContent = formatIQD(subtotal);
+        if (serviceFeeEl) serviceFeeEl.textContent = formatIQD(serviceFee);
+        if (grandTotalEl) grandTotalEl.textContent = formatIQD(grandTotal);
 
         if (!container) return;
 
         if (!state.bag.length) {
           container.innerHTML = `
             <div style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted); font-size: 0.88rem;">
-              لم تقم بإضافة أي طبق بعد. اختر من قائمة الديوان لتبدأ طلبك.
+              لم تقم بإضافة أي طبق بعد. اختر من قائمة الديوان لتبدأ طلبك بالدينار العراقي.
             </div>
           `;
           return;
@@ -2237,13 +2422,13 @@
           }
         }
 
-        // ٣. تعديل الأطباق والأسعار وحذفها
+        // ٣. تعديل الأطباق والأسعار بالدينار العراقي وحذفها
         if (dishesEditor) {
           dishesEditor.innerHTML = db.dishes
             .map((d) => `
               <div class="glass-card" style="padding: 1rem; display: flex; flex-direction: column; gap: 0.65rem;">
                 <input type="text" value="${d.name.replace(/"/g, "&quot;")}" data-dish-name="${d.id}" class="field-input" aria-label="اسم الطبق" />
-                <input type="number" min="500" step="500" value="${d.price}" data-dish-price="${d.id}" class="field-input" aria-label="سعر الطبق بالدينار" />
+                <input type="number" min="500" step="500" value="${d.price}" data-dish-price="${d.id}" class="field-input" aria-label="سعر الطبق بالدينار العراقي (د.ع)" />
                 <input type="text" value="${d.desc.replace(/"/g, "&quot;")}" data-dish-desc="${d.id}" class="field-input" aria-label="وصف الطبق" />
                 <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.2rem;">
                   <button type="button" data-save-dish="${d.id}" class="btn-gold" style="padding: 0.45rem 0.9rem; font-size: 0.78rem;">
@@ -2272,12 +2457,12 @@
               const nextDesc = descEl ? descEl.value.trim() : "";
 
               if (!nextName || !Number.isFinite(nextPrice) || nextPrice <= 0) {
-                showToast("يرجى إدخال اسم صحيح وسعر أكبر من الصفر");
+                showToast("يرجى إدخال اسم صحيح وسعر بالدينار العراقي أكبر من الصفر");
                 return;
               }
 
               dish.name = nextName;
-              dish.price = nextPrice;
+              dish.price = Math.round(nextPrice);
               if (nextDesc) dish.desc = nextDesc;
 
               state.bag.forEach((bItem) => {
@@ -2291,7 +2476,7 @@
               renderMenu();
               renderBag();
               renderOwnerPanel();
-              showToast(`تم حفظ تعديلات "${dish.name}"`);
+              showToast(`تم حفظ تعديلات "${dish.name}" (${formatIQD(dish.price)})`);
             });
           });
 
@@ -2345,6 +2530,11 @@
          ٧. ربط الأحداث والتهيئة النهائية
          ------------------------------------------------------------------- */
       function bindEvents() {
+        // إضافة سريعة للمسكوف من مقدمة الموقع
+        document.getElementById("heroQuickAddSpecialBtn")?.addEventListener("click", () => {
+          addDishToBag("dish-maskoof");
+        });
+
         // أزرار التنقل في رحلة التذوق
         document.getElementById("prevStageBtn")?.addEventListener("click", () => {
           state.stageIndex = (state.stageIndex - 1 + JOURNEY_STAGES.length) % JOURNEY_STAGES.length;
@@ -2388,11 +2578,13 @@
             showToast("السلة فارغة • أضف طبقاً واحداً على الأقل");
             return;
           }
+          const subtotal = state.bag.reduce((sum, item) => sum + item.price * item.qty, 0);
+          const grandTotal = subtotal + Math.round(subtotal * 0.1);
           const orderNum = `B7R-${Math.floor(1000 + Math.random() * 9000)}`;
           state.bag = [];
           renderBag();
           toggleBagDrawer(false);
-          showToast(`تم تأكيد طلبك بنجاح • رقم الطلب: ${orderNum}`);
+          showToast(`تم تأكيد طلبك (${formatIQD(grandTotal)}) • رقم الطلب: ${orderNum}`);
         });
 
         // نافذة الحجز
@@ -2455,7 +2647,7 @@
           const desc = document.getElementById("newDishDesc")?.value.trim() || "";
 
           if (!name || !Number.isFinite(price) || price <= 0 || !desc) {
-            showToast("يرجى تعبئة جميع حقول الطبق الجديد بشكل صحيح");
+            showToast("يرجى تعبئة جميع حقول الطبق الجديد وسعره بالدينار العراقي");
             return;
           }
 
@@ -2463,7 +2655,7 @@
             id: "dish-" + Date.now(),
             name,
             category,
-            price,
+            price: Math.round(price),
             icon: "fa-bowl-food",
             desc
           });
@@ -2472,7 +2664,7 @@
           e.target.reset();
           renderMenu();
           renderOwnerPanel();
-          showToast(`تمت إضافة "${name}" إلى القائمة`);
+          showToast(`تمت إضافة "${name}" (${formatIQD(price)}) إلى القائمة`);
         });
 
         document.getElementById("changePasscodeForm")?.addEventListener("submit", (e) => {
@@ -2499,7 +2691,7 @@
           renderMenu();
           renderPublicTables();
           renderOwnerPanel();
-          showToast("تمت استعادة البيانات الافتراضية بنجاح");
+          showToast("تمت استعادة البيانات الافتراضية بالدينار العراقي بنجاح");
         });
 
         // إغلاق النوافذ عبر مفتاح Escape
@@ -2513,6 +2705,7 @@
       }
 
       function init() {
+        initFailSafePreloader();
         initWavingIraqiFlag();
         renderJourney();
         renderMenu();
