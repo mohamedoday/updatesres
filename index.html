@@ -6,42 +6,42 @@
   <title>ديوان الرافدين الملكي | DIWAN AL-RAFIDAIN ROYAL — استوديو B7r لتطوير المواقع</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,700&family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
     /* =====================================================================
-       ١. المتغيرات والهوية البصرية الملكية (Royal Mesopotamian Design System)
+       ١. نظام التصميم الملكي البغدادي (Bespoke Mesopotamian Royal Editorial)
        ===================================================================== */
     :root {
-      --bg-obsidian: #090807;
-      --bg-card: rgba(23, 19, 15, 0.88);
-      --bg-card-hover: rgba(35, 29, 23, 0.97);
-      --border-gold: rgba(226, 184, 87, 0.24);
-      --border-gold-strong: rgba(235, 195, 98, 0.56);
-      --gold-100: #fff4cf;
-      --gold-200: #f3d484;
-      --gold-300: #e2b857;
-      --gold-400: #c8962e;
-      --gold-500: #9f7017;
-      --text-primary: #f7f3eb;
-      --text-secondary: #cbbfa9;
-      --text-muted: #988b76;
-      --status-empty-bg: rgba(226, 184, 87, 0.14);
-      --status-empty-text: #f3d484;
-      --status-empty-border: rgba(235, 195, 98, 0.45);
-      --status-occ-bg: rgba(244, 63, 94, 0.16);
-      --status-occ-text: #fda4af;
-      --status-occ-border: rgba(251, 113, 133, 0.42);
-      --shadow-royal: 0 22px 60px rgba(0, 0, 0, 0.68);
-      --shadow-gold: 0 10px 28px rgba(212, 165, 62, 0.24);
+      --bg-obsidian: #07080B;
+      --bg-surface: #0D1017;
+      --bg-card: #141924;
+      --bg-card-hover: #19202E;
+      --gold-primary: #D4AF37;
+      --gold-highlight: #E8C96B;
+      --gold-soft: #F6E6B2;
+      --gold-deep: #9A771C;
+      --tigris-emerald: #1B4D3E;
+      --text-ivory: #F5F1E8;
+      --text-stone: #9FA6B5;
+      --text-muted: #70788A;
+      --border-subtle: rgba(212, 175, 55, 0.22);
+      --border-strong: rgba(232, 201, 107, 0.52);
+      --status-empty-bg: rgba(27, 77, 62, 0.28);
+      --status-empty-text: #7EE2B8;
+      --status-empty-border: rgba(126, 226, 184, 0.4);
+      --status-occ-bg: rgba(225, 29, 72, 0.16);
+      --status-occ-text: #FDA4AF;
+      --status-occ-border: rgba(253, 164, 175, 0.42);
+      --shadow-royal: 0 24px 64px rgba(0, 0, 0, 0.72);
+      --shadow-gold: 0 12px 30px rgba(212, 175, 55, 0.22);
       --radius-sm: 12px;
       --radius-md: 18px;
       --radius-lg: 24px;
       --radius-xl: 32px;
       --radius-full: 9999px;
-      --transition-fast: 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-      --transition-smooth: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-royal: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     *, *::before, *::after {
@@ -56,21 +56,45 @@
     }
 
     body {
-      font-family: "Cairo", "Tajawal", sans-serif;
+      font-family: "IBM Plex Sans Arabic", sans-serif;
+      font-variant-numeric: tabular-nums;
       background-color: var(--bg-obsidian);
-      color: var(--text-primary);
-      line-height: 1.65;
+      color: var(--text-ivory);
+      line-height: 1.7;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
       background-image:
-        radial-gradient(ellipse 85% 55% at 50% -8%, rgba(218, 168, 58, 0.16), transparent 68%),
-        radial-gradient(circle at 12% 35%, rgba(159, 112, 23, 0.09), transparent 45%),
-        radial-gradient(circle at 88% 72%, rgba(226, 184, 87, 0.08), transparent 48%);
+        radial-gradient(ellipse 80% 50% at 50% -6%, rgba(212, 175, 55, 0.14), transparent 68%),
+        radial-gradient(circle at 12% 28%, rgba(27, 77, 62, 0.16), transparent 44%),
+        radial-gradient(circle at 88% 72%, rgba(212, 175, 55, 0.08), transparent 46%);
     }
 
     body.no-scroll {
       overflow: hidden;
+    }
+
+    /* زخرفة هندسية بابلية خفيفة في الخلفية */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.035;
+      background-image:
+        linear-gradient(45deg, var(--gold-primary) 1px, transparent 1px),
+        linear-gradient(-45deg, var(--gold-primary) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .display-serif {
+      font-family: "Amiri", "Aref Ruqaa", serif;
+      letter-spacing: 0;
+    }
+
+    .calligraphy-accent {
+      font-family: "Aref Ruqaa", "Amiri", serif;
     }
 
     button, input, select, textarea {
@@ -89,25 +113,32 @@
       text-decoration: none;
     }
 
+    :focus-visible {
+      outline: 2px solid var(--gold-highlight);
+      outline-offset: 3px;
+    }
+
     .hidden {
       display: none !important;
     }
 
     /* =====================================================================
-       ٢. شاشة التحميل الآمنة (تختفي خلال <= 400ms أو عند النقر الفوري)
+       ٢. شاشة التحميل الآمنة (تختفي خلال <= 420ms أو بالنقر الفوري)
        ===================================================================== */
     #royalPreloader {
       position: fixed;
       inset: 0;
       z-index: 120;
-      background: #090807;
+      background: var(--bg-obsidian);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.8rem;
+      gap: 0.85rem;
       cursor: pointer;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.25s var(--ease-royal), visibility 0.25s var(--ease-royal);
     }
 
     #royalPreloader.is-done {
@@ -117,77 +148,104 @@
     }
 
     .preloader-crest {
-      width: 54px;
-      height: 54px;
-      border-radius: 17px;
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
       display: grid;
       place-items: center;
-      background: rgba(226, 184, 87, 0.14);
-      border: 1px solid var(--border-gold-strong);
-      color: var(--gold-200);
-      font-size: 1.3rem;
+      background: linear-gradient(145deg, rgba(212, 175, 55, 0.2), rgba(27, 77, 62, 0.22));
+      border: 1px solid var(--border-strong);
+      color: var(--gold-highlight);
+      font-size: 1.45rem;
+      box-shadow: var(--shadow-gold);
     }
 
     .preloader-track {
-      width: 192px;
+      width: 210px;
       height: 4px;
       border-radius: var(--radius-full);
-      background: rgba(255, 244, 207, 0.12);
+      background: rgba(245, 241, 232, 0.1);
       overflow: hidden;
     }
 
     .preloader-bar {
-      width: 55%;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, var(--gold-400), var(--gold-100));
-      transition: width 0.2s ease;
+      background: linear-gradient(90deg, var(--gold-deep), var(--gold-highlight));
+      transform: scaleX(0.35);
+      transform-origin: right center;
+      transition: transform 0.3s var(--ease-royal);
+    }
+
+    #royalPreloader.is-loading .preloader-bar {
+      transform: scaleX(1);
     }
 
     .preloader-hint {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--text-stone);
+      font-weight: 600;
     }
 
     /* =====================================================================
-       ٣. مكونات الزجاج الفاخر والأزرار (Glassmorphism & Royal Buttons)
+       ٣. البطاقات الملكية والأزرار وحركات 60fps
        ===================================================================== */
-    .glass-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-royal);
-      transition: transform var(--transition-smooth), border-color var(--transition-smooth), background var(--transition-smooth);
+    .container-shell {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1280px;
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 3vw, 2rem);
     }
 
-    .glass-card:hover {
-      border-color: var(--border-gold-strong);
-      background: var(--bg-card-hover);
+    .royal-card {
+      position: relative;
+      background: linear-gradient(165deg, rgba(20, 25, 36, 0.94), rgba(13, 16, 23, 0.96));
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-royal);
+      transition: transform 0.35s var(--ease-royal), border-color 0.3s var(--ease-royal);
+      will-change: transform;
+    }
+
+    .royal-card:hover {
+      border-color: var(--border-strong);
+    }
+
+    /* إطار زاوية بابلي ذهبي */
+    .babylon-filigree::after {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border-radius: calc(var(--radius-lg) - 6px);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      pointer-events: none;
     }
 
     .btn-gold {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      background: linear-gradient(135deg, var(--gold-200) 0%, var(--gold-300) 52%, var(--gold-400) 100%);
-      color: #161006;
-      font-weight: 800;
+      gap: 0.55rem;
+      background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold-highlight) 42%, var(--gold-primary) 100%);
+      color: #0B0D12;
+      font-weight: 700;
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-gold);
-      transition: transform var(--transition-fast), filter var(--transition-fast), box-shadow var(--transition-fast);
+      transition: transform 0.22s var(--ease-royal), opacity 0.22s var(--ease-royal);
     }
 
     .btn-gold:hover:not(:disabled) {
       transform: translateY(-2px);
-      filter: brightness(1.06);
-      box-shadow: 0 14px 34px rgba(226, 184, 87, 0.34);
+    }
+
+    .btn-gold:active:not(:disabled) {
+      transform: translateY(0) scale(0.98);
     }
 
     .btn-gold:disabled {
-      opacity: 0.45;
+      opacity: 0.42;
       cursor: not-allowed;
       box-shadow: none;
     }
@@ -196,44 +254,48 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      background: rgba(255, 244, 207, 0.04);
-      border: 1px solid var(--border-gold);
-      color: var(--gold-100);
-      font-weight: 700;
+      gap: 0.55rem;
+      background: rgba(245, 241, 232, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--gold-soft);
+      font-weight: 600;
       border-radius: var(--radius-md);
-      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+      transition: transform 0.22s var(--ease-royal), border-color 0.22s var(--ease-royal);
     }
 
     .btn-ghost:hover:not(:disabled) {
-      background: rgba(226, 184, 87, 0.12);
-      border-color: var(--border-gold-strong);
+      border-color: var(--border-strong);
       transform: translateY(-1px);
     }
 
     .btn-ghost:disabled {
-      opacity: 0.45;
+      opacity: 0.42;
       cursor: not-allowed;
     }
 
-    .container-shell {
-      width: 100%;
-      max-width: 1280px;
-      margin-inline: auto;
-      padding-inline: clamp(1rem, 3vw, 2rem);
+    /* حركات الظهور عند التمرير (Composite-only: transform + opacity) */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s var(--ease-royal), transform 0.6s var(--ease-royal);
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* =====================================================================
-       ٤. شريط التنقل العلوي (Top Navigation Bar)
+       ٤. شريط التنقل العلوي (بدون أي شارات اتصال خضراء)
        ===================================================================== */
     .top-nav {
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(11, 9, 7, 0.88);
+      background: rgba(7, 8, 11, 0.88);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .top-nav-inner {
@@ -241,49 +303,47 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      min-height: 76px;
+      min-height: 78px;
       padding-block: 0.65rem;
     }
 
     .brand-lockup {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      text-align: right;
+      gap: 0.85rem;
     }
 
     .brand-crest {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 15px;
       display: grid;
       place-items: center;
-      background: linear-gradient(145deg, rgba(243, 212, 132, 0.18), rgba(159, 112, 23, 0.12));
-      border: 1px solid var(--border-gold-strong);
-      color: var(--gold-200);
-      font-size: 1.2rem;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      background: linear-gradient(145deg, rgba(212, 175, 55, 0.22), rgba(27, 77, 62, 0.25));
+      border: 1px solid var(--border-strong);
+      color: var(--gold-highlight);
+      font-size: 1.25rem;
       flex-shrink: 0;
     }
 
     .brand-title {
-      font-size: clamp(1rem, 1.8vw, 1.22rem);
-      font-weight: 900;
-      color: var(--gold-100);
-      line-height: 1.2;
+      font-family: "Amiri", serif;
+      font-size: clamp(1.15rem, 2vw, 1.42rem);
+      font-weight: 700;
+      color: var(--gold-soft);
+      line-height: 1.15;
     }
 
     .brand-subtitle {
       font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--gold-300);
-      letter-spacing: 0.02em;
+      font-weight: 600;
+      color: var(--gold-primary);
     }
 
     .nav-links {
       display: none;
       align-items: center;
-      gap: 1.35rem;
+      gap: 1.5rem;
     }
 
     @media (min-width: 980px) {
@@ -294,16 +354,16 @@
 
     .nav-links a {
       font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text-secondary);
+      font-weight: 600;
+      color: var(--text-stone);
       padding-block: 0.35rem;
       border-bottom: 2px solid transparent;
-      transition: color var(--transition-fast), border-color var(--transition-fast);
+      transition: color 0.2s var(--ease-royal), border-color 0.2s var(--ease-royal);
     }
 
     .nav-links a:hover {
-      color: var(--gold-200);
-      border-bottom-color: var(--gold-300);
+      color: var(--gold-highlight);
+      border-bottom-color: var(--gold-primary);
     }
 
     .nav-actions {
@@ -314,105 +374,102 @@
     }
 
     .nav-pill-btn {
-      padding: 0.55rem 0.9rem;
+      padding: 0.55rem 0.92rem;
       font-size: 0.82rem;
-      font-weight: 800;
       border-radius: var(--radius-md);
       white-space: nowrap;
     }
 
     .owner-pill-btn {
-      background: rgba(226, 184, 87, 0.1);
-      border: 1px solid var(--border-gold-strong);
-      color: var(--gold-200);
-    }
-
-    .owner-pill-btn:hover {
-      background: rgba(226, 184, 87, 0.2);
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid var(--border-strong);
+      color: var(--gold-highlight);
+      font-weight: 700;
     }
 
     .bag-badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 21px;
-      height: 21px;
+      min-width: 22px;
+      height: 22px;
       padding-inline: 0.35rem;
       border-radius: var(--radius-full);
-      background: var(--gold-300);
-      color: #161006;
+      background: var(--gold-primary);
+      color: #07080B;
       font-size: 0.74rem;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     /* =====================================================================
-       ٥. واجهة المقدمة وعلم العراق السينمائي (Hero & Waving Iraqi Flag)
+       ٥. واجهة المقدمة وعلم العراق السينمائي (Hero & 3D Tilt Stage)
        ===================================================================== */
     .hero-section {
-      padding-block: clamp(2.2rem, 5vw, 4.4rem) clamp(2rem, 4vw, 3.2rem);
+      padding-block: clamp(2.4rem, 5vw, 4.6rem) clamp(2rem, 4vw, 3.2rem);
       position: relative;
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: clamp(1.75rem, 4vw, 3rem);
+      gap: clamp(1.85rem, 4vw, 3.25rem);
       align-items: center;
     }
 
     @media (min-width: 992px) {
       .hero-grid {
-        grid-template-columns: 1.15fr 0.85fr;
+        grid-template-columns: 1.12fr 0.88fr;
       }
     }
 
     .hero-kicker {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 0.95rem;
+      gap: 0.55rem;
+      padding: 0.42rem 1rem;
       border-radius: var(--radius-full);
-      background: rgba(226, 184, 87, 0.1);
-      border: 1px solid var(--border-gold);
-      color: var(--gold-200);
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.12), rgba(27, 77, 62, 0.18));
+      border: 1px solid var(--border-subtle);
+      color: var(--gold-highlight);
       font-size: 0.8rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
+      font-weight: 600;
+      margin-bottom: 1.1rem;
     }
 
     .hero-title {
-      font-size: clamp(2.05rem, 4.6vw, 3.55rem);
-      font-weight: 900;
-      line-height: 1.18;
-      color: var(--text-primary);
+      font-family: "Amiri", serif;
+      font-size: clamp(2.3rem, 5vw, 3.9rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text-ivory);
       margin-bottom: 1rem;
     }
 
     .hero-title span {
-      background: linear-gradient(120deg, var(--gold-100), var(--gold-300), var(--gold-400));
+      background: linear-gradient(120deg, var(--gold-soft), var(--gold-highlight), var(--gold-primary));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
     .hero-lead {
-      font-size: clamp(0.98rem, 1.4vw, 1.12rem);
-      color: var(--text-secondary);
-      max-width: 62ch;
-      margin-bottom: 1.35rem;
+      font-size: clamp(0.98rem, 1.35vw, 1.1rem);
+      color: var(--text-stone);
+      max-width: 60ch;
+      margin-bottom: 1.45rem;
     }
 
-    .hero-featured-price-banner {
+    .hero-featured-banner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
       flex-wrap: wrap;
-      padding: 0.85rem 1.1rem;
+      padding: 0.9rem 1.15rem;
       border-radius: var(--radius-md);
-      background: rgba(226, 184, 87, 0.08);
-      border: 1px solid var(--border-gold);
-      margin-bottom: 1.5rem;
+      background: rgba(20, 25, 36, 0.85);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 1.55rem;
       font-size: 0.88rem;
     }
 
@@ -420,52 +477,59 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.85rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.1rem;
     }
 
     .hero-cta-row .btn-gold,
     .hero-cta-row .btn-ghost {
-      padding: 0.85rem 1.45rem;
+      padding: 0.85rem 1.5rem;
       font-size: 0.94rem;
     }
 
     .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
+      gap: 0.8rem;
     }
 
     .stat-box {
-      padding: 0.9rem 1rem;
+      padding: 0.95rem 1rem;
       border-radius: var(--radius-md);
-      background: rgba(18, 15, 12, 0.72);
-      border: 1px solid var(--border-gold);
+      background: rgba(13, 16, 23, 0.85);
+      border: 1px solid var(--border-subtle);
     }
 
     .stat-num {
       font-size: clamp(1.15rem, 2.1vw, 1.55rem);
-      font-weight: 900;
-      color: var(--gold-200);
+      font-weight: 700;
+      color: var(--gold-highlight);
       line-height: 1.15;
     }
 
     .stat-label {
       font-size: 0.76rem;
-      color: var(--text-muted);
-      margin-top: 0.2rem;
-      font-weight: 700;
+      color: var(--text-stone);
+      margin-top: 0.25rem;
+      font-weight: 500;
     }
 
-    /* منصة علم العراق السينمائي */
+    /* منصة علم العراق السينمائي مع تفاعل ثلاثي الأبعاد */
+    .tilt-stage-wrapper {
+      perspective: 1100px;
+    }
+
     .flag-showcase-card {
-      padding: clamp(1.25rem, 2.5vw, 1.85rem);
+      padding: clamp(1.3rem, 2.5vw, 1.9rem);
       border-radius: var(--radius-xl);
-      background: linear-gradient(165deg, rgba(28, 23, 18, 0.92), rgba(12, 10, 8, 0.96));
-      border: 1px solid var(--border-gold-strong);
+      background: linear-gradient(165deg, rgba(20, 25, 36, 0.96), rgba(7, 8, 11, 0.98));
+      border: 1px solid var(--border-strong);
       box-shadow: var(--shadow-royal);
       display: flex;
       flex-direction: column;
-      gap: 1.1rem;
+      gap: 1.15rem;
+      transform-style: preserve-3d;
+      transition: transform 0.25s var(--ease-royal), border-color 0.3s var(--ease-royal);
+      will-change: transform;
     }
 
     .flag-header-bar {
@@ -473,9 +537,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--gold-200);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--gold-highlight);
     }
 
     .flag-stage {
@@ -484,7 +548,8 @@
       align-items: flex-start;
       justify-content: center;
       padding-block: 0.5rem;
-      min-height: 225px;
+      min-height: 228px;
+      transform: translateZ(24px);
     }
 
     .flag-pole-wrap {
@@ -497,32 +562,32 @@
     }
 
     .flag-finial {
-      width: 16px;
-      height: 16px;
+      width: 17px;
+      height: 17px;
       border-radius: 50%;
-      background: radial-gradient(circle at 32% 30%, #fff7d6, var(--gold-300) 60%, var(--gold-500));
-      box-shadow: 0 0 14px rgba(226, 184, 87, 0.55);
+      background: radial-gradient(circle at 32% 30%, #FFF9E2, var(--gold-primary) 62%, var(--gold-deep));
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.6);
       margin-bottom: -2px;
     }
 
     .flag-pole {
       width: 7px;
-      height: 205px;
+      height: 208px;
       border-radius: var(--radius-full);
-      background: linear-gradient(90deg, #573d0b, var(--gold-200) 45%, var(--gold-400) 80%, #3b2806);
-      box-shadow: 2px 4px 14px rgba(0, 0, 0, 0.7);
+      background: linear-gradient(90deg, #523B0A, var(--gold-soft) 45%, var(--gold-primary) 80%, #382705);
+      box-shadow: 2px 6px 16px rgba(0, 0, 0, 0.75);
     }
 
     .flag-canvas-frame {
       position: relative;
-      width: min(100%, 330px);
-      height: 196px;
+      width: min(100%, 336px);
+      height: 198px;
       margin-top: 8px;
       border-radius: 4px 14px 14px 4px;
       overflow: hidden;
-      border: 1px solid rgba(255, 244, 207, 0.24);
-      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.7);
-      background: #121212;
+      border: 1px solid rgba(246, 230, 178, 0.28);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.78);
+      background: #0E1015;
     }
 
     #iraqiFlagCanvas {
@@ -532,36 +597,37 @@
     }
 
     .flag-caption-box {
-      border-top: 1px solid var(--border-gold);
-      padding-top: 0.9rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.95rem;
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
     }
 
     .flag-caption-title {
-      font-size: 0.92rem;
-      font-weight: 800;
-      color: var(--gold-100);
+      font-family: "Amiri", serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--gold-soft);
     }
 
     .flag-caption-sub {
       font-size: 0.78rem;
-      color: var(--text-secondary);
+      color: var(--text-stone);
     }
 
     /* =====================================================================
-       ٦. الأقسام العامة والرحلة والقائمة والمجالس (Sections)
+       ٦. الأقسام العامة، رحلة التذوق، القائمة، والمجالس
        ===================================================================== */
     .section-block {
-      padding-block: clamp(2.5rem, 5vw, 4.2rem);
+      padding-block: clamp(2.6rem, 5vw, 4.4rem);
     }
 
     .section-head {
       display: flex;
       flex-direction: column;
       gap: 0.45rem;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.85rem;
     }
 
     @media (min-width: 768px) {
@@ -573,31 +639,31 @@
     }
 
     .section-tag {
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: var(--gold-300);
-      letter-spacing: 0.02em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold-primary);
     }
 
     .section-title {
-      font-size: clamp(1.5rem, 3vw, 2.3rem);
-      font-weight: 900;
-      color: var(--text-primary);
-      line-height: 1.25;
+      font-family: "Amiri", serif;
+      font-size: clamp(1.7rem, 3.2vw, 2.55rem);
+      font-weight: 700;
+      color: var(--text-ivory);
+      line-height: 1.22;
     }
 
     .section-desc {
       font-size: 0.92rem;
-      color: var(--text-secondary);
-      max-width: 58ch;
+      color: var(--text-stone);
+      max-width: 60ch;
     }
 
-    /* رحلة التذوق التفاعلية */
+    /* رحلة التذوق الرافدينية */
     .journey-tabs {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.65rem;
-      margin-bottom: 1.25rem;
+      gap: 0.7rem;
+      margin-bottom: 1.3rem;
     }
 
     @media (min-width: 768px) {
@@ -607,40 +673,45 @@
     }
 
     .journey-tab-btn {
-      padding: 0.85rem 1rem;
+      padding: 0.9rem 1.05rem;
       border-radius: var(--radius-md);
-      background: rgba(20, 17, 13, 0.75);
-      border: 1px solid var(--border-gold);
+      background: rgba(13, 16, 23, 0.85);
+      border: 1px solid var(--border-subtle);
       text-align: right;
-      transition: all var(--transition-fast);
+      transition: transform 0.22s var(--ease-royal), border-color 0.22s var(--ease-royal);
+    }
+
+    .journey-tab-btn:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
     }
 
     .journey-tab-btn.is-active {
-      background: linear-gradient(135deg, rgba(226, 184, 87, 0.2), rgba(159, 112, 23, 0.14));
-      border-color: var(--gold-300);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(27, 77, 62, 0.22));
+      border-color: var(--gold-highlight);
       box-shadow: var(--shadow-gold);
     }
 
     .journey-tab-step {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--gold-300);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--gold-highlight);
       display: block;
     }
 
     .journey-tab-name {
       font-size: 0.92rem;
-      font-weight: 800;
-      color: var(--text-primary);
+      font-weight: 700;
+      color: var(--text-ivory);
       display: block;
       margin-top: 0.15rem;
     }
 
     .journey-panel {
-      padding: clamp(1.35rem, 3vw, 2.1rem);
+      padding: clamp(1.4rem, 3vw, 2.2rem);
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1.6rem;
       align-items: center;
     }
 
@@ -654,40 +725,41 @@
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.3rem 0.8rem;
+      padding: 0.32rem 0.85rem;
       border-radius: var(--radius-full);
-      background: rgba(226, 184, 87, 0.14);
-      color: var(--gold-200);
+      background: rgba(212, 175, 55, 0.14);
+      color: var(--gold-highlight);
       font-size: 0.78rem;
-      font-weight: 800;
+      font-weight: 700;
       margin-bottom: 0.65rem;
     }
 
     .journey-stage-title {
-      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
-      font-weight: 900;
-      color: var(--gold-100);
+      font-family: "Amiri", serif;
+      font-size: clamp(1.5rem, 2.6vw, 2.05rem);
+      font-weight: 700;
+      color: var(--gold-soft);
       margin-bottom: 0.55rem;
     }
 
     .journey-stage-desc {
       font-size: 0.95rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.85rem;
+      color: var(--text-stone);
+      margin-bottom: 0.9rem;
     }
 
     .journey-stage-price {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.35rem 0.85rem;
+      gap: 0.5rem;
+      padding: 0.38rem 0.9rem;
       border-radius: var(--radius-sm);
-      background: rgba(226, 184, 87, 0.1);
-      border: 1px solid var(--border-gold);
-      color: var(--gold-200);
+      background: rgba(27, 77, 62, 0.24);
+      border: 1px solid rgba(126, 226, 184, 0.3);
+      color: var(--gold-soft);
       font-size: 0.86rem;
-      font-weight: 800;
-      margin-bottom: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.15rem;
     }
 
     .journey-nav-btns {
@@ -697,16 +769,16 @@
     }
 
     .journey-highlights-box {
-      padding: 1.25rem;
+      padding: 1.3rem;
       border-radius: var(--radius-md);
-      background: rgba(11, 9, 7, 0.65);
-      border: 1px solid var(--border-gold);
+      background: rgba(7, 8, 11, 0.72);
+      border: 1px solid var(--border-subtle);
     }
 
     .journey-highlights-box h4 {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: var(--gold-200);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--gold-highlight);
       margin-bottom: 0.75rem;
     }
 
@@ -714,32 +786,32 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
+      gap: 0.6rem;
       font-size: 0.86rem;
-      color: var(--text-secondary);
+      color: var(--text-stone);
     }
 
     .journey-highlights-list li {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.55rem;
     }
 
     .journey-highlights-list i {
-      color: var(--gold-300);
+      color: var(--gold-primary);
       font-size: 0.78rem;
     }
 
-    /* شريط الفلاتر والبحث للقائمة */
+    /* شريط الفلاتر والبحث */
     .menu-toolbar {
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
-      padding: 1.1rem;
-      margin-bottom: 1.5rem;
+      gap: 0.95rem;
+      padding: 1.15rem;
+      margin-bottom: 1.6rem;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 880px) {
       .menu-toolbar {
         flex-direction: row;
         align-items: center;
@@ -757,22 +829,23 @@
       padding: 0.5rem 0.95rem;
       border-radius: var(--radius-full);
       font-size: 0.82rem;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-gold);
-      color: var(--text-secondary);
-      transition: all var(--transition-fast);
+      font-weight: 600;
+      background: rgba(245, 241, 232, 0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-stone);
+      transition: transform 0.2s var(--ease-royal), border-color 0.2s var(--ease-royal);
     }
 
     .filter-pill:hover {
-      color: var(--gold-100);
-      border-color: var(--border-gold-strong);
+      color: var(--gold-soft);
+      border-color: var(--border-strong);
     }
 
     .filter-pill.is-active {
-      background: linear-gradient(135deg, var(--gold-200), var(--gold-400));
-      color: #161006;
+      background: linear-gradient(135deg, var(--gold-highlight), var(--gold-primary));
+      color: #07080B;
       border-color: transparent;
+      font-weight: 700;
       box-shadow: var(--shadow-gold);
     }
 
@@ -783,34 +856,34 @@
 
     .search-box i {
       position: absolute;
-      right: 0.9rem;
+      right: 0.95rem;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--gold-300);
+      color: var(--gold-primary);
       font-size: 0.88rem;
       pointer-events: none;
     }
 
     .search-input {
       width: 100%;
-      padding: 0.58rem 2.35rem 0.58rem 0.9rem;
+      padding: 0.6rem 2.4rem 0.6rem 0.95rem;
       border-radius: var(--radius-full);
-      background: rgba(11, 9, 7, 0.75);
-      border: 1px solid var(--border-gold);
+      background: rgba(7, 8, 11, 0.82);
+      border: 1px solid var(--border-subtle);
       font-size: 0.86rem;
-      color: var(--text-primary);
-      transition: border-color var(--transition-fast);
+      color: var(--text-ivory);
     }
 
     .search-input:focus {
       outline: none;
-      border-color: var(--gold-300);
+      border-color: var(--gold-highlight);
     }
 
     .dishes-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.15rem;
+      gap: 1.2rem;
+      perspective: 1200px;
     }
 
     @media (min-width: 640px) {
@@ -826,15 +899,12 @@
     }
 
     .dish-card {
-      padding: 1.35rem;
+      padding: 1.4rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 1rem;
-    }
-
-    .dish-card:hover {
-      transform: translateY(-4px);
+      transform-style: preserve-3d;
     }
 
     .dish-top {
@@ -842,43 +912,45 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 0.75rem;
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.7rem;
     }
 
     .dish-icon-box {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 14px;
       display: grid;
       place-items: center;
-      background: rgba(226, 184, 87, 0.12);
-      border: 1px solid var(--border-gold);
-      color: var(--gold-200);
-      font-size: 1.05rem;
+      background: linear-gradient(145deg, rgba(212, 175, 55, 0.16), rgba(27, 77, 62, 0.2));
+      border: 1px solid var(--border-subtle);
+      color: var(--gold-highlight);
+      font-size: 1.1rem;
       flex-shrink: 0;
     }
 
     .dish-cat-badge {
       font-size: 0.72rem;
-      font-weight: 800;
-      padding: 0.24rem 0.65rem;
+      font-weight: 700;
+      padding: 0.26rem 0.68rem;
       border-radius: var(--radius-full);
-      background: rgba(255, 244, 207, 0.06);
-      border: 1px solid var(--border-gold);
-      color: var(--gold-200);
+      background: rgba(245, 241, 232, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--gold-highlight);
     }
 
     .dish-name {
-      font-size: 1.08rem;
-      font-weight: 900;
-      color: var(--text-primary);
+      font-family: "Amiri", serif;
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--text-ivory);
       margin-bottom: 0.35rem;
+      line-height: 1.3;
     }
 
     .dish-desc {
       font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.55;
+      color: var(--text-stone);
+      line-height: 1.6;
     }
 
     .dish-bottom {
@@ -886,26 +958,26 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
-      padding-top: 0.85rem;
-      border-top: 1px solid rgba(226, 184, 87, 0.14);
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
     }
 
     .dish-price {
-      font-size: 1.02rem;
-      font-weight: 900;
-      color: var(--gold-200);
+      font-size: 1.04rem;
+      font-weight: 700;
+      color: var(--gold-highlight);
     }
 
     .dish-add-btn {
-      padding: 0.52rem 0.9rem;
-      font-size: 0.8rem;
+      padding: 0.54rem 0.95rem;
+      font-size: 0.82rem;
     }
 
     /* شبكة المجالس والطاولات المباشرة */
     .tables-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1rem;
+      gap: 1.05rem;
     }
 
     @media (min-width: 640px) {
@@ -916,31 +988,30 @@
 
     @media (min-width: 1024px) {
       .tables-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
     .table-status-card {
-      padding: 1.25rem;
+      padding: 1.3rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0.85rem;
+      gap: 0.9rem;
     }
 
     .table-status-card.is-locked {
       border-color: var(--status-occ-border);
-      background: rgba(26, 14, 17, 0.86);
     }
 
     .status-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      padding: 0.25rem 0.7rem;
+      padding: 0.26rem 0.72rem;
       border-radius: var(--radius-full);
-      font-size: 0.74rem;
-      font-weight: 900;
+      font-size: 0.75rem;
+      font-weight: 700;
     }
 
     .status-pill.is-empty {
@@ -957,28 +1028,29 @@
 
     .table-card-cta {
       width: 100%;
-      padding: 0.5rem 0.8rem;
-      font-size: 0.78rem;
-      font-weight: 800;
+      padding: 0.56rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 700;
       border-radius: var(--radius-sm);
+      text-align: center;
     }
 
     .table-card-cta.is-locked {
-      background: rgba(244, 63, 94, 0.1);
-      border: 1px solid rgba(251, 113, 133, 0.28);
+      background: var(--status-occ-bg);
+      border: 1px solid var(--status-occ-border);
       color: var(--status-occ-text);
       cursor: not-allowed;
     }
 
     /* =====================================================================
-       ٧. سلة التذوق المنزلقة (Slide-over Tasting Bag Drawer)
+       ٧. سلة التذوق المنزلقة (Composite-Only Slide-Over Drawer)
        ===================================================================== */
     .drawer-backdrop {
       position: fixed;
       inset: 0;
       z-index: 50;
-      background: rgba(0, 0, 0, 0.72);
-      backdrop-filter: blur(5px);
+      background: rgba(0, 0, 0, 0.76);
+      backdrop-filter: blur(6px);
     }
 
     .bag-drawer {
@@ -987,14 +1059,15 @@
       left: 0;
       bottom: 0;
       z-index: 60;
-      width: min(100%, 430px);
-      background: #120f0c;
-      border-right: 1px solid var(--border-gold-strong);
-      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.8);
+      width: min(100%, 440px);
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-strong);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
       transform: translateX(-100%);
-      transition: transform var(--transition-smooth);
+      transition: transform 0.35s var(--ease-royal);
+      will-change: transform;
     }
 
     .bag-drawer.is-open {
@@ -1002,8 +1075,8 @@
     }
 
     .bag-header {
-      padding: 1.25rem 1.35rem;
-      border-bottom: 1px solid var(--border-gold);
+      padding: 1.25rem 1.4rem;
+      border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1013,17 +1086,17 @@
     .bag-body {
       flex: 1;
       overflow-y: auto;
-      padding: 1.15rem 1.35rem;
+      padding: 1.2rem 1.4rem;
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
     }
 
     .bag-item-row {
-      padding: 0.9rem 1rem;
+      padding: 0.92rem 1rem;
       border-radius: var(--radius-md);
-      background: rgba(24, 20, 16, 0.92);
-      border: 1px solid var(--border-gold);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1034,31 +1107,27 @@
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      background: rgba(10, 8, 6, 0.8);
-      border: 1px solid var(--border-gold);
+      background: var(--bg-obsidian);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 0.2rem 0.4rem;
+      padding: 0.22rem 0.42rem;
     }
 
     .qty-btn {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 8px;
       display: grid;
       place-items: center;
-      font-weight: 900;
-      color: var(--gold-200);
-      background: rgba(226, 184, 87, 0.1);
-    }
-
-    .qty-btn:hover {
-      background: rgba(226, 184, 87, 0.24);
+      font-weight: 700;
+      color: var(--gold-highlight);
+      background: rgba(212, 175, 55, 0.12);
     }
 
     .bag-footer {
-      padding: 1.2rem 1.35rem;
-      border-top: 1px solid var(--border-gold);
-      background: rgba(15, 12, 9, 0.96);
+      padding: 1.25rem 1.4rem;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-obsidian);
       display: flex;
       flex-direction: column;
       gap: 0.65rem;
@@ -1069,19 +1138,18 @@
       align-items: center;
       justify-content: space-between;
       font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-secondary);
+      color: var(--text-stone);
     }
 
     .bag-summary-total {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 1rem;
-      font-weight: 900;
-      color: var(--gold-100);
-      padding-top: 0.5rem;
-      border-top: 1px dashed rgba(226, 184, 87, 0.25);
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--gold-soft);
+      padding-top: 0.55rem;
+      border-top: 1px dashed rgba(212, 175, 55, 0.28);
     }
 
     /* =====================================================================
@@ -1091,7 +1159,7 @@
       position: fixed;
       inset: 0;
       z-index: 70;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.84);
       backdrop-filter: blur(8px);
       display: none;
       align-items: flex-start;
@@ -1110,13 +1178,13 @@
       margin-block: auto;
       padding: clamp(1.35rem, 3vw, 2rem);
       border-radius: var(--radius-xl);
-      background: #14110e;
-      border: 1px solid var(--border-gold-strong);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
       box-shadow: var(--shadow-royal);
     }
 
     .modal-sheet.is-wide {
-      max-width: 1080px;
+      max-width: 1100px;
     }
 
     .modal-top {
@@ -1126,7 +1194,7 @@
       gap: 1rem;
       padding-bottom: 1rem;
       margin-bottom: 1.35rem;
-      border-bottom: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .form-grid {
@@ -1144,8 +1212,8 @@
     .field-label {
       display: block;
       font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--gold-200);
+      font-weight: 700;
+      color: var(--gold-highlight);
       margin-bottom: 0.35rem;
     }
 
@@ -1153,21 +1221,20 @@
       width: 100%;
       padding: 0.68rem 0.9rem;
       border-radius: var(--radius-sm);
-      background: rgba(9, 8, 7, 0.85);
-      border: 1px solid var(--border-gold);
+      background: var(--bg-obsidian);
+      border: 1px solid var(--border-subtle);
       font-size: 0.88rem;
-      color: var(--text-primary);
-      transition: border-color var(--transition-fast);
+      color: var(--text-ivory);
     }
 
     .field-input:focus, .field-select:focus {
       outline: none;
-      border-color: var(--gold-300);
+      border-color: var(--gold-highlight);
     }
 
     .field-select option:disabled {
-      color: #988b76;
-      background: #181410;
+      color: var(--text-muted);
+      background: #141924;
     }
 
     .lock-warning-box {
@@ -1177,28 +1244,28 @@
       border: 1px solid var(--status-occ-border);
       color: var(--status-occ-text);
       font-size: 0.82rem;
-      font-weight: 800;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 0.55rem;
     }
 
     .owner-section-box {
-      padding: 1.15rem;
+      padding: 1.2rem;
       border-radius: var(--radius-lg);
-      background: rgba(10, 8, 6, 0.72);
-      border: 1px solid var(--border-gold);
+      background: rgba(7, 8, 11, 0.75);
+      border: 1px solid var(--border-subtle);
       margin-bottom: 1.25rem;
     }
 
     .owner-section-title {
       font-size: 1rem;
-      font-weight: 900;
-      color: var(--gold-200);
-      margin-bottom: 0.9rem;
+      font-weight: 700;
+      color: var(--gold-highlight);
+      margin-bottom: 0.95rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.55rem;
     }
 
     /* إشعارات عائمة */
@@ -1214,37 +1281,27 @@
     }
 
     .toast-item {
-      padding: 0.8rem 1rem;
+      padding: 0.82rem 1.05rem;
       border-radius: var(--radius-md);
-      background: rgba(18, 15, 12, 0.96);
-      border: 1px solid var(--border-gold-strong);
-      color: var(--gold-100);
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      color: var(--gold-soft);
       font-size: 0.84rem;
-      font-weight: 800;
+      font-weight: 600;
       box-shadow: var(--shadow-royal);
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      animation: toastSlideIn 0.25s ease-out;
+      transition: opacity 0.25s var(--ease-royal), transform 0.25s var(--ease-royal);
     }
 
-    @keyframes toastSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* التذييل */
     .site-footer {
-      border-top: 1px solid var(--border-gold);
-      background: rgba(9, 8, 7, 0.92);
-      padding-block: 1.75rem;
-      margin-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(7, 8, 11, 0.95);
+      padding-block: 1.85rem;
+      margin-top: 2.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     .footer-inner {
@@ -1253,8 +1310,8 @@
       gap: 0.65rem;
       align-items: center;
       text-align: center;
-      font-size: 0.82rem;
-      color: var(--text-secondary);
+      font-size: 0.84rem;
+      color: var(--text-stone);
     }
 
     @media (min-width: 768px) {
@@ -1264,29 +1321,51 @@
         text-align: right;
       }
     }
+
+    /* =====================================================================
+       ٩. احترام تفضيلات تقليل الحركة (Reduced-Motion Accessibility Tier)
+       ===================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .flag-showcase-card,
+      .dish-card {
+        transform: none !important;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- =====================================================================
-       شاشة التحميل الآمنة (تختفي خلال <= 400ms أو عند النقر الفوري)
+       شاشة التحميل الآمنة (تختفي تلقائياً خلال <= 420ms أو بالنقر الفوري)
        ===================================================================== -->
-  <div id="royalPreloader" role="button" tabindex="0" aria-label="دخول فوري إلى ديوان الرافدين الملكي">
+  <div id="royalPreloader" class="is-loading" role="button" tabindex="0" aria-label="دخول فوري إلى ديوان الرافدين الملكي">
     <div class="preloader-crest">
       <i class="fa-solid fa-crown"></i>
     </div>
-    <div style="font-size: 0.98rem; font-weight: 900; color: var(--gold-100);">ديوان الرافدين الملكي • استوديو B7r</div>
+    <div class="display-serif" style="font-size: 1.25rem; font-weight: 700; color: var(--gold-soft);">
+      ديوان الرافدين الملكي • استوديو B7r
+    </div>
     <div class="preloader-track">
-      <div id="preloaderBar" class="preloader-bar"></div>
+      <div class="preloader-bar"></div>
     </div>
     <span class="preloader-hint">انقر للدخول الفوري</span>
   </div>
 
   <!-- =====================================================================
-       شريط التنقل العلوي (بدون أي شارات خضراء أو مؤشرات اتصال)
+       شريط التنقل العلوي
        ===================================================================== -->
   <header class="top-nav">
     <div class="container-shell top-nav-inner">
-      <a href="#top" class="brand-lockup">
+      <a href="#top" class="brand-lockup" aria-label="العودة إلى بداية ديوان الرافدين الملكي">
         <div class="brand-crest">
           <i class="fa-solid fa-crown"></i>
         </div>
@@ -1298,18 +1377,18 @@
 
       <nav class="nav-links" aria-label="التنقل الرئيسي">
         <a href="#journey">رحلة التذوق</a>
-        <a href="#menu">قائمة الديوان</a>
+        <a href="#menu">قائمة الطعام الملكية</a>
         <a href="#majlis">المجالس والطاولات</a>
       </nav>
 
       <div class="nav-actions">
-        <button id="openBagBtn" type="button" class="btn-ghost nav-pill-btn">
+        <button id="openBagBtn" type="button" class="btn-ghost nav-pill-btn" aria-label="فتح سلة التذوق الملكية">
           <i class="fa-solid fa-bag-shopping"></i>
           <span>السلة</span>
           <span id="bagCountBadge" class="bag-badge">0</span>
         </button>
 
-        <button id="openControlPanelBtn" type="button" class="nav-pill-btn owner-pill-btn">
+        <button id="openControlPanelBtn" type="button" class="nav-pill-btn owner-pill-btn" aria-label="فتح لوحة تحكم المالك">
           <i class="fa-solid fa-shield-halved"></i>
           <span>لوحة المالك</span>
         </button>
@@ -1339,15 +1418,15 @@
           </h1>
 
           <p class="hero-lead">
-            من ضفاف دجلة والفرات إلى مجالس الضيافة الراقية؛ نُعدّ المسكوف العراقي على أخشاب الصفصاف، وقوزي الزعفران، والدولمة، والقهوة بالهيل في تجربة تجمع الأصالة بالفخامة المعاصرة.
+            من ضفاف دجلة والفرات إلى مجالس الضيافة الراقية؛ نُعدّ المسكوف العراقي على أخشاب الصفصاف، وقوزي الزعفران، والدولمة البغدادية، والقهوة بالهيل في تجربة تجمع الأصالة بالفخامة المعاصرة.
           </p>
 
-          <div class="hero-featured-price-banner">
+          <div class="hero-featured-banner">
             <div>
-              <strong style="color: var(--gold-200);">وليمة الديوان الملكية (مسكوف دجلة + قوزي):</strong>
-              <span id="heroSpecialPriceText" style="color: var(--gold-100); font-weight: 900; margin-right: 0.35rem;">83,000 د.ع</span>
+              <strong style="color: var(--gold-highlight);">وليمة الديوان الملكية (مسكوف دجلة + قوزي):</strong>
+              <span id="heroSpecialPriceText" style="color: var(--gold-soft); font-weight: 700; margin-right: 0.35rem;">83,000 د.ع</span>
             </div>
-            <button id="heroQuickAddSpecialBtn" type="button" class="btn-gold" style="padding: 0.45rem 0.9rem; font-size: 0.78rem;">
+            <button id="heroQuickAddSpecialBtn" type="button" class="btn-gold" style="padding: 0.48rem 0.95rem; font-size: 0.8rem;">
               <i class="fa-solid fa-plus"></i>
               <span>أضف المسكوف (38,000 د.ع)</span>
             </button>
@@ -1366,11 +1445,11 @@
 
           <div class="hero-stats">
             <div class="stat-box">
-              <div class="stat-num" id="statDishesCount">8</div>
+              <div class="stat-num" id="statDishesCount">10</div>
               <div class="stat-label">أطباق عراقية مختارة</div>
             </div>
             <div class="stat-box">
-              <div class="stat-num" id="statEmptyTablesCount">4</div>
+              <div class="stat-num" id="statEmptyTablesCount">6</div>
               <div class="stat-label">طاولات فاضية الآن</div>
             </div>
             <div class="stat-box">
@@ -1380,45 +1459,47 @@
           </div>
         </div>
 
-        <!-- منصة علم العراق السينمائي -->
-        <div class="flag-showcase-card">
-          <div class="flag-header-bar">
-            <span><i class="fa-solid fa-flag"></i> علم العراق في مقدمة الديوان</span>
-            <span style="color: var(--gold-300); font-size: 0.76rem;">راية الرافدين</span>
-          </div>
-
-          <div class="flag-stage">
-            <div class="flag-pole-wrap" aria-hidden="true">
-              <div class="flag-finial"></div>
-              <div class="flag-pole"></div>
+        <!-- منصة علم العراق السينمائي مع تفاعل ثلاثي الأبعاد -->
+        <div class="tilt-stage-wrapper">
+          <div id="heroTiltCard" class="flag-showcase-card babylon-filigree">
+            <div class="flag-header-bar">
+              <span><i class="fa-solid fa-flag"></i> علم العراق في مقدمة الديوان</span>
+              <span class="calligraphy-accent" style="color: var(--gold-soft); font-size: 0.95rem;">راية الرافدين</span>
             </div>
-            <div class="flag-canvas-frame">
-              <canvas id="iraqiFlagCanvas" width="330" height="196" aria-label="علم العراق يرفرف وعبارة الله أكبر في المنتصف"></canvas>
-            </div>
-          </div>
 
-          <div class="flag-caption-box">
-            <div class="flag-caption-title">ديوان الرافدين الملكي • كرم الضيافة العراقية</div>
-            <div class="flag-caption-sub">ثلاثة أشرطة أفقية (أحمر، أبيض، أسود) مع عبارة «الله أكبر» الخضراء في منتصف الشريط الأبيض بحركة أمواج وطيات نسيج سينمائية.</div>
+            <div class="flag-stage">
+              <div class="flag-pole-wrap" aria-hidden="true">
+                <div class="flag-finial"></div>
+                <div class="flag-pole"></div>
+              </div>
+              <div class="flag-canvas-frame">
+                <canvas id="iraqiFlagCanvas" width="336" height="198" aria-label="علم العراق يرفرف وعبارة الله أكبر في المنتصف"></canvas>
+              </div>
+            </div>
+
+            <div class="flag-caption-box">
+              <div class="flag-caption-title">ديوان الرافدين الملكي • كرم الضيافة العراقية</div>
+              <div class="flag-caption-sub">ثلاثة أشرطة أفقية (أحمر، أبيض، أسود) مع عبارة «الله أكبر» الخضراء في منتصف الشريط الأبيض بحركة أمواج وطيات نسيج سينمائية.</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =====================================================================
-         رحلة التذوق العراقية التفاعلية (٤ محطات)
+         رحلة التذوق الرافدينية التفاعلية (٤ محطات)
          ===================================================================== -->
-    <section id="journey" class="section-block">
+    <section id="journey" class="section-block reveal-on-scroll">
       <div class="container-shell">
         <div class="section-head">
           <span class="section-tag">تجربة متكاملة على أصولها</span>
-          <h2 class="section-title">رحلة التذوق في ديوان الرافدين</h2>
+          <h2 class="section-title">رحلة التذوق الرافدينية</h2>
           <p class="section-desc">اختر محطة من محطات الضيافة للتعرّف على تسلسل الكرم العراقي والباقات التقديرية بالدينار العراقي.</p>
         </div>
 
         <div id="journeyTabs" class="journey-tabs" role="tablist"></div>
 
-        <div class="glass-card journey-panel">
+        <div class="royal-card babylon-filigree journey-panel">
           <div>
             <span id="journeyBadge" class="journey-badge">المحطة ١</span>
             <h3 id="journeyTitle" class="journey-stage-title"></h3>
@@ -1428,11 +1509,11 @@
               <span>الباقة التقديرية: 12,000 د.ع</span>
             </div>
             <div class="journey-nav-btns">
-              <button id="prevStageBtn" type="button" class="btn-ghost" style="padding: 0.6rem 1.1rem; font-size: 0.85rem;">
+              <button id="prevStageBtn" type="button" class="btn-ghost" style="padding: 0.62rem 1.15rem; font-size: 0.85rem;">
                 <i class="fa-solid fa-arrow-right"></i>
                 <span>المحطة السابقة</span>
               </button>
-              <button id="nextStageBtn" type="button" class="btn-gold" style="padding: 0.6rem 1.1rem; font-size: 0.85rem;">
+              <button id="nextStageBtn" type="button" class="btn-gold" style="padding: 0.62rem 1.15rem; font-size: 0.85rem;">
                 <span>المحطة التالية</span>
                 <i class="fa-solid fa-arrow-left"></i>
               </button>
@@ -1448,36 +1529,37 @@
     </section>
 
     <!-- =====================================================================
-         قائمة الديوان القابلة للتصفية والبحث
+         قائمة الطعام الملكية القابلة للتصفية والبحث
          ===================================================================== -->
-    <section id="menu" class="section-block">
+    <section id="menu" class="section-block reveal-on-scroll">
       <div class="container-shell">
         <div class="section-head section-head-row">
           <div>
             <span class="section-tag">مطبخ الديوان • الأسعار بالدينار العراقي (د.ع)</span>
-            <h2 class="section-title">قائمة الأطباق الملكية</h2>
+            <h2 class="section-title">قائمة الطعام الملكية</h2>
             <p class="section-desc">تصفّح الأطباق العراقية الأصيلة وأضف ما تشتهيه إلى سلة التذوق مباشرة.</p>
           </div>
         </div>
 
-        <div class="glass-card menu-toolbar">
+        <div class="royal-card menu-toolbar">
           <div id="categoryPills" class="category-pills">
             <button type="button" class="filter-pill is-active" data-cat="all">الكل</button>
             <button type="button" class="filter-pill" data-cat="feasts">المسكوف والولائم</button>
-            <button type="button" class="filter-pill" data-cat="heritage">أطباق تراثية</button>
-            <button type="button" class="filter-pill" data-cat="sweets">حلويات وشاي</button>
+            <button type="button" class="filter-pill" data-cat="grills">المشويات العراقية</button>
+            <button type="button" class="filter-pill" data-cat="starters">المقبلات والشوربات</button>
+            <button type="button" class="filter-pill" data-cat="sweets">الحلويات والمشروبات</button>
           </div>
 
           <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input id="menuSearchInput" type="search" class="search-input" placeholder="ابحث عن طبق (مسكوف، قوزي، دولمة...)" aria-label="البحث في القائمة" />
+            <input id="menuSearchInput" type="search" class="search-input" placeholder="ابحث عن طبق (مسكوف، قوزي، كباب، دولمة...)" aria-label="البحث في القائمة" />
           </div>
         </div>
 
         <div id="menuGrid" class="dishes-grid"></div>
 
-        <div id="menuEmptyState" class="glass-card hidden" style="padding: 2.2rem; text-align: center; margin-top: 1rem;">
-          <p style="color: var(--text-secondary); font-weight: 700;">لا توجد أطباق مطابقة لمعايير البحث أو التصنيف الحالية.</p>
+        <div id="menuEmptyState" class="royal-card hidden" style="padding: 2.2rem; text-align: center; margin-top: 1rem;">
+          <p style="color: var(--text-stone); font-weight: 600;">لا توجد أطباق مطابقة لمعايير البحث أو التصنيف الحالية.</p>
         </div>
       </div>
     </section>
@@ -1485,7 +1567,7 @@
     <!-- =====================================================================
          المجالس والطاولات وحالة التوفر المباشرة
          ===================================================================== -->
-    <section id="majlis" class="section-block">
+    <section id="majlis" class="section-block reveal-on-scroll">
       <div class="container-shell">
         <div class="section-head section-head-row">
           <div>
@@ -1494,7 +1576,7 @@
             <p class="section-desc">تُقفل الطاولة أو المجلس تلقائياً فقط عندما يكون «مشغولاً» أو عليه حجز «مقبول»، وتبقى الطاولات «الفاضية» متاحة للحجز الفوري.</p>
           </div>
 
-          <button id="sectionReserveBtn" type="button" class="btn-gold" style="padding: 0.72rem 1.25rem; font-size: 0.88rem;">
+          <button id="sectionReserveBtn" type="button" class="btn-gold" style="padding: 0.75rem 1.3rem; font-size: 0.88rem;">
             <i class="fa-solid fa-plus"></i>
             <span>طلب حجز طاولة</span>
           </button>
@@ -1511,28 +1593,28 @@
   <footer class="site-footer">
     <div class="container-shell footer-inner">
       <div>
-        <strong style="color: var(--gold-200);">ديوان الرافدين الملكي</strong> — بغداد، العراق • جميع الأسعار بالدينار العراقي (د.ع)
+        <strong style="color: var(--gold-highlight);">ديوان الرافدين الملكي</strong> — بغداد، العراق • جميع الأسعار بالدينار العراقي (د.ع)
       </div>
       <div>
-        صُمم وطُوّر بواسطة <strong style="color: var(--gold-200);">استوديو B7r لتطوير المواقع</strong>
+        صُمم وطُوّر بواسطة <strong style="color: var(--gold-highlight);">استوديو B7r لتطوير المواقع</strong>
       </div>
     </div>
   </footer>
 
   <!-- =====================================================================
-       سلة التذوق المنزلقة (Slide-over Tasting Bag)
+       سلة التذوق الملكية المنزلقة (Slide-over Tasting Bag)
        ===================================================================== -->
   <div id="bagBackdrop" class="drawer-backdrop hidden"></div>
-  <aside id="bagDrawer" class="bag-drawer" aria-label="سلة التذوق" aria-hidden="true">
+  <aside id="bagDrawer" class="bag-drawer" aria-label="سلة التذوق الملكية" aria-hidden="true">
     <div class="bag-header">
       <div>
-        <h2 style="font-size: 1.1rem; font-weight: 900; color: var(--gold-100);">
-          <i class="fa-solid fa-bag-shopping" style="color: var(--gold-300); margin-left: 0.4rem;"></i>
-          سلة التذوق
+        <h2 class="display-serif" style="font-size: 1.3rem; font-weight: 700; color: var(--gold-soft);">
+          <i class="fa-solid fa-bag-shopping" style="color: var(--gold-primary); margin-left: 0.4rem;"></i>
+          سلة التذوق الملكية
         </h2>
-        <p id="bagItemsSummary" style="font-size: 0.78rem; color: var(--text-muted);">السلة فارغة حالياً</p>
+        <p id="bagItemsSummary" style="font-size: 0.78rem; color: var(--text-stone);">السلة فارغة حالياً</p>
       </div>
-      <button id="closeBagBtn" type="button" class="btn-ghost" style="padding: 0.45rem 0.75rem;" aria-label="إغلاق السلة">
+      <button id="closeBagBtn" type="button" class="btn-ghost" style="padding: 0.45rem 0.75rem;" aria-label="إغلاق سلة التذوق">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -1542,15 +1624,15 @@
     <div class="bag-footer">
       <div class="bag-summary-line">
         <span>المجموع الفرعي:</span>
-        <span id="bagSubtotalText" style="color: var(--gold-200); font-weight: 800;">0 د.ع</span>
+        <span id="bagSubtotalText" style="color: var(--gold-highlight); font-weight: 700;">0 د.ع</span>
       </div>
       <div class="bag-summary-line">
-        <span>خدمة الديوان والضيافة (10%):</span>
-        <span id="bagServiceFeeText" style="color: var(--gold-200); font-weight: 800;">0 د.ع</span>
+        <span>خدمة المجلس والضيافة (10%):</span>
+        <span id="bagServiceFeeText" style="color: var(--gold-highlight); font-weight: 700;">0 د.ع</span>
       </div>
       <div class="bag-summary-total">
         <span>الإجمالي النهائي:</span>
-        <span id="bagGrandTotalText" style="color: var(--gold-200);">0 د.ع</span>
+        <span id="bagGrandTotalText" style="color: var(--gold-highlight);">0 د.ع</span>
       </div>
       <div style="display: flex; gap: 0.6rem; margin-top: 0.25rem;">
         <button id="clearBagBtn" type="button" class="btn-ghost" style="padding: 0.72rem 0.95rem; font-size: 0.82rem;">
@@ -1565,14 +1647,14 @@
   </aside>
 
   <!-- =====================================================================
-       نافذة حجز الطاولة / المجلس (قفل الطاولة فقط عند status === 'occupied' أو حجز accepted)
+       نافذة حجز الطاولة / المجلس
        ===================================================================== -->
   <div id="reserveModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="reserveModalTitle">
     <div class="modal-sheet">
       <div class="modal-top">
         <div>
-          <h2 id="reserveModalTitle" style="font-size: 1.2rem; font-weight: 900; color: var(--gold-100);">حجز طاولة أو مجلس</h2>
-          <p style="font-size: 0.8rem; color: var(--text-secondary);">الطاولات الفاضية متاحة للحجز مباشرة، وتُقفل الطاولات المشغولة أو ذات الحجز المقبول.</p>
+          <h2 id="reserveModalTitle" class="display-serif" style="font-size: 1.4rem; font-weight: 700; color: var(--gold-soft);">حجز طاولة أو مجلس</h2>
+          <p style="font-size: 0.8rem; color: var(--text-stone);">الطاولات الفاضية متاحة للحجز مباشرة، وتُقفل الطاولات المشغولة أو ذات الحجز المقبول.</p>
         </div>
         <button id="closeReserveModalBtn" type="button" class="btn-ghost" style="padding: 0.45rem 0.75rem;" aria-label="إغلاق نافذة الحجز">
           <i class="fa-solid fa-xmark"></i>
@@ -1602,6 +1684,7 @@
               <option value="4 أشخاص" selected>4 أشخاص</option>
               <option value="6 أشخاص">6 أشخاص</option>
               <option value="8 أشخاص">8 أشخاص</option>
+              <option value="12 شخصاً">12 شخصاً</option>
             </select>
           </div>
         </div>
@@ -1625,21 +1708,21 @@
     <div class="modal-sheet is-wide">
       <div class="modal-top">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <div class="brand-crest" style="width: 42px; height: 42px; font-size: 1rem;">
+          <div class="brand-crest" style="width: 44px; height: 44px; font-size: 1.05rem;">
             <i class="fa-solid fa-sliders"></i>
           </div>
           <div>
-            <h2 id="ownerModalTitle" style="font-size: 1.2rem; font-weight: 900; color: var(--gold-100);">لوحة تحكم المالك • ديوان الرافدين</h2>
-            <p style="font-size: 0.78rem; color: var(--text-secondary);">إدارة الأطباق والأسعار بالدينار العراقي (د.ع)، حالة الطاولات (فاضية / مشغولة)، وقبول أو رفض الحجوزات</p>
+            <h2 id="ownerModalTitle" class="display-serif" style="font-size: 1.38rem; font-weight: 700; color: var(--gold-soft);">لوحة تحكم المالك • ديوان الرافدين</h2>
+            <p style="font-size: 0.78rem; color: var(--text-stone);">إدارة الأطباق والأسعار بالدينار العراقي (د.ع)، حالة الطاولات (فاضية / مشغولة)، وقبول أو رفض الحجوزات</p>
           </div>
         </div>
 
         <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <button id="lockOwnerBtn" type="button" class="btn-ghost hidden" style="padding: 0.45rem 0.8rem; font-size: 0.78rem;">
+          <button id="lockOwnerBtn" type="button" class="btn-ghost hidden" style="padding: 0.45rem 0.8rem; font-size: 0.78rem;" aria-label="قفل لوحة تحكم المالك">
             <i class="fa-solid fa-lock"></i>
             <span>قفل اللوحة</span>
           </button>
-          <button id="closeControlPanelBtn" type="button" class="btn-ghost" style="padding: 0.45rem 0.8rem; font-size: 0.78rem;">
+          <button id="closeControlPanelBtn" type="button" class="btn-ghost" style="padding: 0.45rem 0.8rem; font-size: 0.78rem;" aria-label="إغلاق لوحة تحكم المالك">
             <i class="fa-solid fa-xmark"></i>
             <span>إغلاق</span>
           </button>
@@ -1648,16 +1731,16 @@
 
       <!-- بوابة التحقق برمز المالك -->
       <div id="ownerAuthBox" style="max-width: 430px; margin: 1.25rem auto; text-align: center;" class="owner-section-box">
-        <div style="width: 48px; height: 48px; border-radius: 15px; margin: 0 auto 0.75rem; display: grid; place-items: center; background: rgba(226, 184, 87, 0.14); color: var(--gold-200); font-size: 1.25rem;">
+        <div style="width: 50px; height: 50px; border-radius: 15px; margin: 0 auto 0.75rem; display: grid; place-items: center; background: rgba(212, 175, 55, 0.14); color: var(--gold-highlight); font-size: 1.25rem;">
           <i class="fa-solid fa-key"></i>
         </div>
-        <h3 style="font-size: 1.05rem; font-weight: 900; color: var(--gold-100); margin-bottom: 0.35rem;">دخول خاص بالمالك فقط</h3>
-        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">
-          أدخل رمز المالك لفتح لوحة التحكم : <strong style="color: var(--gold-300);" dir="ltr">********</strong>
+        <h3 class="display-serif" style="font-size: 1.22rem; font-weight: 700; color: var(--gold-soft); margin-bottom: 0.35rem;">دخول خاص بالمالك فقط</h3>
+        <p style="font-size: 0.8rem; color: var(--text-stone); margin-bottom: 1rem;">
+          أدخل رمز المالك لفتح لوحة التحكم (الرمز الافتراضي: <strong style="color: var(--gold-highlight);" dir="ltr">B7R-2026</strong>)
         </p>
         <form id="ownerAuthForm" class="form-grid">
           <input id="ownerPasscodeInput" type="password" required autocomplete="off" class="field-input" placeholder="أدخل رمز المالك السري..." />
-          <button type="submit" class="btn-gold" style="padding: 0.75rem; font-size: 0.88rem;">
+          <button type="submit" class="btn-gold" style="padding: 0.78rem; font-size: 0.88rem;">
             فتح لوحة التحكم
           </button>
         </form>
@@ -1665,7 +1748,7 @@
 
       <!-- محتوى لوحة التحكم بعد إدخال الرمز الصحيح -->
       <div id="ownerWorkspace" class="hidden">
-        <!-- ١. تغيير حالة الطاولات بين فاضية ومشغولة -->
+        <!-- ١. تبديل حالة الطاولات بين فاضية ومشغولة -->
         <div class="owner-section-box">
           <h3 class="owner-section-title">
             <i class="fa-solid fa-chair"></i>
@@ -1690,12 +1773,13 @@
             <span>إضافة طبق جديد وتعديل الأطباق والأسعار الحالية (بالدينار العراقي د.ع)</span>
           </h3>
 
-          <form id="ownerAddDishForm" class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-bottom: 1.15rem; padding: 0.9rem; border-radius: var(--radius-md); background: rgba(20, 17, 13, 0.85); border: 1px solid var(--border-gold);">
+          <form id="ownerAddDishForm" class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-bottom: 1.15rem; padding: 0.9rem; border-radius: var(--radius-md); background: var(--bg-card); border: 1px solid var(--border-subtle);">
             <input id="newDishName" type="text" required class="field-input" placeholder="اسم الطبق الجديد..." />
             <select id="newDishCategory" class="field-select">
               <option value="feasts">المسكوف والولائم</option>
-              <option value="heritage">أطباق تراثية</option>
-              <option value="sweets">حلويات وشاي</option>
+              <option value="grills">المشويات العراقية</option>
+              <option value="starters">المقبلات والشوربات</option>
+              <option value="sweets">الحلويات والمشروبات</option>
             </select>
             <input id="newDishPrice" type="number" min="1000" step="500" required class="field-input" placeholder="السعر بالدينار (د.ع)" />
             <input id="newDishDesc" type="text" required class="field-input" placeholder="وصف مختصر للطبق..." />
@@ -1751,7 +1835,10 @@
     (function () {
       "use strict";
 
-      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_state_v4";
+      const STORAGE_KEY = "diwan_rafidain_b7r_iqd_editorial_v5";
+      const REDUCED_MOTION =
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       const FIREBASE_CONFIG = {
         apiKey: "AIzaSyCnRxL_1Dc_XDFTkZxuy6nenmt1ZqGqiJI",
@@ -1766,7 +1853,7 @@
       const DEFAULT_DISHES = [
         {
           id: "dish-maskoof",
-          name: "مسكوف دجلة على أخشاب الصفصاف",
+          name: "مسكوف دجلة الملكي على أخشاب الصفصاف",
           category: "feasts",
           price: 38000,
           icon: "fa-fish",
@@ -1783,26 +1870,42 @@
         {
           id: "dish-dolma",
           name: "دولمة بغداد بدبس الرمان والحامض",
-          category: "heritage",
+          category: "feasts",
           price: 24000,
           icon: "fa-leaf",
           desc: "تشكيلة ورق عنب، سلق، بصل، باذنجان وفلفل محشوة برز متبل بالأعشاب واللحم مع دبس الرمان الأصيل."
         },
         {
-          id: "dish-tepsi",
-          name: "تبسي باذنجان وطماطم بالفرن",
-          category: "heritage",
-          price: 18000,
-          icon: "fa-utensils",
-          desc: "شرائح الباذنجان والبطاطا والطماطم مع قطع اللحم المتبلة وصلصة غنية، يُقدم مع رز أبيض ساخن."
+          id: "dish-kebab",
+          name: "كباب عراقي ملكي على الفحم",
+          category: "grills",
+          price: 22000,
+          icon: "fa-fire-flame-curved",
+          desc: "أسياخ كباب لحم غنم عراقي طازج مفروم يدوياً مع الليّة والبقدونس، مشوي على الفحم مع الطماطم والبصل المشوي."
+        },
+        {
+          id: "dish-tikka",
+          name: "تكة لحم ومعلاق مشوي بالبهارات البغدادية",
+          category: "grills",
+          price: 26000,
+          icon: "fa-drumstick-bite",
+          desc: "قطع لحم طرية متبلة بالبهارات العراقية والليمون ومشوية على الجمر مع خبز التنور الساخن."
         },
         {
           id: "dish-kubba-mosul",
           name: "كبة الموصل المقرمشة بالصنوبر",
-          category: "heritage",
+          category: "starters",
           price: 16000,
           icon: "fa-circle-dot",
           desc: "أقراص كبة مقرمشة من البرغل واللحم بحشوة اللحم المفروم والصنوبر والبقدونس الطازج."
+        },
+        {
+          id: "dish-lentil-soup",
+          name: "شوربة العدس العراقية بالكمون والليمون",
+          category: "starters",
+          price: 8000,
+          icon: "fa-bowl-hot",
+          desc: "شوربة عدس ذهبية مخملية مطهوة على نار هادئة مع الكمون والبصل المكرمل وعصير الليمون الطازج."
         },
         {
           id: "dish-kahy-kaymar",
@@ -1834,7 +1937,9 @@
         { id: "T-1", name: "مجلس دجلة ١", zone: "القاعة الرئيسية", seats: 4, status: "available" },
         { id: "T-2", name: "مجلس دجلة ٢", zone: "القاعة الرئيسية", seats: 6, status: "available" },
         { id: "T-3", name: "ركن الصفصاف ٣", zone: "شرفة الديوان", seats: 4, status: "available" },
-        { id: "T-4", name: "ديوان الرافدين ٤", zone: "الجناح الخاص", seats: 8, status: "available" }
+        { id: "T-4", name: "ديوان الرافدين ٤", zone: "الجناح الخاص", seats: 8, status: "available" },
+        { id: "T-5", name: "شرفة بغداد ٥", zone: "الإطلالة النهرية", seats: 6, status: "available" },
+        { id: "T-6", name: "قاعة بابل الملكية ٦", zone: "الجناح الملكي", seats: 12, status: "available" }
       ];
 
       const DEFAULT_RESERVATIONS = [
@@ -1858,41 +1963,41 @@
 
       const JOURNEY_STAGES = [
         {
-          badge: "المحطة ١ • الاستقبال",
-          title: "ضيافة البداية والقهوة بالهيل",
-          desc: "نستقبلك في الديوان بفناجين القهوة المعطرة بالهيل وشاي نومي بصرة مع التمور الفاخرة لتهيئة الأجواء.",
+          badge: "المحطة ١ • الاستقبال البغدادي",
+          title: "الاستقبال البغدادي والقهوة بالهيل",
+          desc: "نستقبلك في الديوان بفناجين القهوة المعطرة بالهيل وشاي نومي بصرة مع التمور العراقية الفاخرة لتهيئة الأجواء.",
           price: 12000,
           highlights: [
             "تحميص وتبهير يومي يمنح الهيل عبقه الواضح",
             "شاي نومي بصرة طبيعي بلمسة حموضة عطرية",
-            "ترحيب عراقي أصيل في أجواء دافئة"
+            "ترحيب عراقي أصيل في أجواء بغدادية دافئة"
           ]
         },
         {
-          badge: "المحطة ٢ • الجمر والصفصاف",
-          title: "المسكوف العراقي على أخشاب الصفصاف",
-          desc: "يُشوى سمك القطّان ببطء على جمر أخشاب الصفصاف العطرية ليمنح النكهة المدخنة الفريدة والقوام الطري.",
-          price: 38000,
+          badge: "المحطة ٢ • مقبلات دجلة",
+          title: "مقبلات دجلة وكبة الموصل المقرمشة",
+          desc: "تشكيلة مقبلات عراقية أصيلة تضم كبة الموصل المحشوة بالصنوبر واللحم مع شوربة العدس الذهبية والطرشي العراقي.",
+          price: 22000,
           highlights: [
-            "أخشاب صفصاف طبيعية تضيف عبراً مميزاً",
-            "تتبيلة تمر الهند والملح الخشن والليمون الطازج",
-            "يُقدم ساخناً مع الخبز العراقي والحامض"
+            "كبة الموصل الرقيقة بقرمشة ذهبية متوازنة",
+            "شوربة عدس بالكمون والليمون الطازج",
+            "تقديم ساخن مع خبز التنور العراقي"
           ]
         },
         {
-          badge: "المحطة ٣ • كرم المائدة",
-          title: "قوزي الزعفران والدولمة وتبسي بغداد",
-          desc: "تتكامل موائد الديوان بقوزي اللحم فوق الرز بالزعفران واللوز، مع الدولمة بدبس الرمان وتبسي بغداد.",
-          price: 45000,
+          badge: "المحطة ٣ • وليمة المسكوف الملكي",
+          title: "وليمة المسكوف الملكي وقوزي الزعفران",
+          desc: "ذروة الكرم الرافديني مع سمك القطّان المشوي على أخشاب الصفصاف وقوزي اللحم بالزعفران واللوز والدولمة البغدادية.",
+          price: 83000,
           highlights: [
-            "رز بسمتي طويل الحبة معطر بالزعفران والهيل",
-            "دولمة متوازنة بين دبس الرمان والحامض والأعشاب",
-            "حصص سخية تليق بالمجالس والولائم"
+            "أخشاب صفصاف طبيعية تمنح المسكوف نكهته الأصيلة",
+            "رز بسمتي معطر بالزعفران والهيل واللوز المحمص",
+            "حصص سخية تليق بالمجالس والولائم العائلية"
           ]
         },
         {
-          badge: "المحطة ٤ • الختام الملكي",
-          title: "كاهي وكيمر، كليجة الهيل، وشاي الديوان",
+          badge: "المحطة ٤ • ختام الهيل والزعفران",
+          title: "ختام الهيل والزعفران مع الكاهي والكيمر",
           desc: "نختتم الجلسة برقائق الكاهي المقرمشة مع الكيمر الطازج وكليجة التمر والجوز مع كوب شاي عراقي دافئ.",
           price: 16000,
           highlights: [
@@ -1933,9 +2038,10 @@
             dishes: parsed.dishes,
             tables: parsed.tables.map((t) => ({ ...t, status: normalizeTableStatus(t.status) })),
             reservations: parsed.reservations,
-            passcode: typeof parsed.passcode === "string" && parsed.passcode.trim()
-              ? parsed.passcode.trim()
-              : "B7R-2026"
+            passcode:
+              typeof parsed.passcode === "string" && parsed.passcode.trim()
+                ? parsed.passcode.trim()
+                : "B7R-2026"
           };
         } catch (_err) {
           return cloneDefaultData();
@@ -1956,24 +2062,22 @@
          قواعد القفل الصارم للطاولات:
          تُعتبر الطاولة مشغولة/مقفلة فقط إذا كانت table.status === "occupied"
          أو يوجد عليها حجز مقبول (res.status === "accepted").
-         الحجوزات المعلقة ("pending") لا تقفل الطاولة قبل قبولها.
          ------------------------------------------------------------------- */
+      function isTableOccupied(table, reservationsList = db.reservations) {
+        if (!table) return true;
+        if (normalizeTableStatus(table.status) === "occupied") return true;
+        return reservationsList.some(
+          (r) => r.tableId === table.id && r.status === "accepted"
+        );
+      }
+
       function getTableLockReason(tableId, tablesList = db.tables, reservationsList = db.reservations) {
         const tbl = tablesList.find((t) => t.id === tableId);
         if (!tbl) return "الطاولة غير موجودة";
-
-        if (normalizeTableStatus(tbl.status) === "occupied") {
-          return "مشغولة حالياً";
-        }
-
-        const hasAcceptedReservation = reservationsList.some(
-          (r) => r.tableId === tableId && r.status === "accepted"
-        );
-
-        if (hasAcceptedReservation) {
+        if (normalizeTableStatus(tbl.status) === "occupied") return "مشغولة حالياً";
+        if (reservationsList.some((r) => r.tableId === tableId && r.status === "accepted")) {
           return "محجوزة بحجز مقبول (مشغولة)";
         }
-
         return null;
       }
 
@@ -2090,8 +2194,9 @@
 
       function categoryLabel(cat) {
         if (cat === "feasts") return "المسكوف والولائم";
-        if (cat === "heritage") return "أطباق تراثية";
-        if (cat === "sweets") return "حلويات وشاي";
+        if (cat === "grills") return "المشويات العراقية";
+        if (cat === "starters") return "المقبلات والشوربات";
+        if (cat === "sweets") return "الحلويات والمشروبات";
         return "أطباق الديوان";
       }
 
@@ -2100,27 +2205,21 @@
         if (!host) return;
         const item = document.createElement("div");
         item.className = "toast-item";
-        item.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--gold-300);"></i><span>${message}</span>`;
+        item.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--gold-highlight);"></i><span>${message}</span>`;
         host.appendChild(item);
         setTimeout(() => {
           item.style.opacity = "0";
           item.style.transform = "translateY(8px)";
-          item.style.transition = "all 0.25s ease";
           setTimeout(() => item.remove(), 260);
         }, 3200);
       }
 
       /* -------------------------------------------------------------------
-         ٠. شاشة التحميل الآمنة (إغلاق خلال <= 400ms أو بالنقر الفوري)
+         ٠. شاشة التحميل الآمنة (تختفي خلال <= 420ms أو بالنقر الفوري)
          ------------------------------------------------------------------- */
       function initFailSafePreloader() {
         const preloader = document.getElementById("royalPreloader");
-        const bar = document.getElementById("preloaderBar");
         if (!preloader) return;
-
-        requestAnimationFrame(() => {
-          if (bar) bar.style.width = "100%";
-        });
 
         const dismiss = () => {
           preloader.classList.add("is-done");
@@ -2134,13 +2233,13 @@
           }
         });
 
-        document.addEventListener("DOMContentLoaded", () => setTimeout(dismiss, 120), { once: true });
+        document.addEventListener("DOMContentLoaded", () => setTimeout(dismiss, 140), { once: true });
         window.addEventListener("load", dismiss, { once: true });
-        setTimeout(dismiss, 400);
+        setTimeout(dismiss, 420);
       }
 
       /* -------------------------------------------------------------------
-         ١. علم العراق المتموج سينمائياً على HTML5 Canvas
+         ١. علم العراق السينمائي عالي الدقة على HTML5 Canvas
          ------------------------------------------------------------------- */
       function initWavingIraqiFlag() {
         const canvas = document.getElementById("iraqiFlagCanvas");
@@ -2148,56 +2247,71 @@
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        const w = canvas.width;
-        const h = canvas.height;
-        const stripeH = h / 3;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const cssW = 336;
+        const cssH = 198;
+        canvas.width = cssW * dpr;
+        canvas.height = cssH * dpr;
+        ctx.scale(dpr, dpr);
 
+        const stripeH = cssH / 3;
         const off = document.createElement("canvas");
-        off.width = w;
-        off.height = h;
+        off.width = cssW * dpr;
+        off.height = cssH * dpr;
         const octx = off.getContext("2d");
         if (!octx) return;
+        octx.scale(dpr, dpr);
 
-        // الشريط العلوي: أحمر قرمزي
-        octx.fillStyle = "#ce1126";
-        octx.fillRect(0, 0, w, stripeH);
+        // الشريط العلوي: أحمر قرمزي (#CE1126)
+        octx.fillStyle = "#CE1126";
+        octx.fillRect(0, 0, cssW, stripeH);
 
-        // الشريط الأوسط: أبيض ناصع
-        octx.fillStyle = "#ffffff";
-        octx.fillRect(0, stripeH, w, stripeH);
+        // الشريط الأوسط: أبيض ناصع (#FFFFFF)
+        octx.fillStyle = "#FFFFFF";
+        octx.fillRect(0, stripeH, cssW, stripeH);
 
-        // الشريط السفلي: أسود قاتم
+        // الشريط السفلي: أسود قاتم (#000000)
         octx.fillStyle = "#000000";
-        octx.fillRect(0, stripeH * 2, w, stripeH);
+        octx.fillRect(0, stripeH * 2, cssW, stripeH);
 
-        // عبارة "الله أكبر" باللون الأخضر الزمردي في منتصف الشريط الأبيض
+        // عبارة "الله أكبر" باللون الأخضر الزمردي (#007A3D) في منتصف الشريط الأبيض
         octx.save();
-        octx.fillStyle = "#007a3d";
+        octx.fillStyle = "#007A3D";
         octx.textAlign = "center";
         octx.textBaseline = "middle";
-        octx.font = "900 25px 'Cairo', 'Tajawal', sans-serif";
-        octx.fillText("الله أكبر", w * 0.5, stripeH * 1.5 + 1);
+        octx.font = "700 28px 'Aref Ruqaa', 'Amiri', serif";
+        octx.fillText("الله أكبر", cssW * 0.5, stripeH * 1.5 + 1);
         octx.restore();
 
         const startTime = performance.now();
 
-        function drawFrame(now) {
-          const t = (now - startTime) * 0.001;
-          const phase = t * 3.6;
+        function renderWave(now) {
+          const t = REDUCED_MOTION ? 0.35 : (now - startTime) * 0.001;
+          const phase = t * 3.5;
 
-          ctx.clearRect(0, 0, w, h);
+          ctx.clearRect(0, 0, cssW, cssH);
 
           const sliceW = 2;
           const topPad = 10;
-          const drawH = h - topPad * 2;
+          const drawH = cssH - topPad * 2;
 
-          for (let x = 0; x < w; x += sliceW) {
-            const hoistRatio = x / w;
-            const amp = 1.2 + Math.pow(hoistRatio, 1.2) * 7.5;
+          for (let x = 0; x < cssW; x += sliceW) {
+            const hoistRatio = x / cssW;
+            const amp = REDUCED_MOTION ? 1.5 : 1.2 + Math.pow(hoistRatio, 1.2) * 7.5;
             const wave = Math.sin(x * 0.045 - phase) + Math.sin(x * 0.09 - phase * 1.3) * 0.3;
             const yPos = topPad + wave * amp * 0.55;
 
-            ctx.drawImage(off, x, 0, sliceW, h, x, yPos, sliceW, drawH);
+            ctx.drawImage(
+              off,
+              x * dpr,
+              0,
+              sliceW * dpr,
+              cssH * dpr,
+              x,
+              yPos,
+              sliceW,
+              drawH
+            );
 
             const foldShade = Math.cos(x * 0.045 - phase) * 0.22 * hoistRatio;
             if (foldShade >= 0) {
@@ -2208,14 +2322,59 @@
             ctx.fillRect(x, yPos, sliceW, drawH);
           }
 
-          requestAnimationFrame(drawFrame);
+          if (!REDUCED_MOTION) {
+            requestAnimationFrame(renderWave);
+          }
         }
 
-        requestAnimationFrame(drawFrame);
+        requestAnimationFrame(renderWave);
       }
 
       /* -------------------------------------------------------------------
-         ٢. رحلة التذوق التفاعلية
+         ٢. تفاعل الميلان ثلاثي الأبعاد (Composite-Only 3D Tilt)
+         ------------------------------------------------------------------- */
+      function attachPerspectiveTilt(element, maxDeg = 5) {
+        if (!element || REDUCED_MOTION) return;
+
+        element.addEventListener("pointermove", (e) => {
+          if (e.pointerType !== "mouse") return;
+          const rect = element.getBoundingClientRect();
+          const normX = (e.clientX - rect.left) / rect.width - 0.5;
+          const normY = (e.clientY - rect.top) / rect.height - 0.5;
+          const rotateY = (normX * maxDeg * 2).toFixed(2);
+          const rotateX = (-normY * maxDeg * 2).toFixed(2);
+          element.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        element.addEventListener("pointerleave", () => {
+          element.style.transform = "rotateX(0deg) rotateY(0deg)";
+        });
+      }
+
+      function initScrollReveal() {
+        const targets = document.querySelectorAll(".reveal-on-scroll");
+        if (REDUCED_MOTION || !("IntersectionObserver" in window)) {
+          targets.forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+
+        targets.forEach((el) => observer.observe(el));
+      }
+
+      /* -------------------------------------------------------------------
+         ٣. رحلة التذوق الرافدينية التفاعلية
          ------------------------------------------------------------------- */
       function renderJourney() {
         const tabsWrap = document.getElementById("journeyTabs");
@@ -2228,7 +2387,7 @@
         if (!tabsWrap) return;
 
         tabsWrap.innerHTML = JOURNEY_STAGES.map((st, idx) => `
-          <button type="button" class="journey-tab-btn ${idx === state.stageIndex ? "is-active" : ""}" data-stage-idx="${idx}">
+          <button type="button" class="journey-tab-btn ${idx === state.stageIndex ? "is-active" : ""}" data-stage-idx="${idx}" role="tab" aria-selected="${idx === state.stageIndex}">
             <span class="journey-tab-step">المحطة 0${idx + 1}</span>
             <span class="journey-tab-name">${st.title.split(" ").slice(0, 3).join(" ")}</span>
           </button>
@@ -2256,7 +2415,7 @@
       }
 
       /* -------------------------------------------------------------------
-         ٣. القائمة، الفلاتر، والبحث
+         ٤. قائمة الطعام الملكية، الفلاتر، والبحث
          ------------------------------------------------------------------- */
       function syncHeroSpecialHighlight() {
         const maskoof = db.dishes.find((d) => d.id === "dish-maskoof");
@@ -2264,9 +2423,7 @@
         const bundlePrice = (maskoof ? maskoof.price : 38000) + (quzi ? quzi.price : 45000);
 
         const specialText = document.getElementById("heroSpecialPriceText");
-        if (specialText) {
-          specialText.textContent = formatIQD(bundlePrice);
-        }
+        if (specialText) specialText.textContent = formatIQD(bundlePrice);
 
         const quickAddBtn = document.getElementById("heroQuickAddSpecialBtn");
         if (quickAddBtn && maskoof) {
@@ -2303,7 +2460,7 @@
 
         grid.innerHTML = filtered
           .map((dish) => `
-            <article class="glass-card dish-card">
+            <article class="royal-card babylon-filigree dish-card">
               <div>
                 <div class="dish-top">
                   <div class="dish-icon-box">
@@ -2325,6 +2482,10 @@
           `)
           .join("");
 
+        grid.querySelectorAll(".dish-card").forEach((card) => {
+          attachPerspectiveTilt(card, 3.5);
+        });
+
         grid.querySelectorAll("[data-add-dish]").forEach((btn) => {
           btn.addEventListener("click", () => {
             const id = btn.getAttribute("data-add-dish");
@@ -2334,7 +2495,7 @@
       }
 
       /* -------------------------------------------------------------------
-         ٤. سلة التذوق (Tasting Bag — IQD Subtotal, Service Fee & Total)
+         ٥. سلة التذوق الملكية
          ------------------------------------------------------------------- */
       function addDishToBag(dishId) {
         const dish = db.dishes.find((d) => d.id === dishId);
@@ -2374,7 +2535,7 @@
 
         if (!state.bag.length) {
           container.innerHTML = `
-            <div style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted); font-size: 0.88rem;">
+            <div style="text-align: center; padding: 2.5rem 1rem; color: var(--text-stone); font-size: 0.88rem;">
               لم تقم بإضافة أي طبق بعد. اختر من قائمة الديوان لتبدأ طلبك بالدينار العراقي.
             </div>
           `;
@@ -2385,15 +2546,15 @@
           .map((item) => `
             <div class="bag-item-row">
               <div>
-                <div style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary);">${item.name}</div>
-                <div style="font-size: 0.78rem; color: var(--gold-200); font-weight: 700; margin-top: 0.15rem;">
+                <div style="font-size: 0.88rem; font-weight: 700; color: var(--text-ivory);">${item.name}</div>
+                <div style="font-size: 0.78rem; color: var(--gold-highlight); font-weight: 700; margin-top: 0.15rem;">
                   ${formatIQD(item.price * item.qty)}
                 </div>
               </div>
               <div style="display: flex; align-items: center; gap: 0.4rem;">
                 <div class="qty-box">
                   <button type="button" class="qty-btn" data-bag-dec="${item.id}" aria-label="إنقاص الكمية">−</button>
-                  <span style="min-width: 18px; text-align: center; font-size: 0.82rem; font-weight: 900;">${item.qty}</span>
+                  <span style="min-width: 18px; text-align: center; font-size: 0.82rem; font-weight: 700;">${item.qty}</span>
                   <button type="button" class="qty-btn" data-bag-inc="${item.id}" aria-label="زيادة الكمية">+</button>
                 </div>
                 <button type="button" class="qty-btn" data-bag-del="${item.id}" style="color: var(--status-occ-text); background: var(--status-occ-bg);" aria-label="حذف الطبق">
@@ -2447,13 +2608,13 @@
       }
 
       /* -------------------------------------------------------------------
-         ٥. عرض الطاولات ومزامنة حالة التوفر في نافذة الحجز
+         ٦. عرض المجالس والطاولات ومزامنة حالة التوفر في نافذة الحجز
          ------------------------------------------------------------------- */
       function renderPublicTables() {
         const grid = document.getElementById("publicTablesGrid");
         const statEmpty = document.getElementById("statEmptyTablesCount");
 
-        const availableCount = db.tables.filter((t) => isTableAvailableForBooking(t.id)).length;
+        const availableCount = db.tables.filter((t) => !isTableOccupied(t, db.reservations)).length;
         if (statEmpty) statEmpty.textContent = String(availableCount);
 
         if (grid) {
@@ -2462,15 +2623,15 @@
               const lockReason = getTableLockReason(t.id);
               const isLocked = lockReason !== null;
               return `
-                <div class="glass-card table-status-card ${isLocked ? "is-locked" : ""}">
+                <div class="royal-card table-status-card ${isLocked ? "is-locked" : ""}">
                   <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
-                    <strong style="font-size: 0.98rem; font-weight: 900; color: var(--gold-100);">${t.name}</strong>
+                    <strong class="display-serif" style="font-size: 1.15rem; font-weight: 700; color: var(--gold-soft);">${t.name}</strong>
                     <span class="status-pill ${isLocked ? "is-occupied" : "is-empty"}">
                       <i class="fa-solid ${isLocked ? "fa-lock" : "fa-circle-check"}"></i>
                       <span>${isLocked ? "مشغولة" : "فاضية"}</span>
                     </span>
                   </div>
-                  <div style="font-size: 0.82rem; color: var(--text-secondary);">
+                  <div style="font-size: 0.82rem; color: var(--text-stone);">
                     ${t.zone} • ${t.seats} مقاعد
                   </div>
                   ${
@@ -2502,12 +2663,11 @@
         if (!select) return;
 
         const prevSelected = preferredTableId || select.value;
-        const availableTables = db.tables.filter((t) => isTableAvailableForBooking(t.id));
+        const availableTables = db.tables.filter((t) => !isTableOccupied(t, db.reservations));
 
         select.innerHTML = db.tables
           .map((t) => {
-            const lockReason = getTableLockReason(t.id);
-            const locked = lockReason !== null;
+            const locked = isTableOccupied(t, db.reservations);
             if (locked) {
               return `<option value="${t.id}" disabled>${t.name} (${t.seats} مقاعد — مشغولة - غير متاحة للحجز)</option>`;
             }
@@ -2553,12 +2713,8 @@
         document.body.classList.toggle("no-scroll", open);
       }
 
-      /**
-       * إرسال طلب الحجز (يبقى بحالة pending حتى يقبله المالك، مع التحقق من عدم انشغال الطاولة أو وجود حجز مقبول مسبق)
-       */
       async function submitReservation(reservationDraft) {
         const tableId = reservationDraft.tableId;
-
         const localLock = getTableLockReason(tableId);
         if (localLock) {
           throw new Error(`عذراً، هذه الطاولة ${localLock} ولا يمكن حجزها.`);
@@ -2657,7 +2813,7 @@
       }
 
       /* -------------------------------------------------------------------
-         ٦. لوحة تحكم المالك (Owner Control Panel)
+         ٧. لوحة تحكم المالك (Owner Control Panel)
          ------------------------------------------------------------------- */
       function renderOwnerPanel() {
         if (!state.ownerUnlocked) return;
@@ -2666,20 +2822,19 @@
         const resList = document.getElementById("ownerReservationsList");
         const dishesEditor = document.getElementById("ownerDishesEditorList");
 
-        // ١. تبديل حالة الطاولات (فاضية / مشغولة)
         if (tablesList) {
           tablesList.innerHTML = db.tables
             .map((t) => {
               const isOccupied = normalizeTableStatus(t.status) === "occupied";
               return `
-                <div class="glass-card table-status-card ${isOccupied ? "is-locked" : ""}" style="padding: 1rem;">
+                <div class="royal-card table-status-card ${isOccupied ? "is-locked" : ""}" style="padding: 1rem;">
                   <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
-                    <strong style="font-size: 0.92rem; font-weight: 900; color: var(--text-primary);">${t.name}</strong>
+                    <strong style="font-size: 0.94rem; font-weight: 700; color: var(--text-ivory);">${t.name}</strong>
                     <span class="status-pill ${isOccupied ? "is-occupied" : "is-empty"}">
                       ${isOccupied ? "مشغولة" : "فاضية"}
                     </span>
                   </div>
-                  <div style="font-size: 0.78rem; color: var(--text-muted);">${t.zone} • ${t.seats} مقاعد</div>
+                  <div style="font-size: 0.78rem; color: var(--text-stone);">${t.zone} • ${t.seats} مقاعد</div>
                   <button type="button" data-owner-toggle-table="${t.id}" class="btn-ghost" style="width: 100%; padding: 0.52rem; font-size: 0.78rem;">
                     تحويل إلى: ${isOccupied ? "فاضية (متاحة للحجز)" : "مشغولة (مقفلة)"}
                   </button>
@@ -2702,10 +2857,9 @@
           });
         }
 
-        // ٢. قبول أو رفض حجوزات الطاولات
         if (resList) {
           if (!db.reservations.length) {
-            resList.innerHTML = `<div style="text-align: center; padding: 1.2rem; color: var(--text-muted); font-size: 0.85rem;">لا توجد حجوزات مسجلة حالياً.</div>`;
+            resList.innerHTML = `<div style="text-align: center; padding: 1.2rem; color: var(--text-stone); font-size: 0.85rem;">لا توجد حجوزات مسجلة حالياً.</div>`;
           } else {
             const badgeStyle = (st) => {
               if (st === "accepted") return { cls: "is-empty", text: "مقبول" };
@@ -2721,12 +2875,12 @@
                   <div class="bag-item-row" style="flex-wrap: wrap;">
                     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
                       <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                        <strong style="font-size: 0.92rem; font-weight: 900;">${r.guestName}</strong>
-                        <span style="font-size: 0.78rem; color: var(--gold-200);">(${r.guests})</span>
+                        <strong style="font-size: 0.92rem; font-weight: 700;">${r.guestName}</strong>
+                        <span style="font-size: 0.78rem; color: var(--gold-highlight);">(${r.guests})</span>
                         <span class="status-pill ${st.cls}">${st.text}</span>
                       </div>
-                      <div style="font-size: 0.78rem; color: var(--text-secondary);">
-                        هاتف: <span dir="ltr">${r.phone}</span> • الطاولة: <strong style="color: var(--gold-100);">${tbl ? tbl.name : r.tableId}</strong>
+                      <div style="font-size: 0.78rem; color: var(--text-stone);">
+                        هاتف: <span dir="ltr">${r.phone}</span> • الطاولة: <strong style="color: var(--gold-soft);">${tbl ? tbl.name : r.tableId}</strong>
                       </div>
                     </div>
 
@@ -2782,16 +2936,16 @@
           }
         }
 
-        // ٣. تعديل الأطباق والأسعار بالدينار العراقي وحذفها
         if (dishesEditor) {
           dishesEditor.innerHTML = db.dishes
             .map((d) => `
-              <div class="glass-card" style="padding: 1rem; display: flex; flex-direction: column; gap: 0.65rem;">
+              <div class="royal-card" style="padding: 1rem; display: flex; flex-direction: column; gap: 0.65rem;">
                 <input type="text" value="${d.name.replace(/"/g, "&quot;")}" data-dish-name="${d.id}" class="field-input" aria-label="اسم الطبق" />
                 <select data-dish-cat="${d.id}" class="field-select" aria-label="تصنيف الطبق">
                   <option value="feasts" ${d.category === "feasts" ? "selected" : ""}>المسكوف والولائم</option>
-                  <option value="heritage" ${d.category === "heritage" ? "selected" : ""}>أطباق تراثية</option>
-                  <option value="sweets" ${d.category === "sweets" ? "selected" : ""}>حلويات وشاي</option>
+                  <option value="grills" ${d.category === "grills" ? "selected" : ""}>المشويات العراقية</option>
+                  <option value="starters" ${d.category === "starters" ? "selected" : ""}>المقبلات والشوربات</option>
+                  <option value="sweets" ${d.category === "sweets" ? "selected" : ""}>الحلويات والمشروبات</option>
                 </select>
                 <input type="number" min="500" step="500" value="${d.price}" data-dish-price="${d.id}" class="field-input" aria-label="سعر الطبق بالدينار العراقي (د.ع)" />
                 <input type="text" value="${d.desc.replace(/"/g, "&quot;")}" data-dish-desc="${d.id}" class="field-input" aria-label="وصف الطبق" />
@@ -2895,9 +3049,11 @@
       }
 
       /* -------------------------------------------------------------------
-         ٧. ربط الأحداث والتهيئة النهائية
+         ٨. ربط الأحداث والتهيئة النهائية
          ------------------------------------------------------------------- */
       function bindEvents() {
+        attachPerspectiveTilt(document.getElementById("heroTiltCard"), 4.5);
+
         document.getElementById("heroQuickAddSpecialBtn")?.addEventListener("click", () => {
           addDishToBag("dish-maskoof");
         });
@@ -3097,6 +3253,7 @@
       function init() {
         initFailSafePreloader();
         initWavingIraqiFlag();
+        initScrollReveal();
         renderJourney();
         renderMenu();
         renderPublicTables();
